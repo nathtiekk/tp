@@ -274,13 +274,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* Insurance Agents who need to keep track of Customers / Potential Customers
+* Moderate Tech saviness.
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: It solves the issue of managing a large clientele by simplifying client tracking, automating follow-ups, and staying organized. By using InsureBook, insurance agents can focus more on growth and client retention, rather than spending more time on admin tasks and more time on sales.
 
 
 ### User stories
@@ -289,56 +290,217 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
 |----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| `* * *`  | Insurance Agent     | add new clients                 | reach out to them when needed                 |
+| `* * *`  | Insurance Agent     | view a list of clients          | quickly access current and potential clients  |
+| `* * *`  | Insurance Agent     | update client information       | ensure records remain accurate                |
+| `* * *`  | Insurance Agent     | delete a client entry           | remove outdated clients                       |
+| `* * *`  | Insurance Agent     | search for a client             | quickly find them through their details       |
+| `* * *`  | Insurance Agent     | filter clients by renewal date  | prioritize follow-ups effectively             |
+| `* * *`  | Insurance Agent     | tag clients for sorting & search| organize and categorize my clients           |
+| `* * *`  | Insurance Agent     | set reminders for renewals      | never miss important deadlines               |
+| `* * *`  | Insurance Agent     | persist client data             | ensure no data is lost                        |
+| `* * *`  | Insurance Agent     | filter and sort clients by tags | manage clients more efficiently               |
 
 *{More to be added}*
 
-### Use cases
+### Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Client Management System` and the **Actor** is the `Insurance Agent`, unless specified otherwise)
 
-**Use case: Delete a person**
+---
+
+**Use case: Add a new client**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. Insurance Agent requests to add a new client.
+2. System prompts for client details.
+3. Insurance Agent enters required details.
+4. System validates and saves the new client.
+
+    Use case ends.
+
+**Extensions**
+
+* 4a. The provided details are invalid.
+  * 4a1. System shows an error message.
+  * 4a2. Use case resumes at step 2.
+
+* 4b. A client with the same name and phone number already exists.
+  * 4b1. System shows a duplicate warning and rejects the addition.
+
+---
+
+**Use case: View a list of clients**
+
+**MSS**
+
+1. Insurance Agent requests to list clients.
+2. System displays all stored clients in alphabetical order.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No clients have been added.
+  * 2a1. System shows “No clients added yet.”
+
+---
+
+**Use case: Update client information**
+
+**MSS**
+
+1. Insurance Agent requests to update a client’s information.
+2. System prompts for the client index and new details.
+3. Insurance Agent provides updates.
+4. System validates and updates the information.
+
+    Use case ends.
+
+**Extensions**
+
+* 4a. Provided details are invalid.
+  * 4a1. System shows an error message.
+  * 4a2. Use case resumes at step 2.
+
+* 4b. Client does not exist.
+  * 4b1. System shows an error message.
+
+---
+
+**Use case: Delete a client**
+
+**MSS**
+
+1. Insurance Agent requests to list clients.
+2. System shows a list of clients.
+3. Insurance Agent requests to delete a specific client.
+4. System deletes the client.
 
     Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+  * 2a1. System shows “No clients available.”
 
 * 3a. The given index is invalid.
+  * 3a1. System shows an error message.
+  * 3a2. Use case resumes at step 2.
 
-    * 3a1. AddressBook shows an error message.
+---
 
-      Use case resumes at step 2.
+**Use case: Search for a client**
 
-*{More to be added}*
+**MSS**
+
+1. Insurance Agent requests to search for a client by specific criteria.
+2. System displays matching clients.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No matching clients found.
+  * 2a1. System shows “No clients found.”
+
+---
+
+**Use case: Filter clients by renewal date**
+
+**MSS**
+
+1. Insurance Agent requests to filter clients by renewal date.
+2. System displays clients with renewals within the specified period.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No clients match the criteria.
+  * 2a1. System shows “No upcoming renewals.”
+
+---
+
+**Use case: Tag clients for sorting & search**
+
+**MSS**
+
+1. Insurance Agent requests to tag a client.
+2. System adds the tag to the client’s record.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Tag exceeds character limit.
+  * 2a1. System truncates the tag and shows a warning.
+
+* 2b. Tag is a duplicate.
+  * 2b1. System shows “Tag already exists.”
+
+---
+
+**Use case: Set reminders for renewals**
+
+**MSS**
+
+1. Insurance Agent requests to set a renewal reminder for a client.
+2. System schedules the reminder.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Client does not have a policy renewal date.
+  * 2a1. System shows an error message.
+
+---
+
+**Use case: Persist client data**
+
+**MSS**
+
+1. System automatically saves client data when changes are made.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. System encounters an error while saving.
+  * 1a1. System shows an error message.
+
+---
+
+**Use case: Filter and sort clients by tags**
+
+**MSS**
+
+1. Insurance Agent requests to filter clients by specific tags.
+2. System displays a list of clients with the matching tags.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No clients match the specified tags.
+  * 2a1. System shows “No clients found for the selected tags.”
+
+---
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 clients without noticeable sluggishness in performance.
+3. A user with above-average typing speed should be able to accomplish most tasks faster using commands than using the mouse.
+4. Client data should persist even if the system shuts down unexpectedly.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Client**: A person managed within the system with relevant details such as contact, policy information, and tags.
+* **Tag**: A custom keyword used to categorize clients for sorting and filtering.
 
 --------------------------------------------------------------------------------------------------------------------
 
