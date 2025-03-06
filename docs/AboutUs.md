@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Damith Chathuranga
+### John Doe
 
 <img src="images/johndoe.png" width="200px">
 
@@ -21,9 +21,9 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### John Gao Jiahao
+### Jane Doe
 
-<img src="images/johngao122.png" width="200px">
+<img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
@@ -49,12 +49,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Ervin Tan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/makisekurisux.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/MakiseKurisuX)]
+[[portfolio](https://makisekurisux.github.io/)]
 
 * Role: Developer
 * Responsibilities: Still deciding
