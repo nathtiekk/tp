@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Gao Jiahao
+### Damith Chathuranga
 
 <img src="images/johndoe.png" width="200px">
 
@@ -21,9 +21,9 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### John Gao Jiahao
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/johngao122.png" width="200px">
 
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
