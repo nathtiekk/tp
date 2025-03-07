@@ -33,10 +33,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Tan Yu Yang
 
-<img src="images/yuyang.png" width="200px">
+<img src="images/yuyang011.png" width="200px">
 
 [[github](http://github.com/yuyang011)]
-[[portfolio](team/yuyang.md)]
+[[portfolio](team/yuyang011.md)]
 
 * Role: Developer
 * Responsibilities: Still deciding
