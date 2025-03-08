@@ -1,14 +1,55 @@
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
+[![CI Status](https://github.com/AY2425S2-CS2103-F08-2/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2425S2-CS2103-F08-2/tp/actions/workflows/gradle.yml)
 
 ![Ui](docs/images/Ui.png)
 
-* This is **a sample project for Software Engineering (SE) students**.<br>
-  Example usages:
-  * as a starting point of a course project (as opposed to writing everything from scratch)
-  * as a case study
-* The project simulates an ongoing software project for a desktop application (called _AddressBook_) used for managing contact details.
-  * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
-  * It comes with a **reasonable level of user and developer documentation**.
-* It is named `AddressBook Level 3` (`AB3` for short) because it was initially created as a part of a series of `AddressBook` projects (`Level 1`, `Level 2`, `Level 3` ...).
-* For the detailed documentation of this project, see the **[Address Book Product Website](https://se-education.org/addressbook-level3)**.
-* This project is a **part of the se-education.org** initiative. If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
+# InsureBook
+
+## Overview
+
+**InsureBook** is a client management tool designed for insurance agents to efficiently track customers and potential customers. It simplifies client tracking, automates follow-ups and helps the insurance agents stay organized, allowing them to focus on sales and client retention, rather than administrative tasks.
+
+## Target Users
+
+- **Who**: Insurance agents managing multiple clients.
+
+- **Tech-Savviness**: Moderate; comfortable using basic software tools but not necessarily tech experts
+
+## Features
+
+### Client Management System
+
+- **Client creation**: Add new clients to system.
+
+- **Client information editing**: Update client details as needed.
+
+- **Client deletion**: Remove clients when neccessry.
+
+- **Client listing**: View all clients in an organized list.
+
+- **Client tagging**: Assign tags to clients for better categorization.
+
+### Search and filter system
+
+- **Basic search to search for clients**: Find clients by name or other attributes.
+
+- **Filter clients**: Apply filters to view a specific group of clients.
+
+- **Sorting clients**: Sort clients based on available tags.
+
+### Data Persistence
+
+- **Saving of client information**: Ensure client details are stored persistently across sessions.
+
+### Reminders
+
+- **View upcoming renewals**: Keep track of upcoming policy renewals
+
+## Installation (to be updated)
+
+## Documentation
+
+- For the detailed documentation of this project, see the **[InsureBook Product Website](https://ay2425s2-cs2103-f08-2.github.io/tp/index.html)**.
+
+## Acknowledgement
+
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
