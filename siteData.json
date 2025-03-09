@@ -131,7 +131,11 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "insurebook": "InsureBook",
+        "overview": "Overview",
+        "key-features": "Key Features",
+        "target-users": "Target Users",
+        "tech-highlights": "Tech Highlights"
       },
       "headingKeywords": {}
     },
