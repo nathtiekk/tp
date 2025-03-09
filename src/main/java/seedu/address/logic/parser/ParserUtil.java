@@ -13,7 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.PolicyNumber;
+import seedu.address.model.person.Policy;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -97,18 +97,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String policyNumber} into a {@code PolicyNumber}.
+     * Parses a {@code String policy} into a {@code Policy}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code policyNumber} is invalid.
+     * @throws ParseException if the given {@code policy} is invalid.
      */
-    public static PolicyNumber parsePolicyNumber(String policyNumber) throws ParseException {
-        requireNonNull(policyNumber);
-        String trimmedPolicyNumber = policyNumber.trim();
-        if (!PolicyNumber.isValidPolicyNumber(trimmedPolicyNumber)) {
-            throw new ParseException(PolicyNumber.MESSAGE_CONSTRAINTS);
+    public static Policy parsePolicy(String policy) throws ParseException {
+        requireNonNull(policy);
+        String trimmedPolicy = policy.trim();
+        if (!Policy.isValidPolicy(trimmedPolicy)) {
+            throw new ParseException(Policy.MESSAGE_CONSTRAINTS);
         }
-        return new PolicyNumber(trimmedPolicyNumber);
+        return new Policy(trimmedPolicy);
     }
 
     /**
