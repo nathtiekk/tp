@@ -1,12 +1,15 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import java.util.Arrays;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindCommand.FindPersonsPredicate;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.PhoneContainsNumbersPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -19,15 +22,30 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        FindCommand.FindPersonsPredicate findPersonsPredicate = new FindPersonsPredicate();
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            findPersonsPredicate.setNamePredicate(new NameContainsKeywordsPredicate(
+                    ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME))));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            findPersonsPredicate.setPhonePredicate(new PhoneContainsNumbersPredicate(
+                    ParserUtil.parsePhones(argMultimap.getAllValues(PREFIX_PHONE))));
+        }
+
+        if (!findPersonsPredicate.isAnyPredicateSet()) {
+            throw new ParseException(FindCommand.MESSAGE_NOT_FOUND);
+        }
+
+        return new FindCommand(findPersonsPredicate);
     }
 
 }
