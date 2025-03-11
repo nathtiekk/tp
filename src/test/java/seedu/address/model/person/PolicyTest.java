@@ -27,13 +27,12 @@ public class PolicyTest {
         // invalid policy numbers
         assertFalse(Policy.isValidPolicy("")); // empty string
         assertFalse(Policy.isValidPolicy(" ")); // spaces only
-        assertFalse(Policy.isValidPolicy("14")); // less than 3 numbers
         assertFalse(Policy.isValidPolicy("policy")); // non-numeric
         assertFalse(Policy.isValidPolicy("1033p041")); // alphabets within digits
         assertFalse(Policy.isValidPolicy("3912 1534")); // spaces within digits
 
         // valid policy numbers
-        assertTrue(Policy.isValidPolicy("123")); // exactly 3 numbers
+        assertTrue(Policy.isValidPolicy("1")); // exactly 1 number
         assertTrue(Policy.isValidPolicy("647274521"));
         assertTrue(Policy.isValidPolicy("12492648284628492623")); // long policy numbers
     }

@@ -11,8 +11,8 @@ public class Policy {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Policy should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Policy should only contain numbers, and it should not be blank";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String policyNumber;
 
     /**
