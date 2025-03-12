@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# InsureBook Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -29,22 +29,19 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
 
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+The **_Architecture Diagram_** given above explains the high-level design of InsureBook.
 
 Given below is a quick overview of main components and how they interact with each other.
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
-
--   At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
--   At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+**`Main`** (consisting of classes `Main` and `MainApp`) is in charge of the app launch and shut down.
 
 The bulk of the app's work is done by the following four components:
 
--   [**`UI`**](#ui-component): The UI of the App.
+-   [**`UI`**](#ui-component): The UI of InsureBook.
 -   [**`Logic`**](#logic-component): The command executor.
--   [**`Model`**](#model-component): Holds the data of the App in memory.
+-   [**`Model`**](#model-component): Holds the data of InsureBook in memory.
 -   [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
@@ -72,7 +69,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `RenewalsTable`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -81,7 +78,7 @@ The `UI` component,
 -   executes user commands using the `Logic` component.
 -   listens for changes to `Model` data so that the UI can be updated with the modified data.
 -   keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
--   depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+-   depends on some classes in the `Model` component, as it displays `Person` and `Policy` objects residing in the `Model`.
 
 ### Logic component
 
@@ -127,7 +124,7 @@ The `Model` component,
 
 -   stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 -   stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
--   stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+-   stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 -   does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
@@ -159,6 +156,68 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Policy Renewal Feature
+
+The policy renewal feature allows insurance agents to track and manage policy renewals for their clients. It is implemented using the following components:
+
+#### Policy Class
+
+The `Policy` class represents an insurance policy and contains:
+
+-   Policy number (in format POL-XXX)
+-   Renewal date
+-   Methods to calculate days until renewal
+
+#### ViewRenewalsCommand
+
+The `ViewRenewalsCommand` allows users to view policies due for renewal within a specified number of days:
+
+-   Takes a parameter for number of days (1-365)
+-   Optional sort parameter (by name or date)
+-   Filters the person list based on policy renewal dates
+-   Updates the UI to show filtered results
+
+#### Implementation
+
+The renewal tracking mechanism is facilitated by the `Policy` class and the `ViewRenewalsCommand`. Here's how it works:
+
+1. When a user executes `viewrenewals n/30`, the command is parsed by `ViewRenewalsCommandParser`.
+2. The parser validates the days parameter (must be 1-365) and optional sort parameter.
+3. A new `ViewRenewalsCommand` is created with the validated parameters.
+4. When executed, the command:
+    - Filters the person list to include only those with policies due within the specified days
+    - Updates the model's filtered person list
+    - Updates the renewals table in the UI
+    - Returns a command result with the number of matching entries
+
+The following sequence diagram shows how the viewrenewals operation works:
+
+<puml src="diagrams/ViewRenewalsSequenceDiagram.puml" width="800"/>
+
+#### Design Considerations
+
+**Aspect: How to calculate renewal due dates**
+
+-   **Alternative 1 (current choice):** Calculate days until renewal on demand
+
+    -   Pros: More memory efficient
+    -   Cons: May impact performance if calculated frequently
+
+-   **Alternative 2:** Store days until renewal as a field
+    -   Pros: Faster retrieval
+    -   Cons: Needs to be updated daily
+
+**Aspect: Where to implement filtering logic**
+
+-   **Alternative 1 (current choice):** In the command
+
+    -   Pros: Keeps filtering logic with the command that needs it
+    -   Cons: Logic might be duplicated if needed elsewhere
+
+-   **Alternative 2:** In the Model
+    -   Pros: Centralizes filtering logic
+    -   Cons: Makes Model more complex
 
 ### \[Proposed\] Undo/redo feature
 
@@ -344,7 +403,7 @@ _{More to be added}_
 **Extensions**
 
 -   2a. No clients have been added.
-    -   2a1. System shows “No clients added yet.”
+    -   2a1. System shows "No clients added yet."
 
 ---
 
@@ -352,7 +411,7 @@ _{More to be added}_
 
 **MSS**
 
-1. Insurance Agent requests to update a client’s information.
+1. Insurance Agent requests to update a client's information.
 2. System prompts for the client index and new details.
 3. Insurance Agent provides updates.
 4. System validates and updates the information.
@@ -386,7 +445,7 @@ _{More to be added}_
 
 -   2a. The list is empty.
 
-    -   2a1. System shows “No clients available.”
+    -   2a1. System shows "No clients available."
 
 -   3a. The given index is invalid.
     -   3a1. System shows an error message.
@@ -406,7 +465,7 @@ _{More to be added}_
 **Extensions**
 
 -   2a. No matching clients found.
-    -   2a1. System shows “No clients found.”
+    -   2a1. System shows "No clients found."
 
 ---
 
@@ -422,7 +481,7 @@ _{More to be added}_
 **Extensions**
 
 -   2a. No clients match the criteria.
-    -   2a1. System shows “No upcoming renewals.”
+    -   2a1. System shows "No upcoming renewals."
 
 ---
 
@@ -431,7 +490,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to tag a client.
-2. System adds the tag to the client’s record.
+2. System adds the tag to the client's record.
 
     Use case ends.
 
@@ -442,7 +501,7 @@ _{More to be added}_
     -   2a1. System truncates the tag and shows a warning.
 
 -   2b. Tag is a duplicate.
-    -   2b1. System shows “Tag already exists.”
+    -   2b1. System shows "Tag already exists."
 
 ---
 
@@ -489,7 +548,7 @@ _{More to be added}_
 **Extensions**
 
 -   2a. No clients match the specified tags.
-    -   2a1. System shows “No clients found for the selected tags.”
+    -   2a1. System shows "No clients found for the selected tags."
 
 ---
 
