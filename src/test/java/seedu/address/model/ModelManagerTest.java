@@ -10,11 +10,14 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.FindPersonsPredicateBuilder;
 
 public class ModelManagerTest {
 
@@ -98,7 +101,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -122,6 +125,8 @@ public class ModelManagerTest {
         // different sortedFilteredList -> returns false
         modelManager.updateSortedPersonList((p1, p2) -> -1);
         assertFalse(modelManager.equals(modelManagerCopy));
+        modelManager.updateFilteredPersonList(new FindPersonsPredicateBuilder(ALICE).build());
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
