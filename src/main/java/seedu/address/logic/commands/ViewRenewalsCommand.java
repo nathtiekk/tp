@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT_ORDER;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -50,25 +50,31 @@ public class ViewRenewalsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Predicate<Person> renewalPredicate = person -> {
-            long daysUntil = person.getPolicy().getDaysUntilRenewal();
-            return daysUntil >= 0 && daysUntil <= days;
-        };
+        List<Person> allPersons = model.getFilteredPersonList();
+        List<Person> renewalsDue = allPersons.stream()
+                .filter(person -> {
+                    long daysUntil = person.getPolicy().getDaysUntilRenewal();
+                    return daysUntil >= 0 && daysUntil <= days;
+                })
+                .sorted(getComparator())
+                .collect(Collectors.toList());
 
-        model.updateFilteredPersonList(renewalPredicate);
-        model.updateSortedPersonList(getComparator());
-
-        if (model.getFilteredPersonList().isEmpty()) {
+        if (renewalsDue.isEmpty()) {
             return new CommandResult(MESSAGE_NO_RENEWALS);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
+
+        model.updateFilteredPersonList(person -> {
+            long daysUntil = person.getPolicy().getDaysUntilRenewal();
+            return daysUntil >= 0 && daysUntil <= days;
+        });
+        return new CommandResult(String.format(MESSAGE_SUCCESS, renewalsDue.size()));
     }
 
     private Comparator<Person> getComparator() {
         if (SORT_BY_NAME.equals(sortOrder)) {
             return Comparator.comparing(person -> person.getName().fullName);
         } else {
-            return Comparator.comparingLong(person -> person.getPolicy().getDaysUntilRenewal());
+            return Comparator.comparing(person -> person.getPolicy().renewalDate);
         }
     }
 
@@ -85,28 +91,5 @@ public class ViewRenewalsCommand extends Command {
         ViewRenewalsCommand otherCommand = (ViewRenewalsCommand) other;
         return days == otherCommand.days
                 && sortOrder.equals(otherCommand.sortOrder);
-    }
-
-    /**
-     * A predicate that maintains the order of persons based on a pre-sorted list.
-     */
-    private static class OrderedPredicate implements java.util.function.Predicate<Person> {
-        private final List<Person> orderedList;
-
-        public OrderedPredicate(List<Person> orderedList) {
-            this.orderedList = orderedList;
-        }
-
-        @Override
-        public boolean test(Person person) {
-            return orderedList.contains(person);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            return other == this // short circuit if same object
-                    || (other instanceof OrderedPredicate // instanceof handles nulls
-                    && orderedList.equals(((OrderedPredicate) other).orderedList)); // state check
-        }
     }
 }

@@ -1,254 +1,115 @@
 package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
+import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.Policy;
-import seedu.address.model.tag.Tag;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.ui.RenewalsTable.RenewalEntry;
 
-/**
- * Tests for the RenewalsTable class using only JUnit.
- * These tests are disabled because they require JavaFX initialization which
- * cannot be done in a headless test environment without additional setup.
- */
-@Disabled("These tests require JavaFX initialization which cannot be done in a headless test environment")
-public class RenewalsTableTest {
+public class RenewalsTableTest extends UiPartTest {
+    private static final String FXML = "RenewalsTable.fxml";
+    private Model model = new ModelManager();
 
-    private TestModel model;
-    private TestRenewalsTable renewalsTable;
-
-    @BeforeEach
-    public void setUp() {
-        // Create test persons with different renewal dates
-        List<Person> testPersons = createTestPersons();
-
-        // Set up model with test persons
-        model = new TestModel(testPersons);
-
-        // Create the renewals table with our test model
-        renewalsTable = new TestRenewalsTable(model);
+    @Test
+    public void constructor_nullModel_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new RenewalsTable(null));
     }
 
     @Test
-    public void constructor_validModel_createsRenewalsTable() {
-        assertNotNull(renewalsTable);
-        assertNotNull(renewalsTable.getRenewalsTable());
+    public void updateRenewals_emptyModel_emptyTable() {
+        RenewalsTable renewalsTable = new RenewalsTable(model);
+        renewalsTable.updateRenewals(model);
+        assertEquals(0, renewalsTable.getRenewalsTable().getItems().size());
     }
 
     @Test
-    public void updateRenewals_withValidModel_populatesTable() {
-        // Table should have been populated during construction
-        TableView<RenewalEntry> table = renewalsTable.getRenewalsTable();
+    public void updateRenewals_withPerson_correctEntry() {
+        Person person = new PersonBuilder().build();
+        model.addPerson(person);
 
-        // Check if the table has the correct number of entries
-        assertEquals(3, table.getItems().size());
+        RenewalsTable renewalsTable = new RenewalsTable(model);
+        renewalsTable.updateRenewals(model);
 
-        // Check if entries are sorted by days left (ascending)
-        List<RenewalEntry> entries = table.getItems();
-        assertTrue(entries.get(0).getDaysLeft() <= entries.get(1).getDaysLeft());
-        assertTrue(entries.get(1).getDaysLeft() <= entries.get(2).getDaysLeft());
-
-        // Verify content of first entry
-        RenewalEntry firstEntry = entries.get(0);
-        assertEquals("Alice Pauline", firstEntry.getClient());
-        assertEquals("P-001", firstEntry.getPolicy());
-        assertEquals("98765432", firstEntry.getContact());
-    }
-
-    @Test
-    public void show_makeVisibleTrue() {
-        // Initial state should be hidden
-        renewalsTable.getRoot().setVisible(false);
-        renewalsTable.getRoot().setManaged(false);
-
-        // Call show
-        renewalsTable.show();
-
-        // Verify that the table is now visible
-        assertTrue(renewalsTable.getRoot().isVisible());
-        assertTrue(renewalsTable.getRoot().isManaged());
-    }
-
-    @Test
-    public void hide_makeVisibleFalse() {
-        // Initial state should be visible
-        renewalsTable.getRoot().setVisible(true);
-        renewalsTable.getRoot().setManaged(true);
-
-        // Call hide
-        renewalsTable.hide();
-
-        // Verify that the table is now hidden
-        assertFalse(renewalsTable.getRoot().isVisible());
-        assertFalse(renewalsTable.getRoot().isManaged());
-    }
-
-    @Test
-    public void renewalEntry_fromPerson_extractsCorrectData() {
-        // Create a test person
-        Person person = createTestPersons().get(0);
-
-        // Create a renewal entry from the person
-        RenewalEntry entry = new RenewalEntry(person);
-
-        // Verify that the entry has the correct data
+        assertEquals(1, renewalsTable.getRenewalsTable().getItems().size());
+        RenewalEntry entry = renewalsTable.getRenewalsTable().getItems().get(0);
         assertEquals(person.getName().toString(), entry.getClient());
         assertEquals(person.getPolicy().policyNumber, entry.getPolicy());
         assertEquals(person.getPolicy().renewalDate, entry.getRenewalDate());
         assertEquals(person.getPolicy().getDaysUntilRenewal(), entry.getDaysLeft());
-        assertEquals("Life", entry.getType()); // Currently hardcoded in RenewalEntry
         assertEquals(person.getPhone().toString(), entry.getContact());
     }
 
-    /**
-     * Creates a list of test persons with different renewal dates.
-     */
-    private List<Person> createTestPersons() {
-        // Create some test dates relative to current date
-        LocalDate today = LocalDate.now();
-        LocalDate nearFuture = today.plusDays(30);
-        LocalDate farFuture = today.plusDays(90);
-        LocalDate veryFarFuture = today.plusDays(180);
+    @Test
+    public void updateRenewals_multiplePersons_sortedByDaysLeft() {
+        Person person1 = new PersonBuilder()
+                .withName("Alice")
+                .withPolicy("123456", LocalDate.now().plusDays(10).format(Policy.DATE_FORMATTER))
+                .build();
+        Person person2 = new PersonBuilder()
+                .withName("Bob")
+                .withPolicy("234567", LocalDate.now().plusDays(5).format(Policy.DATE_FORMATTER))
+                .build();
+        model.addPerson(person1);
+        model.addPerson(person2);
+        RenewalsTable renewalsTable = new RenewalsTable(model);
+        renewalsTable.updateRenewals(model);
 
-        // Format dates for Policy constructor
-        String nearFutureStr = nearFuture.format(Policy.DATE_FORMATTER);
-        String farFutureStr = farFuture.format(Policy.DATE_FORMATTER);
-        String veryFarFutureStr = veryFarFuture.format(Policy.DATE_FORMATTER);
-
-        // Create test persons with different renewal dates
-        Person alice = new Person(
-                new Name("Alice Pauline"),
-                new Phone("98765432"),
-                new Email("alice@example.com"),
-                new Address("123, Jurong West Ave 6, #08-111"),
-                new Policy("P-001", nearFutureStr),
-                new HashSet<>(Arrays.asList(new Tag("friends"))));
-
-        Person bob = new Person(
-                new Name("Bob Choo"),
-                new Phone("87654321"),
-                new Email("bob@example.com"),
-                new Address("Block 123, Bobby Street 3"),
-                new Policy("P-002", farFutureStr),
-                new HashSet<>(Arrays.asList(new Tag("friends"), new Tag("colleagues"))));
-
-        Person charlie = new Person(
-                new Name("Charlie Brown"),
-                new Phone("98765433"),
-                new Email("charlie@example.com"),
-                new Address("111, Lorong 1 Toa Payoh, #01-111"),
-                new Policy("P-003", veryFarFutureStr),
-                new HashSet<>(Arrays.asList(new Tag("family"))));
-
-        return Arrays.asList(alice, bob, charlie);
+        assertEquals(2, renewalsTable.getRenewalsTable().getItems().size());
+        assertEquals("Bob", renewalsTable.getRenewalsTable().getItems().get(0).getClient());
+        assertEquals("Alice", renewalsTable.getRenewalsTable().getItems().get(1).getClient());
     }
 
-    /**
-     * A testable version of RenewalsTable that allows access to protected members.
-     */
-    private class TestRenewalsTable extends RenewalsTable {
+    @Test
+    public void updateRenewals_modelChanged_tableUpdates() {
+        RenewalsTable renewalsTable = new RenewalsTable(model);
+        Person person = new PersonBuilder().build();
+        model.addPerson(person);
+        renewalsTable.updateRenewals(model);
+        assertEquals(1, renewalsTable.getRenewalsTable().getItems().size());
 
-        public TestRenewalsTable(Model model) {
-            super(model);
-        }
-
-        @Override
-        protected TableView<RenewalEntry> getRenewalsTable() {
-            return super.getRenewalsTable();
-        }
+        model.deletePerson(person);
+        renewalsTable.updateRenewals(model);
+        assertEquals(0, renewalsTable.getRenewalsTable().getItems().size());
     }
 
-    /**
-     * An implementation of Model for testing.
-     */
-    private class TestModel implements Model {
-        private final ObservableList<Person> persons;
+    @Test
+    public void updateRenewals_pastRenewalDate_includedInTable() {
+        Person person = new PersonBuilder()
+                .withPolicy("123456", LocalDate.now().minusDays(5).format(Policy.DATE_FORMATTER))
+                .build();
+        model.addPerson(person);
 
-        public TestModel(List<Person> persons) {
-            this.persons = FXCollections.observableArrayList(persons);
-        }
+        RenewalsTable renewalsTable = new RenewalsTable(model);
+        renewalsTable.updateRenewals(model);
 
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            return persons;
-        }
+        assertEquals(1, renewalsTable.getRenewalsTable().getItems().size());
+        RenewalEntry entry = renewalsTable.getRenewalsTable().getItems().get(0);
+        assertEquals(-5, entry.getDaysLeft());
+    }
 
-        @Override
-        public void updateSortedPersonList(Comparator<Person> comparator) {
-            // Not needed here
-        }
+    @Test
+    public void columnFormatting_correctFormat() {
+        Person person = new PersonBuilder().build();
+        model.addPerson(person);
 
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {}
+        RenewalsTable renewalsTable = new RenewalsTable(model);
+        renewalsTable.updateRenewals(model);
 
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            return null;
-        }
-
-        @Override
-        public void setGuiSettings(seedu.address.commons.core.GuiSettings guiSettings) {}
-
-        @Override
-        public seedu.address.commons.core.GuiSettings getGuiSettings() {
-            return null;
-        }
-
-        @Override
-        public void setAddressBookFilePath(java.nio.file.Path addressBookFilePath) {}
-
-        @Override
-        public java.nio.file.Path getAddressBookFilePath() {
-            return null;
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook addressBook) {}
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return null;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            return false;
-        }
-
-        @Override
-        public void deletePerson(Person target) {}
-
-        @Override
-        public void addPerson(Person person) {}
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {}
-
-        @Override
-        public void updateFilteredPersonList(java.util.function.Predicate<Person> predicate) {}
+        TableView<RenewalEntry> table = renewalsTable.getRenewalsTable();
+        assertEquals("Client", table.getColumns().get(0).getText());
+        assertEquals("Policy Number", table.getColumns().get(1).getText());
+        assertEquals("Renewal Date", table.getColumns().get(2).getText());
+        assertEquals("Days Left", table.getColumns().get(3).getText());
+        assertEquals("Type", table.getColumns().get(4).getText());
+        assertEquals("Contact", table.getColumns().get(5).getText());
     }
 }

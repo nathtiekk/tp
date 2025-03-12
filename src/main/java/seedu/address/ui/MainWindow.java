@@ -26,11 +26,14 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private final Logic logic;
-    private final Stage primaryStage;
-    private final HelpWindow helpWindow;
+
+    private Stage primaryStage;
+    private Logic logic;
+
+    // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
+    private HelpWindow helpWindow;
     private RenewalsTable renewalsTable;
 
     @FXML
@@ -81,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the accelerator of a MenuItem.
      * @param keyCombination the KeyCombination value of the accelerator
      */
-    protected void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
 
         /*
@@ -160,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    protected void handleExit() {
+    private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -172,37 +175,12 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    public HelpWindow getHelpWindow() {
-        return helpWindow;
-    }
-
-    /**
-     * Gets the RenewalsTable for testing.
-     */
-    public RenewalsTable getRenewalsTable() {
-        return renewalsTable;
-    }
-
-    /**
-     * Gets the ResultDisplay for testing.
-     */
-    public ResultDisplay getResultDisplay() {
-        return resultDisplay;
-    }
-
-    /**
-     * Gets the Logic for testing.
-     */
-    public Logic getLogic() {
-        return logic;
-    }
-
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
