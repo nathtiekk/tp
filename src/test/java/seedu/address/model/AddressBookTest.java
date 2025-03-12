@@ -89,6 +89,27 @@ public class AddressBookTest {
         assertEquals(expected, addressBook.toString());
     }
 
+    @Test
+    public void defaultLastUpdated_isNull() {
+        assertEquals(null, addressBook.getLastUpdated());
+    }
+
+    @Test
+    public void setAndGetLastUpdated_validValue_success() {
+        LocalDateTime fixedTime = LocalDateTime.of(2025, 3, 13, 12, 0);
+        addressBook.setLastUpdated(fixedTime);
+        assertEquals(fixedTime, addressBook.getLastUpdated());
+    }
+
+    @Test
+    public void equals_ignoreLastUpdated() {
+        AddressBook ab1 = getTypicalAddressBook();
+        AddressBook ab2 = getTypicalAddressBook();
+        ab1.setLastUpdated(LocalDateTime.of(2025, 3, 13, 12, 0));
+        ab2.setLastUpdated(LocalDateTime.of(2025, 3, 14, 12, 0));
+        assertTrue(ab1.equals(ab2));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

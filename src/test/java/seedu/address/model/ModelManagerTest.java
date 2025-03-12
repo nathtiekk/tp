@@ -129,4 +129,38 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+
+    @Test
+    public void addPerson_updatesLastUpdated() {
+        // Initially, lastUpdated should be null.
+        assertNull(modelManager.getAddressBook().getLastUpdated());
+        modelManager.addPerson(ALICE);
+        // After adding a person, lastUpdated should be set.
+        assertNotNull(modelManager.getAddressBook().getLastUpdated());
+    }
+
+    @Test
+    public void deletePerson_updatesLastUpdated() {
+        modelManager.addPerson(ALICE);
+        LocalDateTime afterAdd = modelManager.getAddressBook().getLastUpdated();
+        // Delete the person and check that lastUpdated is updated.
+        modelManager.deletePerson(ALICE);
+        LocalDateTime afterDelete = modelManager.getAddressBook().getLastUpdated();
+        assertNotNull(afterDelete);
+        // It is expected that the time will progress; thus afterDelete should be after or equal to afterAdd.
+        assertTrue(afterDelete.isAfter(afterAdd) || afterDelete.isEqual(afterAdd));
+    }
+
+    @Test
+    public void setPerson_updatesLastUpdated() {
+        modelManager.addPerson(ALICE);
+        LocalDateTime afterAdd = modelManager.getAddressBook().getLastUpdated();
+        // Create an edited version of ALICE.
+        Person editedAlice = new PersonBuilder(ALICE).withAddress("123, New Street").build();
+        modelManager.setPerson(ALICE, editedAlice);
+        LocalDateTime afterSet = modelManager.getAddressBook().getLastUpdated();
+        assertNotNull(afterSet);
+        // Ensure that lastUpdated is updated.
+        assertTrue(afterSet.isAfter(afterAdd) || afterSet.isEqual(afterAdd));
+    }
 }
