@@ -118,18 +118,18 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Policy.MESSAGE_CONSTRAINTS);
         }
 
-        if (renewalDate == null) {
-            // If renewal date is not provided, create Policy with default renewal date (1 year from now)
-            final Policy modelPolicy = new Policy(policy);
-            final Set<Tag> modelTags = new HashSet<>(personTags);
-            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPolicy, modelTags);
-        }
-
-        if (!Policy.isValidRenewalDate(renewalDate)) {
+        if (renewalDate != null && !Policy.isValidRenewalDate(renewalDate)) {
             throw new IllegalValueException(Policy.DATE_CONSTRAINTS);
         }
 
-        final Policy modelPolicy = new Policy(policy, renewalDate);
+        final Policy modelPolicy;
+        if (renewalDate == null) {
+            // If renewal date is not provided, create Policy with default renewal date (1 year from now)
+            modelPolicy = new Policy(policy);
+        } else {
+            modelPolicy = new Policy(policy, renewalDate);
+        }
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPolicy, modelTags);
     }
