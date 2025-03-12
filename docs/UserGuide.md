@@ -122,9 +122,18 @@ Examples:
 ### Locating clients by name: `find`
 
 Finds clients whose names contain any of the given keywords.
+Finds persons whose names contain any of the given values.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/NAME]… [p/PHONE]…`
 
+* At least one of the optional fields must be provided.
+* Each field may be provided more than once.
+* Each field may contain more than one word.
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the values matter for a field but not for different fields. e.g. `n/Hans Bo` will not match `Bo Hans` but `n/Hans n/Bo` will match `Bo Hans`
+* Partial words will also be matched e.g. `n/Han` will match `Hans`
+* Persons matching at least one field will be returned (i.e. `OR` search).
+  e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 -   The search is case-insensitive. e.g `hans` will match `Hans`
 -   The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 -   Only the name is searched.
@@ -133,10 +142,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
     e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-
--   `find John` returns `john` and `John Doe`
--   `find alex david` returns `Alex Yeoh`, `David Li`<br>
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find n/John` returns `john` and `John Doe`
+* `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
+* `find n/alex n/david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a client : `delete`
 
