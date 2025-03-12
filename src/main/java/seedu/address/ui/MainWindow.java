@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private RenewalsTable renewalsTable;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane renewalsTablePlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -121,6 +125,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        renewalsTable = new RenewalsTable(logic.getModel());
+        renewalsTablePlaceholder.getChildren().add(renewalsTable.getRoot());
+        renewalsTable.hide(); // Hide table initially
     }
 
     /**
@@ -177,6 +185,12 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            // Show and update table for viewrenewals command
+            if (commandText.trim().startsWith("viewrenewals")) {
+                renewalsTable.show();
+                renewalsTable.updateRenewals(logic.getModel());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

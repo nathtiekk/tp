@@ -30,6 +30,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String policy;
+    private final String renewalDate;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -38,12 +39,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("policy") String policy, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("policy") String policy, @JsonProperty("renewalDate") String renewalDate,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.policy = policy;
+        this.renewalDate = renewalDate;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -58,6 +61,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         policy = source.getPolicy().policyNumber;
+        renewalDate = source.getPolicy().renewalDate.format(Policy.DATE_FORMATTER);
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -113,8 +117,19 @@ class JsonAdaptedPerson {
         if (!Policy.isValidPolicy(policy)) {
             throw new IllegalValueException(Policy.MESSAGE_CONSTRAINTS);
         }
-        final Policy modelPolicy = new Policy(policy);
 
+        if (renewalDate == null) {
+            // If renewal date is not provided, create Policy with default renewal date (1 year from now)
+            final Policy modelPolicy = new Policy(policy);
+            final Set<Tag> modelTags = new HashSet<>(personTags);
+            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPolicy, modelTags);
+        }
+
+        if (!Policy.isValidRenewalDate(renewalDate)) {
+            throw new IllegalValueException(Policy.DATE_CONSTRAINTS);
+        }
+
+        final Policy modelPolicy = new Policy(policy, renewalDate);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPolicy, modelTags);
     }
