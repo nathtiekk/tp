@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -16,10 +18,20 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         this.keywords = keywords;
     }
 
+    /**
+     * Returns an unmodifiable name set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     * Returns {@code Optional#empty()} if {@code keywords} is null.
+     */
+    public Optional<Set<Name>> getNames() {
+        return (keywords != null) ? Optional.of(Collections.unmodifiableSet(keywords)) : Optional.empty();
+    }
+
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword.fullName));
+                .anyMatch(keyword ->
+                        StringUtil.containsPartialWordIgnoreCase(person.getName().fullName, keyword.fullName));
     }
 
     @Override

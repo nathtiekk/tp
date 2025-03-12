@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -16,10 +18,19 @@ public class PhoneContainsNumbersPredicate implements Predicate<Person> {
         this.numbers = numbers;
     }
 
+    /**
+     * Returns an unmodifiable phone set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     * Returns {@code Optional#empty()} if {@code numbers} is null.
+     */
+    public Optional<Set<Phone>> getNumbers() {
+        return (numbers != null) ? Optional.of(Collections.unmodifiableSet(numbers)) : Optional.empty();
+    }
+
     @Override
     public boolean test(Person person) {
         return numbers.stream()
-                .anyMatch(number -> StringUtil.containsWordIgnoreCase(person.getPhone().value, number.value));
+                .anyMatch(number -> StringUtil.containsPartialWordIgnoreCase(person.getPhone().value, number.value));
     }
 
     @Override
