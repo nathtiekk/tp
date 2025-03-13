@@ -2,9 +2,11 @@ package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.awt.Point;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
@@ -23,6 +25,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -219,5 +222,93 @@ public class MainWindowTest {
         GuiSettings guiSettings = new GuiSettings(1000, 500, 200, 200);
         logic.setGuiSettings(guiSettings);
         assertEquals(guiSettings, model.getGuiSettings());
+    }
+
+    @Test
+    public void viewRenewals_showsAndUpdatesTable() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                // Initially table should be hidden
+                assertFalse(mainWindow.getRenewalsTable().getRoot().isVisible());
+                // Execute viewrenewals command
+                mainWindow.executeCommand("viewrenewals");
+                // Table should be visible
+                assertTrue(mainWindow.getRenewalsTable().getRoot().isVisible());
+                latch.countDown();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        latch.await(5, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void renewalsTable_initiallyHidden() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            assertFalse(mainWindow.getRenewalsTable().getRoot().isVisible());
+            assertFalse(mainWindow.getRenewalsTable().getRoot().isManaged());
+            latch.countDown();
+        });
+        latch.await(5, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void executeCommand_errorHandling() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<String> errorMessage = new AtomicReference<>();
+        Platform.runLater(() -> {
+            try {
+                mainWindow.executeCommand("invalid command");
+            } catch (Exception e) {
+                errorMessage.set(e.getMessage());
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await(5, TimeUnit.SECONDS);
+        assertNotNull(errorMessage.get());
+        assertTrue(errorMessage.get().length() > 0);
+    }
+
+    @Test
+    public void windowState_persistsAfterResize() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        final double newWidth = 800.0;
+        final double newHeight = 600.0;
+        final double newX = 100.0;
+        final double newY = 100.0;
+        Platform.runLater(() -> {
+            // Set new window size and position
+            stage.setWidth(newWidth);
+            stage.setHeight(newHeight);
+            stage.setX(newX);
+            stage.setY(newY);
+            // Trigger window state save
+            mainWindow.handleExit();
+            // Verify saved settings
+            GuiSettings settings = logic.getGuiSettings();
+            assertEquals(newWidth, settings.getWindowWidth(), 0.1);
+            assertEquals(newHeight, settings.getWindowHeight(), 0.1);
+            assertEquals(new Point((int) newX, (int) newY), settings.getWindowCoordinates());
+            latch.countDown();
+        });
+        latch.await(5, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void commandExecution_updatesResultDisplay() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                CommandResult result = mainWindow.executeCommand("list");
+                assertEquals(result.getFeedbackToUser(), mainWindow.getResultDisplay().getText());
+                latch.countDown();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        latch.await(5, TimeUnit.SECONDS);
     }
 }
