@@ -284,4 +284,22 @@ public class JsonAdaptedPersonTest {
         }
     }
 
+    @Test
+    public void toModelType_invalidDateInNonLeapYear_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(
+                VALID_NAME,
+                VALID_PHONE,
+                VALID_EMAIL,
+                VALID_ADDRESS,
+                VALID_POLICY,
+                "29/02/2023", // 2023 is not a leap year
+                VALID_TAGS);
+        try {
+            person.toModelType();
+            fail("Expected IllegalValueException was not thrown");
+        } catch (IllegalValueException e) {
+            assertEquals(Policy.DATE_CONSTRAINTS, e.getMessage());
+        }
+    }
+
 }
