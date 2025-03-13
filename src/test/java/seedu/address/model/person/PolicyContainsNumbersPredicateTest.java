@@ -65,7 +65,7 @@ public class PolicyContainsNumbersPredicateTest {
         predicate = new PolicyContainsNumbersPredicate(Set.of(new Policy("999")));
         assertFalse(predicate.test(new PersonBuilder().withPolicy("912345").build()));
 
-        // Keywords match address, but does not match phone
+        // Keywords match address, but does not match policy number
         predicate = new PolicyContainsNumbersPredicate(Set.of(new Policy("12345")));
         assertFalse(predicate.test(new PersonBuilder().withPolicy("999999").withAddress("12345").withName("912345678")
                 .build()));

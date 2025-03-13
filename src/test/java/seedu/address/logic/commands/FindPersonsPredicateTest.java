@@ -94,7 +94,7 @@ public class FindPersonsPredicateTest {
 
     @Test
     public void test_policyMatchOnly_returnsTrue() {
-        // Create predicate with ALICE's phone number
+        // Create predicate with ALICE's policy number
         FindCommand.FindPersonsPredicate predicate = new FindPersonsPredicateBuilder()
                 .withPolicies("135792")
                 .build();
