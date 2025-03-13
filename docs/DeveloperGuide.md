@@ -500,7 +500,7 @@ _{More to be added}_
 
     *   2a1. System truncates the tag and shows a warning.
 
-*   2b. Tag is a duplicate. 
+*   2b. Tag is a duplicate.
     *   2b1. System shows "Tag already exists."
 
 ---
