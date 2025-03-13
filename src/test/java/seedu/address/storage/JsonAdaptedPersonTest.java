@@ -201,6 +201,47 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
+    public void toModelType_validFormatButInvalidDateValue_throwsIllegalValueException() {
+        // Create a date that passes the format check but will cause an exception when parsed
+        // We'll use a date that's valid in format but will cause DateTimeException when parsed to LocalDate
+        String validFormatButInvalidDate = "31-04-2023"; // April 31st doesn't exist
+        // First verify that this passes the isValidRenewalDate check
+        assertTrue(Policy.isValidRenewalDate(validFormatButInvalidDate));
+        // Create a subclass that throws an exception when createPolicy is called
+        JsonAdaptedPerson person = new JsonAdaptedPerson(
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_POLICY,
+                validFormatButInvalidDate, VALID_TAGS) {
+            @Override
+            protected Policy createPolicy(String policyNumber, String renewalDate) {
+                throw new RuntimeException("Simulated exception for invalid date");
+            }
+        };
+        try {
+            person.toModelType();
+            fail("Expected IllegalValueException was not thrown");
+        } catch (IllegalValueException e) {
+            assertEquals(Policy.DATE_CONSTRAINTS, e.getMessage());
+        }
+    }
+    @Test
+    public void toModelType_exceptionWhenCreatingPolicy_throwsIllegalValueException() {
+        // Create a subclass of JsonAdaptedPerson that overrides the createPolicy method to throw an exception
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_POLICY, VALID_RENEWAL_DATE, VALID_TAGS) {
+            @Override
+            protected Policy createPolicy(String policyNumber, String renewalDate) {
+                throw new RuntimeException("Simulated exception");
+            }
+        };
+        try {
+            person.toModelType();
+            fail("Expected IllegalValueException was not thrown");
+        } catch (IllegalValueException e) {
+            assertEquals(Policy.DATE_CONSTRAINTS, e.getMessage());
+        }
+    }
+
+    @Test
     public void toModelType_nullRenewalDate_returnsPersonWithDefaultRenewalDate() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_POLICY, null, VALID_TAGS);
@@ -218,6 +259,28 @@ public class JsonAdaptedPersonTest {
         } catch (IllegalValueException e) {
             // If this happens, the test should fail
             fail("Unexpected IllegalValueException: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void toModelType_exceptionInPolicyConstructor_throwsIllegalValueException() {
+        // We'll use a date that will cause an exception when creating the Policy
+        // This is a bit of a hack, but we need to test the catch block
+        String dateWithException = "29-02-2023"; // 2023 is not a leap year, so February 29th doesn't exist
+        // Create a subclass that throws an exception when createPolicy is called
+        JsonAdaptedPerson person = new JsonAdaptedPerson(
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_POLICY,
+                dateWithException, VALID_TAGS) {
+            @Override
+            protected Policy createPolicy(String policyNumber, String renewalDate) {
+                throw new RuntimeException("Simulated exception for invalid date");
+            }
+        };
+        try {
+            person.toModelType();
+            fail("Expected IllegalValueException was not thrown");
+        } catch (IllegalValueException e) {
+            assertEquals(Policy.DATE_CONSTRAINTS, e.getMessage());
         }
     }
 

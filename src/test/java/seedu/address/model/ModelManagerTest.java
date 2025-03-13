@@ -238,4 +238,50 @@ public class ModelManagerTest {
         // Models should not be equal due to different filtered renewals lists
         assertFalse(modelManager1.equals(modelManager2));
     }
+
+    @Test
+    public void updateSortedPersonList_nullComparator_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.updateSortedPersonList(null));
+    }
+
+    @Test
+    public void updateSortedPersonList_validComparator_doesNotThrowException() {
+        // Create a new model with a fresh address book
+        AddressBook addressBook = new AddressBook();
+        UserPrefs userPrefs = new UserPrefs();
+        ModelManager testModel = new ModelManager(addressBook, userPrefs);
+        // Add persons to model
+        Person personA = new PersonBuilder().withName("Alice").build();
+        Person personB = new PersonBuilder().withName("Bob").build();
+        Person personC = new PersonBuilder().withName("Charlie").build();
+        testModel.addPerson(personC);
+        testModel.addPerson(personA);
+        testModel.addPerson(personB);
+        // Sort by name - this should not throw an exception
+        Comparator<Person> nameComparator = Comparator.comparing(person -> person.getName().fullName);
+        testModel.updateSortedPersonList(nameComparator);
+        // Verify that all persons are still in the list
+        List<Person> sortedList = testModel.getFilteredPersonList();
+        assertEquals(3, sortedList.size());
+        assertTrue(sortedList.contains(personA));
+        assertTrue(sortedList.contains(personB));
+        assertTrue(sortedList.contains(personC));
+    }
+
+    @Test
+    public void getRenewalsComparator_returnsCorrectComparator() {
+        // Initially the comparator should be null
+        assertFalse(modelManager.getRenewalsComparator() != null);
+        // Set a comparator
+        Comparator<Person> nameComparator = Comparator.comparing(person -> person.getName().fullName);
+        modelManager.updateSortedRenewalsList(nameComparator);
+        // Check that getRenewalsComparator returns the correct comparator
+        assertEquals(nameComparator, modelManager.getRenewalsComparator());
+        // Set a different comparator
+        Comparator<Person> daysUntilRenewalComparator =
+                Comparator.comparingLong(person -> person.getPolicy().getDaysUntilRenewal());
+        modelManager.updateSortedRenewalsList(daysUntilRenewalComparator);
+        // Check that getRenewalsComparator returns the updated comparator
+        assertEquals(daysUntilRenewalComparator, modelManager.getRenewalsComparator());
+    }
 }

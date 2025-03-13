@@ -64,18 +64,22 @@ public class PolicyTest {
         // null renewal date
         assertFalse(Policy.isValidRenewalDate(null));
 
-        // invalid dates
+        // invalid formats
         assertFalse(Policy.isValidRenewalDate("")); // empty string
         assertFalse(Policy.isValidRenewalDate(" ")); // spaces only
         assertFalse(Policy.isValidRenewalDate("2024-03-15")); // wrong format
         assertFalse(Policy.isValidRenewalDate("15/03/2024")); // wrong format
-        assertFalse(Policy.isValidRenewalDate("32-03-2024")); // invalid day
-        assertFalse(Policy.isValidRenewalDate("15-13-2024")); // invalid month
+        assertFalse(Policy.isValidRenewalDate("a1-03-2024")); // non-numeric day
+        assertFalse(Policy.isValidRenewalDate("15-b3-2024")); // non-numeric month
+        assertFalse(Policy.isValidRenewalDate("15-03-20c4")); // non-numeric year
 
-        // valid dates
+        // valid formats (note: these only test the format, not if the date is valid)
         assertTrue(Policy.isValidRenewalDate("15-03-2024")); // valid future date
         assertTrue(Policy.isValidRenewalDate("01-01-2025")); // valid future date
         assertTrue(Policy.isValidRenewalDate("31-12-2024")); // valid future date
+        assertTrue(Policy.isValidRenewalDate("32-03-2024")); // invalid day but valid format
+        assertTrue(Policy.isValidRenewalDate("15-13-2024")); // invalid month but valid format
+        assertTrue(Policy.isValidRenewalDate("29-02-2023")); // invalid date (non-leap year) but valid format
     }
 
     @Test

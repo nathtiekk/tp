@@ -46,7 +46,11 @@ public class Policy {
         checkArgument(isValidPolicy(policyNumber), MESSAGE_CONSTRAINTS);
         checkArgument(isValidRenewalDate(renewalDate), DATE_CONSTRAINTS);
         this.policyNumber = policyNumber;
-        this.renewalDate = LocalDate.parse(renewalDate, DATE_FORMATTER);
+        try {
+            this.renewalDate = LocalDate.parse(renewalDate, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(DATE_CONSTRAINTS);
+        }
     }
 
     /**
@@ -63,12 +67,8 @@ public class Policy {
         if (test == null) {
             return false;
         }
-        try {
-            LocalDate.parse(test, DATE_FORMATTER);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
+        // Only check if the string matches the date format pattern, not if it's a valid date
+        return test.matches("\\d{2}-\\d{2}-\\d{4}");
     }
 
     /**

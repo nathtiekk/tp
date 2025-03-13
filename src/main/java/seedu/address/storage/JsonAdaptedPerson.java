@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -125,19 +127,38 @@ class JsonAdaptedPerson {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPolicy, modelTags);
         }
 
-        // Handle invalid renewal date
+        // Handle invalid renewal date format
         if (!Policy.isValidRenewalDate(renewalDate)) {
             throw new IllegalValueException(Policy.DATE_CONSTRAINTS);
         }
 
         // Create Policy with specified renewal date
         try {
-            final Policy modelPolicy = new Policy(policy, renewalDate);
+            // Try to parse the date first to catch invalid dates like Feb 29 in non-leap years
+            try {
+                LocalDate.parse(renewalDate, Policy.DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                throw new IllegalValueException(Policy.DATE_CONSTRAINTS);
+            }
+            final Policy modelPolicy = createPolicy(policy, renewalDate);
             final Set<Tag> modelTags = new HashSet<>(personTags);
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelPolicy, modelTags);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            // This catches RuntimeException and its subclasses:
+            // - IllegalArgumentException (from Policy constructor)
+            // - DateTimeParseException (from LocalDate.parse)
+            // - Any other exceptions thrown by the createPolicy method (for test cases)
+            // These exceptions might occur when creating a Policy object with a date that passes format validation
+            // but is invalid (e.g., February 29 in a non-leap year)
             throw new IllegalValueException(Policy.DATE_CONSTRAINTS);
         }
     }
 
+    /**
+     * Creates a Policy object with the given policy number and renewal date.
+     * This method can be overridden in tests to simulate exceptions.
+     */
+    protected Policy createPolicy(String policyNumber, String renewalDate) {
+        return new Policy(policyNumber, renewalDate);
+    }
 }
