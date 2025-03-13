@@ -60,6 +60,9 @@ public class Policy {
      * Returns true if a given string is a valid renewal date.
      */
     public static boolean isValidRenewalDate(String test) {
+        if (test == null) {
+            return false;
+        }
         try {
             LocalDate.parse(test, DATE_FORMATTER);
             return true;

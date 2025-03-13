@@ -62,7 +62,7 @@ public class PolicyTest {
     @Test
     public void isValidRenewalDate() {
         // null renewal date
-        assertThrows(NullPointerException.class, () -> Policy.isValidRenewalDate(null));
+        assertFalse(Policy.isValidRenewalDate(null));
 
         // invalid dates
         assertFalse(Policy.isValidRenewalDate("")); // empty string

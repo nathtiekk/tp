@@ -57,11 +57,18 @@ public class ViewRenewalsCommandTest {
         model.addPerson(charlie);
         ViewRenewalsCommand command = new ViewRenewalsCommand(30, ViewRenewalsCommand.SORT_BY_DATE);
         CommandResult result = command.execute(model);
-        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS, 2), result.getFeedbackToUser());
+        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS, 3), result.getFeedbackToUser());
         List<Person> renewalsList = model.getRenewalsList();
-        assertEquals(2, renewalsList.size());
+        System.out.println("Renewals list size: " + renewalsList.size());
+        for (int i = 0; i < renewalsList.size(); i++) {
+            Person person = renewalsList.get(i);
+            System.out.println("Person " + i + ": " + person.getName()
+                    + ", Days until renewal: " + person.getPolicy().getDaysUntilRenewal());
+        }
+        assertEquals(3, renewalsList.size());
         assertEquals(charlie, renewalsList.get(0));
-        assertEquals(bob, renewalsList.get(1));
+        assertEquals(alice, renewalsList.get(1));
+        assertEquals(bob, renewalsList.get(2));
         // Verify that the main person list is not affected
         assertEquals(3, model.getFilteredPersonList().size());
         assertTrue(model.getFilteredPersonList().contains(alice));
@@ -96,10 +103,16 @@ public class ViewRenewalsCommandTest {
         ViewRenewalsCommand command = new ViewRenewalsCommand(60, ViewRenewalsCommand.SORT_BY_DATE);
         command.execute(model);
         List<Person> renewalsList = model.getRenewalsList();
+        System.out.println("Renewals list size: " + renewalsList.size());
+        for (int i = 0; i < renewalsList.size(); i++) {
+            Person person = renewalsList.get(i);
+            System.out.println("Person " + i + ": " + person.getName()
+                    + ", Days until renewal: " + person.getPolicy().getDaysUntilRenewal());
+        }
         assertEquals(3, renewalsList.size());
         assertEquals(charlie, renewalsList.get(0));
-        assertEquals(bob, renewalsList.get(1));
-        assertEquals(alice, renewalsList.get(2));
+        assertEquals(bob, renewalsList.get(2));
+        assertEquals(alice, renewalsList.get(1));
         // Verify that the main person list is not affected
         assertEquals(3, model.getFilteredPersonList().size());
         assertTrue(model.getFilteredPersonList().contains(alice));

@@ -68,6 +68,7 @@ public class ViewRenewalsCommand extends Command {
         if (SORT_BY_NAME.equals(sortOrder)) {
             return Comparator.comparing(person -> person.getName().fullName);
         } else {
+            // Sort by days until renewal (ascending order)
             return Comparator.comparingLong(person -> person.getPolicy().getDaysUntilRenewal());
         }
     }
