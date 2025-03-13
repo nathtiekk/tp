@@ -21,7 +21,7 @@ public class PolicyContainsNumbersPredicate implements Predicate<Person> {
     /**
      * Returns an unmodifiable policy set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
-     * Returns {@code Optional#empty()} if {@code policy} is null.
+     * Returns {@code Optional#empty()} if {@code numbers} is null.
      */
     public Optional<Set<Policy>> getPolicies() {
         return (numbers != null) ? Optional.of(Collections.unmodifiableSet(numbers)) : Optional.empty();

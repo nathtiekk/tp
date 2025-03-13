@@ -59,7 +59,7 @@ public class FindPersonsPredicateBuilder {
     }
 
     /**
-     * Parses the {@code policy} into a {@code PolicyContainsNumbersPredicate} and set it to the
+     * Parses the {@code policies} into a {@code PolicyContainsNumbersPredicate} and set it to the
      * {@code FindPersonsPredicate} that we are building.
      */
     public FindPersonsPredicateBuilder withPolicies(String... policies) {
