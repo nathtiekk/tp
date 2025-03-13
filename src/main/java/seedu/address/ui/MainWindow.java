@@ -191,6 +191,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Gets the Logic for testing.
+     */
+    public Logic getLogic() {
+        return logic;
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)

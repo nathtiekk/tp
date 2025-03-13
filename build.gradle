@@ -21,7 +21,6 @@ checkstyle {
 
 test {
     useJUnitPlatform()
-    exclude '**/ui/**'
     finalizedBy jacocoTestReport
 }
 
