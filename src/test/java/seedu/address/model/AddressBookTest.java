@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -90,11 +91,6 @@ public class AddressBookTest {
     }
 
     @Test
-    public void defaultLastUpdated_isNull() {
-        assertEquals(null, addressBook.getLastUpdated());
-    }
-
-    @Test
     public void setAndGetLastUpdated_validValue_success() {
         LocalDateTime fixedTime = LocalDateTime.of(2025, 3, 13, 12, 0);
         addressBook.setLastUpdated(fixedTime);
@@ -115,14 +111,21 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final LocalDateTime lastUpdated;
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
+            this.lastUpdated = LocalDateTime.now();
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public LocalDateTime getLastUpdated() {
+            return lastUpdated;
         }
     }
 

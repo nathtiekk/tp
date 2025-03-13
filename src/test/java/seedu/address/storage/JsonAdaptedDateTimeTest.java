@@ -38,8 +38,8 @@ public class JsonAdaptedDateTimeTest {
     public void toModelType_invalidDateTimeFormat_throwsIllegalValueException() {
         String invalidDateTime = "3/13/2025 12:00";
         JsonAdaptedDateTime jsonAdaptedDateTime = new JsonAdaptedDateTime(invalidDateTime);
-        IllegalValueException exception = assertThrows(IllegalValueException.class, 
-                () -> jsonAdaptedDateTime.toModelType());
+        IllegalValueException exception = assertThrows(IllegalValueException.class, () ->
+                                                        jsonAdaptedDateTime.toModelType());
         assertEquals("Invalid date-time format: " + invalidDateTime, exception.getMessage());
     }
 }

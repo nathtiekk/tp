@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -10,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -132,8 +135,6 @@ public class ModelManagerTest {
 
     @Test
     public void addPerson_updatesLastUpdated() {
-        // Initially, lastUpdated should be null.
-        assertNull(modelManager.getAddressBook().getLastUpdated());
         modelManager.addPerson(ALICE);
         // After adding a person, lastUpdated should be set.
         assertNotNull(modelManager.getAddressBook().getLastUpdated());
@@ -155,9 +156,8 @@ public class ModelManagerTest {
     public void setPerson_updatesLastUpdated() {
         modelManager.addPerson(ALICE);
         LocalDateTime afterAdd = modelManager.getAddressBook().getLastUpdated();
-        // Create an edited version of ALICE.
-        Person editedAlice = new PersonBuilder(ALICE).withAddress("123, New Street").build();
-        modelManager.setPerson(ALICE, editedAlice);
+        // Replace ALICE with BENSON (using a typical person) to test that lastUpdated is updated.
+        modelManager.setPerson(ALICE, BENSON);
         LocalDateTime afterSet = modelManager.getAddressBook().getLastUpdated();
         assertNotNull(afterSet);
         // Ensure that lastUpdated is updated.

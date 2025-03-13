@@ -35,7 +35,7 @@ public class JsonUtil {
 
     private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
 
-    private static final DateTimeFormatter CUSTOM_DATE_TIME_FORMATTER = 
+    private static final DateTimeFormatter CUSTOM_DATE_TIME_FORMATTER =
         DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
 
     private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()

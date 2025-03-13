@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+/**
+ * Jackson-friendly version of a DateTime object.
+ */
 public class JsonAdaptedDateTime {
 
     private static final String DATE_TIME_PATTERN = "M/d/yyyy HHmm";
@@ -30,6 +33,12 @@ public class JsonAdaptedDateTime {
         return dateTime;
     }
 
+    /**
+     * Converts this JSON-adapted date-time object into the model's {@link java.time.LocalDateTime} object.
+     *
+     * @return the {@code LocalDateTime} which is stored date-time string, or {@code null} if the string null.
+     * @throws IllegalValueException if the stored date-time string does not match the required format.
+     */
     public LocalDateTime toModelType() throws IllegalValueException {
         if (dateTime == null) {
             return null;
