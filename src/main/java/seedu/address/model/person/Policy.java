@@ -5,7 +5,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Person's policy in the address book.
@@ -46,11 +45,7 @@ public class Policy {
         checkArgument(isValidPolicy(policyNumber), MESSAGE_CONSTRAINTS);
         checkArgument(isValidRenewalDate(renewalDate), DATE_CONSTRAINTS);
         this.policyNumber = policyNumber;
-        try {
-            this.renewalDate = LocalDate.parse(renewalDate, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(DATE_CONSTRAINTS);
-        }
+        this.renewalDate = LocalDate.parse(renewalDate, DATE_FORMATTER);
     }
 
     /**
