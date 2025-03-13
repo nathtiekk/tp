@@ -10,6 +10,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.PhoneContainsNumbersPredicate;
+import seedu.address.model.person.Policy;
+import seedu.address.model.person.PolicyContainsNumbersPredicate;
 
 /**
  * A utility class to help with building FindPersonsPredicate objects.
@@ -33,6 +35,7 @@ public class FindPersonsPredicateBuilder {
         predicate = new FindPersonsPredicate();
         predicate.setNamePredicate(new NameContainsKeywordsPredicate(Set.of(person.getName())));
         predicate.setPhonePredicate(new PhoneContainsNumbersPredicate(Set.of(person.getPhone())));
+        predicate.setPolicyPredicate(new PolicyContainsNumbersPredicate(Set.of(person.getPolicy())));
     }
 
     /**
@@ -52,6 +55,16 @@ public class FindPersonsPredicateBuilder {
     public FindPersonsPredicateBuilder withPhones(String... phones) {
         Set<Phone> phoneSet = Stream.of(phones).map(Phone::new).collect(Collectors.toSet());
         predicate.setPhonePredicate(new PhoneContainsNumbersPredicate(phoneSet));
+        return this;
+    }
+
+    /**
+     * Parses the {@code policies} into a {@code PolicyContainsNumbersPredicate} and set it to the
+     * {@code FindPersonsPredicate} that we are building.
+     */
+    public FindPersonsPredicateBuilder withPolicies(String... policies) {
+        Set<Policy> policySet = Stream.of(policies).map(Policy::new).collect(Collectors.toSet());
+        predicate.setPolicyPredicate(new PolicyContainsNumbersPredicate(policySet));
         return this;
     }
 

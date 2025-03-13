@@ -15,6 +15,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.PhoneContainsNumbersPredicate;
+import seedu.address.model.person.Policy;
+import seedu.address.model.person.PolicyContainsNumbersPredicate;
 import seedu.address.testutil.FindPersonsPredicateBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -34,6 +36,13 @@ public class FindPersonsPredicateTest {
     }
 
     @Test
+    public void isAnyPredicateSet_onlyPolicySet_returnsTrue() {
+        FindCommand.FindPersonsPredicate predicate = new FindCommand.FindPersonsPredicate();
+        predicate.setPolicyPredicate(new PolicyContainsNumbersPredicate(Set.of(new Policy("123456"))));
+        assertTrue(predicate.isAnyPredicateSet());
+    }
+
+    @Test
     public void isAnyPredicateSet_onlyPhoneSet_returnsTrue() {
         FindCommand.FindPersonsPredicate predicate = new FindCommand.FindPersonsPredicate();
         predicate.setPhonePredicate(new PhoneContainsNumbersPredicate(Set.of(new Phone("12345678"))));
@@ -45,6 +54,7 @@ public class FindPersonsPredicateTest {
         FindCommand.FindPersonsPredicate predicate = new FindCommand.FindPersonsPredicate();
         predicate.setNamePredicate(new NameContainsKeywordsPredicate(Set.of(new Name("keyword"))));
         predicate.setPhonePredicate(new PhoneContainsNumbersPredicate(Set.of(new Phone("12345678"))));
+        predicate.setPolicyPredicate(new PolicyContainsNumbersPredicate(Set.of(new Policy("123456"))));
         assertTrue(predicate.isAnyPredicateSet());
     }
 
@@ -83,10 +93,25 @@ public class FindPersonsPredicateTest {
     }
 
     @Test
+    public void test_policyMatchOnly_returnsTrue() {
+        // Create predicate with ALICE's policy number
+        FindCommand.FindPersonsPredicate predicate = new FindPersonsPredicateBuilder()
+                .withPolicies("135792")
+                .build();
+
+        // Should match ALICE
+        assertTrue(predicate.test(ALICE));
+
+        // Should not match BOB
+        assertFalse(predicate.test(BOB));
+    }
+
+    @Test
     public void test_bothNameAndPhoneMatch_returnsTrue() {
         FindCommand.FindPersonsPredicate predicate = new FindPersonsPredicateBuilder()
                 .withNames("Alice")
                 .withPhones("94351253")
+                .withPolicies("135792")
                 .build();
 
         assertTrue(predicate.test(ALICE));
@@ -98,6 +123,7 @@ public class FindPersonsPredicateTest {
         FindCommand.FindPersonsPredicate predicate = new FindPersonsPredicateBuilder()
                 .withNames("Alice")
                 .withPhones("22222222")
+                .withPolicies("111111")
                 .build();
 
         // Should match ALICE due to name
@@ -113,6 +139,7 @@ public class FindPersonsPredicateTest {
         FindCommand.FindPersonsPredicate predicate = new FindPersonsPredicateBuilder()
                 .withNames("Charlie")
                 .withPhones("33333333")
+                .withPolicies("111111")
                 .build();
 
         assertFalse(predicate.test(ALICE));
@@ -123,6 +150,7 @@ public class FindPersonsPredicateTest {
         FindCommand.FindPersonsPredicate original = new FindPersonsPredicateBuilder()
                 .withNames("Alice")
                 .withPhones("12345678")
+                .withPolicies("123456")
                 .build();
 
         FindCommand.FindPersonsPredicate copy = new FindCommand.FindPersonsPredicate(original);
@@ -131,7 +159,8 @@ public class FindPersonsPredicateTest {
 
     @Test
     public void equals() {
-        FindCommand.FindPersonsPredicate firstPredicate = new FindPersonsPredicateBuilder().withNames("first").build();
+        FindCommand.FindPersonsPredicate firstPredicate = new FindPersonsPredicateBuilder().withNames("first")
+                .withPhones("91234567").withPolicies("234567").build();
         FindCommand.FindPersonsPredicate secondPredicate = new FindPersonsPredicateBuilder()
                 .withNames("second").build();
 
@@ -160,8 +189,18 @@ public class FindPersonsPredicateTest {
         FindCommand.FindPersonsPredicate differentPhonePredicate = new FindPersonsPredicateBuilder()
                 .withNames("first")
                 .withPhones("12345678")
+                .withPolicies("234567")
                 .build();
         assertFalse(firstPredicate.equals(differentPhonePredicate));
+
+        // different policy predicate -> returns false
+        FindCommand.FindPersonsPredicate differentPolicyPredicate = new FindPersonsPredicateBuilder()
+                .withNames("first")
+                .withPhones("91234567")
+                .withPolicies("222222")
+                .build();
+
+        assertFalse(firstPredicate.equals(differentPolicyPredicate));
     }
 
     @Test
@@ -169,16 +208,19 @@ public class FindPersonsPredicateTest {
         FindCommand.FindPersonsPredicate emptyPredicate = new FindCommand.FindPersonsPredicate();
         String expected = FindCommand.FindPersonsPredicate.class.getCanonicalName()
                 + "{namePredicate=" + null
-                + ", phonePredicate=" + null + "}";
+                + ", phonePredicate=" + null
+                + ", policyPredicate=" + null + "}";
         assertEquals(expected, emptyPredicate.toString());
 
         FindCommand.FindPersonsPredicate fullPredicate = new FindPersonsPredicateBuilder()
                 .withNames("Alice")
                 .withPhones("12345678")
+                .withPolicies("123456")
                 .build();
         String fullExpected = FindCommand.FindPersonsPredicate.class.getCanonicalName()
                 + "{namePredicate=" + fullPredicate.getNamePredicate().get()
-                + ", phonePredicate=" + fullPredicate.getPhonePredicate().get() + "}";
+                + ", phonePredicate=" + fullPredicate.getPhonePredicate().get()
+                + ", policyPredicate=" + fullPredicate.getPolicyPredicate().get() + "}";
         assertEquals(fullExpected, fullPredicate.toString());
     }
 }

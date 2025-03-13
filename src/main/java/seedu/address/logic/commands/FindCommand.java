@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PhoneContainsNumbersPredicate;
+import seedu.address.model.person.PolicyContainsNumbersPredicate;
 
 /**
  * Finds and lists all persons in address book whose details contains any of the argument information.
@@ -32,7 +34,8 @@ public class FindCommand extends Command {
             + PREFIX_NAME + "alice "
             + PREFIX_NAME + "bob "
             + PREFIX_NAME + "charlie "
-            + PREFIX_PHONE + "91234567 ";
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_POLICY + "104343 ";
 
     public static final String MESSAGE_NOT_FOUND = "At least one field to find must be provided.";
 
@@ -78,6 +81,7 @@ public class FindCommand extends Command {
     public static class FindPersonsPredicate implements Predicate<Person> {
         private NameContainsKeywordsPredicate namePredicate;
         private PhoneContainsNumbersPredicate phonePredicate;
+        private PolicyContainsNumbersPredicate policyPredicate;
 
         public FindPersonsPredicate() {}
 
@@ -87,13 +91,14 @@ public class FindCommand extends Command {
         public FindPersonsPredicate(FindCommand.FindPersonsPredicate toCopy) {
             setNamePredicate(toCopy.namePredicate);
             setPhonePredicate(toCopy.phonePredicate);
+            setPolicyPredicate(toCopy.policyPredicate);
         }
 
         /**
          * Returns true if at least one predicate is set.
          */
         public boolean isAnyPredicateSet() {
-            return CollectionUtil.isAnyNonNull(namePredicate, phonePredicate);
+            return CollectionUtil.isAnyNonNull(namePredicate, phonePredicate, policyPredicate);
         }
 
         public void setNamePredicate(NameContainsKeywordsPredicate namePredicate) {
@@ -112,13 +117,21 @@ public class FindCommand extends Command {
             return Optional.ofNullable(phonePredicate);
         }
 
+        public void setPolicyPredicate(PolicyContainsNumbersPredicate policyPredicate) {
+            this.policyPredicate = policyPredicate;
+        }
+
+        public Optional<PolicyContainsNumbersPredicate> getPolicyPredicate() {
+            return Optional.ofNullable(policyPredicate);
+        }
+
         @Override
         public boolean test(Person person) {
             boolean nameMatch = getNamePredicate().map(pred -> pred.test(person)).orElse(false);
             boolean phoneMatch = getPhonePredicate().map(pred -> pred.test(person)).orElse(false);
-
+            boolean policyMatch = getPolicyPredicate().map(pred -> pred.test(person)).orElse(false);
             // Match if any predicate matches (OR logic)
-            return nameMatch || phoneMatch;
+            return nameMatch || phoneMatch || policyMatch;
         }
 
         @Override
@@ -134,7 +147,8 @@ public class FindCommand extends Command {
 
             FindCommand.FindPersonsPredicate otherFindPersonsPredicate = (FindCommand.FindPersonsPredicate) other;
             return Objects.equals(namePredicate, otherFindPersonsPredicate.namePredicate)
-                    && Objects.equals(phonePredicate, otherFindPersonsPredicate.phonePredicate);
+                    && Objects.equals(phonePredicate, otherFindPersonsPredicate.phonePredicate)
+                    && Objects.equals(policyPredicate, otherFindPersonsPredicate.policyPredicate);
         }
 
         @Override
@@ -142,6 +156,7 @@ public class FindCommand extends Command {
             return new ToStringBuilder(this)
                     .add("namePredicate", namePredicate)
                     .add("phonePredicate", phonePredicate)
+                    .add("policyPredicate", policyPredicate)
                     .toString();
         }
     }

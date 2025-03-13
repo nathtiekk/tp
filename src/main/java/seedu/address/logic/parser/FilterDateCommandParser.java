@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT_ORDER;
 
 import java.time.LocalDate;
 
@@ -25,7 +25,7 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
     @Override
     public FilterDateCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_SORT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_SORT_ORDER);
 
         if (argMultimap.getValue(PREFIX_START_DATE).isEmpty() || argMultimap.getValue(PREFIX_END_DATE).isEmpty()) {
             throw new ParseException("Start date (sd/) and end date (ed/) are required.");
@@ -43,7 +43,7 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
             throw new ParseException(MESSAGE_INVALID_END_DATE);
         }
 
-        String sortOrder = argMultimap.getValue(PREFIX_SORT).orElse("date").toLowerCase();
+        String sortOrder = argMultimap.getValue(PREFIX_SORT_ORDER).orElse("date").toLowerCase();
         if (!sortOrder.equals("date") && !sortOrder.equals("name")) {
             throw new ParseException(MESSAGE_INVALID_SORT);
         }
