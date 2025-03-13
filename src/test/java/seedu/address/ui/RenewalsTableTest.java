@@ -26,7 +26,7 @@ import seedu.address.model.person.Policy;
 import seedu.address.testutil.PersonBuilder;
 
 public class RenewalsTableTest {
-    private static final int TIMEOUT_MS = 2000;
+    private static final int TIMEOUT_MS = System.getProperty("CI") != null ? 10000 : 2000;
     private static Stage stage;
     private Model model;
     private RenewalsTable renewalsTable;

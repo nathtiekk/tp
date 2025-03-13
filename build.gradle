@@ -26,6 +26,11 @@ test {
     finalizedBy jacocoTestReport
     jvmArgs '--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
     jvmArgs '--add-opens=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
+    systemProperty 'java.awt.headless', 'true'
+    systemProperty 'testfx.robot', 'glass'
+    systemProperty 'testfx.headless', 'true'
+    systemProperty 'prism.order', 'sw'
+    systemProperty 'prism.text', 't2k'
 }
 
 application {
