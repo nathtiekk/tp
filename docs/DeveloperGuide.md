@@ -216,6 +216,7 @@ The following sequence diagram shows how the viewrenewals operation works:
     -   Cons: Logic might be duplicated if needed elsewhere
 
 -   **Alternative 2:** In the Model
+
     -   Pros: Centralizes filtering logic
     -   Cons: Makes Model more complex
 

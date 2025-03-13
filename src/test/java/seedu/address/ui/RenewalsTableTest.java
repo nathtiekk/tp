@@ -35,6 +35,11 @@ public class RenewalsTableTest {
     public static void setupSpec() throws InterruptedException {
         // Initialize JavaFX Toolkit
         try {
+            System.setProperty("java.awt.headless", "true");
+            System.setProperty("testfx.robot", "glass");
+            System.setProperty("testfx.headless", "true");
+            System.setProperty("prism.order", "sw");
+            System.setProperty("prism.text", "t2k");
             new JFXPanel();
             CountDownLatch latch = new CountDownLatch(1);
             Platform.runLater(() -> {
@@ -103,10 +108,10 @@ public class RenewalsTableTest {
 
     @Test
     public void updateRenewals_withPeople_populatesTable() throws InterruptedException {
-        Person person1 = new PersonBuilder().withName("Alice")
-                .withPolicy("12345", LocalDate.now().plusDays(60).format(Policy.DATE_FORMATTER)).build();
-        Person person2 = new PersonBuilder().withName("Bob")
-                .withPolicy("67890", LocalDate.now().plusDays(30).format(Policy.DATE_FORMATTER)).build();
+        Person person1 = new PersonBuilder().withName("Alice").
+                withPolicy("12345", LocalDate.now().plusDays(60).format(Policy.DATE_FORMATTER)).build();
+        Person person2 = new PersonBuilder().withName("Bob").
+                withPolicy("67890", LocalDate.now().plusDays(30).format(Policy.DATE_FORMATTER)).build();
         model.addPerson(person1);
         model.addPerson(person2);
 
@@ -153,9 +158,9 @@ public class RenewalsTableTest {
 
     @Test
     public void renewalEntry_creation_correctValues() {
-        Person person = new PersonBuilder().withName("Charlie")
-                .withPolicy("11111", LocalDate.now().plusDays(15).format(Policy.DATE_FORMATTER))
-                .withPhone("12345678").build();
+        Person person = new PersonBuilder().withName("Charlie").
+                withPolicy("11111", LocalDate.now().plusDays(15).format(Policy.DATE_FORMATTER)).
+                withPhone("12345678").build();
 
         RenewalsTable.RenewalEntry entry = new RenewalsTable.RenewalEntry(person);
 
