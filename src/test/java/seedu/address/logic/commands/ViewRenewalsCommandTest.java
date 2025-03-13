@@ -57,18 +57,11 @@ public class ViewRenewalsCommandTest {
         model.addPerson(charlie);
         ViewRenewalsCommand command = new ViewRenewalsCommand(30, ViewRenewalsCommand.SORT_BY_DATE);
         CommandResult result = command.execute(model);
-        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS, 3), result.getFeedbackToUser());
+        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS, 2), result.getFeedbackToUser());
         List<Person> renewalsList = model.getRenewalsList();
-        System.out.println("Renewals list size: " + renewalsList.size());
-        for (int i = 0; i < renewalsList.size(); i++) {
-            Person person = renewalsList.get(i);
-            System.out.println("Person " + i + ": " + person.getName()
-                    + ", Days until renewal: " + person.getPolicy().getDaysUntilRenewal());
-        }
-        assertEquals(3, renewalsList.size());
+        assertEquals(2, renewalsList.size());
         assertEquals(charlie, renewalsList.get(0));
-        assertEquals(alice, renewalsList.get(1));
-        assertEquals(bob, renewalsList.get(2));
+        assertEquals(bob, renewalsList.get(1));
         // Verify that the main person list is not affected
         assertEquals(3, model.getFilteredPersonList().size());
         assertTrue(model.getFilteredPersonList().contains(alice));
@@ -103,21 +96,68 @@ public class ViewRenewalsCommandTest {
         ViewRenewalsCommand command = new ViewRenewalsCommand(60, ViewRenewalsCommand.SORT_BY_DATE);
         command.execute(model);
         List<Person> renewalsList = model.getRenewalsList();
-        System.out.println("Renewals list size: " + renewalsList.size());
-        for (int i = 0; i < renewalsList.size(); i++) {
-            Person person = renewalsList.get(i);
-            System.out.println("Person " + i + ": " + person.getName()
-                    + ", Days until renewal: " + person.getPolicy().getDaysUntilRenewal());
-        }
         assertEquals(3, renewalsList.size());
         assertEquals(charlie, renewalsList.get(0));
-        assertEquals(bob, renewalsList.get(2));
-        assertEquals(alice, renewalsList.get(1));
+        assertEquals(bob, renewalsList.get(1));
+        assertEquals(alice, renewalsList.get(2));
         // Verify that the main person list is not affected
         assertEquals(3, model.getFilteredPersonList().size());
         assertTrue(model.getFilteredPersonList().contains(alice));
         assertTrue(model.getFilteredPersonList().contains(bob));
         assertTrue(model.getFilteredPersonList().contains(charlie));
+    }
+
+    @Test
+    public void execute_noRenewalsInRange_returnsNoRenewals() {
+        Person farFuturePerson = new PersonBuilder().withName("Future")
+                .withPhone("85355255")
+                .withEmail("future@gmail.com")
+                .withAddress("Future Street")
+                .withPolicy("99999", LocalDate.now().plusDays(400).format(Policy.DATE_FORMATTER)).build();
+        model.addPerson(farFuturePerson);
+        ViewRenewalsCommand command = new ViewRenewalsCommand(30, ViewRenewalsCommand.SORT_BY_DATE);
+        CommandResult result = command.execute(model);
+        assertEquals(ViewRenewalsCommand.MESSAGE_NO_RENEWALS, result.getFeedbackToUser());
+        assertTrue(model.getRenewalsList().isEmpty());
+    }
+
+    @Test
+    public void orderedPredicate_test() {
+        model.addPerson(alice);
+        model.addPerson(bob);
+        ViewRenewalsCommand command = new ViewRenewalsCommand(60, ViewRenewalsCommand.SORT_BY_DATE);
+        command.execute(model);
+        List<Person> renewalsList = model.getRenewalsList();
+        ViewRenewalsCommand.OrderedPredicate predicate =
+            new ViewRenewalsCommand.OrderedPredicate(renewalsList);
+        // Test person in list
+        assertTrue(predicate.test(alice));
+        assertTrue(predicate.test(bob));
+        // Test person not in list
+        Person newPerson = new PersonBuilder().withName("New")
+                .withPhone("12345678")
+                .withEmail("new@gmail.com")
+                .withAddress("New Address")
+                .withPolicy("00000", LocalDate.now().plusDays(45).format(Policy.DATE_FORMATTER)).build();
+        assertFalse(predicate.test(newPerson));
+    }
+
+    @Test
+    public void orderedPredicate_equals() {
+        List<Person> list1 = List.of(alice, bob);
+        List<Person> list2 = List.of(alice, bob);
+        List<Person> differentList = List.of(charlie);
+        ViewRenewalsCommand.OrderedPredicate predicate1 =
+            new ViewRenewalsCommand.OrderedPredicate(list1);
+        ViewRenewalsCommand.OrderedPredicate predicate2 =
+            new ViewRenewalsCommand.OrderedPredicate(list2);
+        ViewRenewalsCommand.OrderedPredicate differentPredicate =
+            new ViewRenewalsCommand.OrderedPredicate(differentList);
+        // Test equality
+        assertTrue(predicate1.equals(predicate1)); // same object
+        assertTrue(predicate1.equals(predicate2)); // same content
+        assertFalse(predicate1.equals(null)); // null comparison
+        assertFalse(predicate1.equals(differentPredicate)); // different content
     }
 
     @Test

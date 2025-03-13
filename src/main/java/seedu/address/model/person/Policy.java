@@ -70,7 +70,7 @@ public class Policy {
      * Returns the number of days until renewal.
      */
     public long getDaysUntilRenewal() {
-        return LocalDate.now().until(renewalDate).getDays();
+        return java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), renewalDate);
     }
 
     /**

@@ -50,10 +50,7 @@ public class ViewRenewalsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Predicate<Person> renewalPredicate = person -> {
-            long daysUntil = person.getPolicy().getDaysUntilRenewal();
-            return daysUntil >= 0 && daysUntil <= days;
-        };
+        Predicate<Person> renewalPredicate = person -> person.getPolicy().isRenewalDueWithin(days);
 
         model.updateRenewalsList(renewalPredicate);
         model.updateSortedRenewalsList(getComparator());
@@ -91,7 +88,7 @@ public class ViewRenewalsCommand extends Command {
     /**
      * A predicate that maintains the order of persons based on a pre-sorted list.
      */
-    private static class OrderedPredicate implements java.util.function.Predicate<Person> {
+    static class OrderedPredicate implements java.util.function.Predicate<Person> {
         private final List<Person> orderedList;
 
         public OrderedPredicate(List<Person> orderedList) {
