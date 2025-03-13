@@ -80,6 +80,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the renewals list */
+    ObservableList<Person> getRenewalsList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -87,7 +90,19 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the sort order of the filtered person list.
+     * Updates the filter of the renewals list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRenewalsList(Predicate<Person> predicate);
+
+    /**
+     * Updates the sorting of the renewals list using the given {@code comparator}.
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void updateSortedRenewalsList(Comparator<Person> comparator);
+
+    /**
+     * Updates the sorting of the filtered person list using the given {@code comparator}.
      * @throws NullPointerException if {@code comparator} is null.
      */
     void updateSortedPersonList(Comparator<Person> comparator);

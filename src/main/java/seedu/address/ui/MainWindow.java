@@ -128,7 +128,6 @@ public class MainWindow extends UiPart<Stage> {
 
         renewalsTable = new RenewalsTable(logic.getModel());
         renewalsTablePlaceholder.getChildren().add(renewalsTable.getRoot());
-        renewalsTable.hide(); // Hide table initially
     }
 
     /**
@@ -176,20 +175,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Gets the RenewalsTable for testing.
-     */
-    public RenewalsTable getRenewalsTable() {
-        return renewalsTable;
-    }
-
-    /**
-     * Gets the ResultDisplay for testing.
-     */
-    public ResultDisplay getResultDisplay() {
-        return resultDisplay;
-    }
-
-    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -200,12 +185,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            // Show and update table for viewrenewals command
-            if (commandText.trim().startsWith("viewrenewals")) {
-                renewalsTable.show();
-                renewalsTable.updateRenewals(logic.getModel());
-            }
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -213,6 +192,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            // Update renewals table after each command
+            renewalsTable.updateRenewals(logic.getModel());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

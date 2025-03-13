@@ -10,14 +10,18 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Policy;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.FindPersonsPredicateBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
@@ -101,7 +105,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -122,14 +126,18 @@ public class ModelManagerTest {
         modelManagerCopy.updateFilteredPersonList(p -> false);
         assertFalse(modelManager.equals(modelManagerCopy));
 
-        // different sortedFilteredList -> returns false
-        modelManager.updateSortedPersonList((p1, p2) -> -1);
+        // different renewalsList -> returns false
+        modelManager.updateRenewalsList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManagerCopy.updateRenewalsList(p -> false);
         assertFalse(modelManager.equals(modelManagerCopy));
         modelManager.updateFilteredPersonList(new FindPersonsPredicateBuilder(ALICE).build());
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManagerCopy.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateRenewalsList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManagerCopy.updateRenewalsList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
