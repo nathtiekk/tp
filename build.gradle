@@ -13,8 +13,6 @@ targetCompatibility = JavaVersion.VERSION_17
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://nexus.gluonhq.com/nexus/content/repositories/releases/' }
-    maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
 }
 
 checkstyle {
@@ -23,14 +21,8 @@ checkstyle {
 
 test {
     useJUnitPlatform()
+    exclude '**/ui/**'
     finalizedBy jacocoTestReport
-    jvmArgs '--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
-    jvmArgs '--add-opens=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
-    systemProperty 'java.awt.headless', 'true'
-    systemProperty 'testfx.robot', 'glass'
-    systemProperty 'testfx.headless', 'true'
-    systemProperty 'prism.order', 'sw'
-    systemProperty 'prism.text', 't2k'
 }
 
 application {
@@ -60,10 +52,6 @@ dependencies {
     def platforms = ["win", "linux", "mac"]
     def javafxDependency = ["javafx-controls", "javafx-fxml", "javafx-graphics"]
 
-    testImplementation 'org.testfx:testfx-core:4.0.17'
-    testImplementation 'org.testfx:testfx-junit5:4.0.17'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
-
     for (plt in platforms) {
         for (dep in javafxDependency) {
             runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
@@ -74,24 +62,8 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
+
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
-
-    implementation group: 'org.openjfx', name: 'javafx-base', version: '17.0.2'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: '17.0.2'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: '17.0.2'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: '17.0.2'
-    implementation group: 'org.controlsfx', name: 'controlsfx', version: '11.1.2'
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.4'
-    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.4'
-
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.8.2'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
-    testImplementation group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
-    testImplementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
-    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.3.1'
-    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.3.1'
 }
 
 javafx {

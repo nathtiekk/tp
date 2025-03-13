@@ -26,17 +26,30 @@ import seedu.address.model.person.Policy;
 import seedu.address.testutil.PersonBuilder;
 
 public class RenewalsTableTest {
-    private static final int TIMEOUT_MS = System.getProperty("CI") != null ? 10000 : 2000;
+    private static final int TIMEOUT_MS = 2000;
     private static Stage stage;
     private Model model;
     private RenewalsTable renewalsTable;
 
     @BeforeAll
-    public static void setupSpec() {
+    public static void setupSpec() throws InterruptedException {
+        // Initialize JavaFX Toolkit
         try {
-            new JFXPanel(); // initializes JavaFX environment
+            new JFXPanel();
+            CountDownLatch latch = new CountDownLatch(1);
+            Platform.runLater(() -> {
+                stage = new Stage();
+                stage.setScene(new Scene(new VBox()));
+                latch.countDown();
+            });
+            if (!latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+                throw new RuntimeException("JavaFX initialization timed out");
+            }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            // If toolkit is already initialized, ignore the error
+            if (!e.getMessage().contains("Toolkit already initialized")) {
+                throw e;
+            }
         }
     }
 
@@ -45,13 +58,10 @@ public class RenewalsTableTest {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
-                stage = new Stage();
-                stage.setScene(new Scene(new VBox()));
                 model = new ModelManager();
                 renewalsTable = new RenewalsTable(model);
                 VBox root = (VBox) stage.getScene().getRoot();
                 root.getChildren().setAll(renewalsTable.getRoot());
-                stage.show();
             } finally {
                 latch.countDown();
             }
@@ -96,9 +106,9 @@ public class RenewalsTableTest {
     @Test
     public void updateRenewals_withPeople_populatesTable() throws InterruptedException {
         Person person1 = new PersonBuilder().withName("Alice")
-                        .withPolicy("12345", LocalDate.now().plusDays(60).format(Policy.DATE_FORMATTER)).build();
+                .withPolicy("12345", LocalDate.now().plusDays(60).format(Policy.DATE_FORMATTER)).build();
         Person person2 = new PersonBuilder().withName("Bob")
-                        .withPolicy("67890", LocalDate.now().plusDays(30).format(Policy.DATE_FORMATTER)).build();
+                .withPolicy("67890", LocalDate.now().plusDays(30).format(Policy.DATE_FORMATTER)).build();
         model.addPerson(person1);
         model.addPerson(person2);
 

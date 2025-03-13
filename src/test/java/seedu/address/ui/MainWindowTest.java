@@ -129,13 +129,13 @@ public class MainWindowTest {
         latch.await(5, TimeUnit.SECONDS);
         Throwable thrown = throwableRef.get();
         assertTrue(thrown instanceof NullPointerException,
-            "Expected NullPointerException but got " + (thrown != null ? thrown.getClass() : "no exception"));
+                "Expected NullPointerException but got " + (thrown != null ? thrown.getClass() : "no exception"));
     }
 
     @Test
     public void setAccelerator_nullMenuItem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-            mainWindow.setAccelerator(null, null));
+                mainWindow.setAccelerator(null, null));
     }
 
     @Test
