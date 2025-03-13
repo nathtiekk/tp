@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -180,6 +181,23 @@ public class ModelManager implements Model {
         renewalsListSource.addAll(sortedList);
     }
 
+    /**
+     * Returns the current renewals comparator.
+     * This method is for testing purposes only.
+     */
+    public Comparator<Person> getRenewalsComparator() {
+        return renewalsComparator;
+    }
+
+    /**
+     * Sets a predicate on the filtered renewals list.
+     * This method is for testing purposes only.
+     */
+    public void setFilteredRenewalsListPredicate(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredRenewalsList.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -195,6 +213,7 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons)
-                && filteredRenewalsList.equals(otherModelManager.filteredRenewalsList);
+                && filteredRenewalsList.equals(otherModelManager.filteredRenewalsList)
+                && Objects.equals(renewalsComparator, otherModelManager.renewalsComparator);
     }
 }
