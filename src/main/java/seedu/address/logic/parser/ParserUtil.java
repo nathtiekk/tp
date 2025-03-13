@@ -138,6 +138,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> policy} into a {@code Set<Policy>}.
+     */
+    public static Set<Policy> parsePolicies(Collection<String> policies) throws ParseException {
+        requireNonNull(policies);
+        final Set<Policy> policySet = new HashSet<>();
+        for (String policy : policies) {
+            policySet.add(parsePolicy(policy));
+        }
+        return policySet;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
