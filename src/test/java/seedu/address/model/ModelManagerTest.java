@@ -11,9 +11,8 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -242,6 +241,8 @@ public class ModelManagerTest {
         assertNotNull(afterSet);
         // Ensure that lastUpdated is updated.
         assertTrue(afterSet.isAfter(afterAdd) || afterSet.isEqual(afterAdd));
+    }
+
     @Test
     public void equals_differentRenewalsComparator_returnsFalse() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
