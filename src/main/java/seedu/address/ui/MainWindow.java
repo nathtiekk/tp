@@ -176,6 +176,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Gets the RenewalsTable for testing.
+     */
+    public RenewalsTable getRenewalsTable() {
+        return renewalsTable;
+    }
+
+    /**
+     * Gets the ResultDisplay for testing.
+     */
+    public ResultDisplay getResultDisplay() {
+        return resultDisplay;
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
