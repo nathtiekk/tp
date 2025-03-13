@@ -25,7 +25,8 @@ public class PolicyContainsNumbersPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        PolicyContainsNumbersPredicate firstPredicateCopy = new PolicyContainsNumbersPredicate(firstPredicateNumberList);
+        PolicyContainsNumbersPredicate firstPredicateCopy =
+                new PolicyContainsNumbersPredicate(firstPredicateNumberList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +42,8 @@ public class PolicyContainsNumbersPredicateTest {
     @Test
     public void test_policyContainsNumbers_returnsTrue() {
         // Exact number
-        PolicyContainsNumbersPredicate predicate = new PolicyContainsNumbersPredicate(Set.of(new Policy("123456")));
+        PolicyContainsNumbersPredicate predicate = new PolicyContainsNumbersPredicate(
+                Set.of(new Policy("123456")));
         assertTrue(predicate.test(new PersonBuilder().withPolicy("123456").build()));
 
         // Partial number matching
