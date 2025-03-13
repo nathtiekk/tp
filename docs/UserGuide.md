@@ -130,8 +130,9 @@ Format: `find [n/NAME]… [p/PHONE]…`
   e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find n/John` returns `john` and `John Doe`
+* `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
+* `find n/alex n/david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a person : `delete`
