@@ -32,29 +32,11 @@ public class RenewalsTableTest {
     private RenewalsTable renewalsTable;
 
     @BeforeAll
-    public static void setupSpec() throws InterruptedException {
-        // Initialize JavaFX Toolkit
+    public static void setupSpec() {
         try {
-            System.setProperty("java.awt.headless", "true");
-            System.setProperty("testfx.robot", "glass");
-            System.setProperty("testfx.headless", "true");
-            System.setProperty("prism.order", "sw");
-            System.setProperty("prism.text", "t2k");
-            new JFXPanel();
-            CountDownLatch latch = new CountDownLatch(1);
-            Platform.runLater(() -> {
-                stage = new Stage();
-                stage.setScene(new Scene(new VBox()));
-                latch.countDown();
-            });
-            if (!latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
-                throw new RuntimeException("JavaFX initialization timed out");
-            }
+            new JFXPanel(); // initializes JavaFX environment
         } catch (Exception e) {
-            // If toolkit is already initialized, ignore the error
-            if (!e.getMessage().contains("Toolkit already initialized")) {
-                throw e;
-            }
+            throw new RuntimeException(e);
         }
     }
 
@@ -63,9 +45,13 @@ public class RenewalsTableTest {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
+                stage = new Stage();
+                stage.setScene(new Scene(new VBox()));
                 model = new ModelManager();
                 renewalsTable = new RenewalsTable(model);
-                ((VBox) stage.getScene().getRoot()).getChildren().setAll(renewalsTable.getRoot());
+                VBox root = (VBox) stage.getScene().getRoot();
+                root.getChildren().setAll(renewalsTable.getRoot());
+                stage.show();
             } finally {
                 latch.countDown();
             }
@@ -80,7 +66,8 @@ public class RenewalsTableTest {
         CountDownLatch latch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
-                ((VBox) stage.getScene().getRoot()).getChildren().clear();
+                VBox root = (VBox) stage.getScene().getRoot();
+                root.getChildren().clear();
             } finally {
                 latch.countDown();
             }
@@ -108,10 +95,10 @@ public class RenewalsTableTest {
 
     @Test
     public void updateRenewals_withPeople_populatesTable() throws InterruptedException {
-        Person person1 = new PersonBuilder().withName("Alice").
-                withPolicy("12345", LocalDate.now().plusDays(60).format(Policy.DATE_FORMATTER)).build();
-        Person person2 = new PersonBuilder().withName("Bob").
-                withPolicy("67890", LocalDate.now().plusDays(30).format(Policy.DATE_FORMATTER)).build();
+        Person person1 = new PersonBuilder().withName("Alice")
+                        .withPolicy("12345", LocalDate.now().plusDays(60).format(Policy.DATE_FORMATTER)).build();
+        Person person2 = new PersonBuilder().withName("Bob")
+                        .withPolicy("67890", LocalDate.now().plusDays(30).format(Policy.DATE_FORMATTER)).build();
         model.addPerson(person1);
         model.addPerson(person2);
 
@@ -158,9 +145,9 @@ public class RenewalsTableTest {
 
     @Test
     public void renewalEntry_creation_correctValues() {
-        Person person = new PersonBuilder().withName("Charlie").
-                withPolicy("11111", LocalDate.now().plusDays(15).format(Policy.DATE_FORMATTER)).
-                withPhone("12345678").build();
+        Person person = new PersonBuilder().withName("Charlie")
+                .withPolicy("11111", LocalDate.now().plusDays(15).format(Policy.DATE_FORMATTER))
+                .withPhone("12345678").build();
 
         RenewalsTable.RenewalEntry entry = new RenewalsTable.RenewalEntry(person);
 
