@@ -26,14 +26,11 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-
-    private Stage primaryStage;
-    private Logic logic;
-
-    // Independent Ui parts residing in this Ui container
+    private final Logic logic;
+    private final Stage primaryStage;
+    private final HelpWindow helpWindow;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
     private RenewalsTable renewalsTable;
 
     @FXML
@@ -84,7 +81,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the accelerator of a MenuItem.
      * @param keyCombination the KeyCombination value of the accelerator
      */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+    protected void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
 
         /*
@@ -163,7 +160,7 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    private void handleExit() {
+    protected void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -175,12 +172,16 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public HelpWindow getHelpWindow() {
+        return helpWindow;
+    }
+
     /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

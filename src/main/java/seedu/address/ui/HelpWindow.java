@@ -83,6 +83,13 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns true if the help window is currently focused.
+     */
+    public boolean isFocused() {
+        return getRoot().isFocused();
+    }
+
+    /**
      * Focuses on the help window.
      */
     public void focus() {
