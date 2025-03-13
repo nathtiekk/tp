@@ -10,18 +10,12 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Policy;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.FindPersonsPredicateBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
