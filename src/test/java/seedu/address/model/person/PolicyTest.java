@@ -35,6 +35,13 @@ public class PolicyTest {
     }
 
     @Test
+    public void constructor_invalidDateFormat_throwsIllegalArgumentException() {
+        // This date string matches the regex but is not a valid date
+        String invalidButMatchingDate = "3133-02-2024"; // February 31st doesn't exist
+        assertThrows(IllegalArgumentException.class, () -> new Policy(VALID_POLICY_NUMBER, invalidButMatchingDate));
+    }
+
+    @Test
     public void constructor_defaultRenewalDate_setsToOneYear() {
         Policy policy = new Policy(VALID_POLICY_NUMBER);
         LocalDate expectedDate = LocalDate.now().plusYears(1);
