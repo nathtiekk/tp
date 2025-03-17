@@ -56,7 +56,9 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        addressBook.setLastUpdated(lastUpdated.toModelType());
+        if (lastUpdated != null) {
+            addressBook.setLastUpdated(lastUpdated.toModelType());
+        }
         return addressBook;
     }
 
