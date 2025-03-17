@@ -67,6 +67,63 @@ public class RenewalDateTest {
     }
 
     @Test
+    public void isValidRenewalDate_thirtyDayMonths() {
+        // April (4), June (6), September (9), November (11)
+        assertTrue(RenewalDate.isValidRenewalDate("30-04-2024")); // valid last day
+        assertFalse(RenewalDate.isValidRenewalDate("31-04-2024")); // invalid day
+
+        assertTrue(RenewalDate.isValidRenewalDate("30-06-2024"));
+        assertFalse(RenewalDate.isValidRenewalDate("31-06-2024"));
+
+        assertTrue(RenewalDate.isValidRenewalDate("30-09-2024"));
+        assertFalse(RenewalDate.isValidRenewalDate("31-09-2024"));
+
+        assertTrue(RenewalDate.isValidRenewalDate("30-11-2024"));
+        assertFalse(RenewalDate.isValidRenewalDate("31-11-2024"));
+    }
+
+    @Test
+    public void isValidRenewalDate_thirtyOneDayMonths() {
+        // January (1), March (3), May (5), July (7), August (8), October (10), December (12)
+        assertTrue(RenewalDate.isValidRenewalDate("31-01-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("31-03-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("31-05-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("31-07-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("31-08-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("31-10-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("31-12-2024"));
+    }
+
+    @Test
+    public void isValidRenewalDate_februaryLeapYearRules() {
+        // Regular leap year (divisible by 4)
+        assertTrue(RenewalDate.isValidRenewalDate("29-02-2024"));
+        // Not a leap year
+        assertFalse(RenewalDate.isValidRenewalDate("29-02-2023"));
+        // Century year not divisible by 400 (not a leap year)
+        assertFalse(RenewalDate.isValidRenewalDate("29-02-2100"));
+        // Century year divisible by 400 (is a leap year)
+        assertTrue(RenewalDate.isValidRenewalDate("29-02-2000"));
+        // Invalid days for any February
+        assertFalse(RenewalDate.isValidRenewalDate("30-02-2024"));
+        assertFalse(RenewalDate.isValidRenewalDate("31-02-2024"));
+    }
+
+    @Test
+    public void isValidRenewalDate_boundaryConditions() {
+        // First day of month
+        assertTrue(RenewalDate.isValidRenewalDate("01-01-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("01-02-2024"));
+        assertTrue(RenewalDate.isValidRenewalDate("01-12-2024"));
+        // Invalid zero day
+        assertFalse(RenewalDate.isValidRenewalDate("00-01-2024"));
+        // Invalid zero month
+        assertFalse(RenewalDate.isValidRenewalDate("01-00-2024"));
+        // Invalid month > 12
+        assertFalse(RenewalDate.isValidRenewalDate("01-13-2024"));
+    }
+
+    @Test
     public void getDaysUntilRenewal_futureDate_returnsPositiveDays() {
         RenewalDate renewalDate = new RenewalDate(LocalDate.now().plusDays(5).format(RenewalDate.DATE_FORMATTER));
         assertEquals(5, renewalDate.getDaysUntilRenewal());
@@ -87,7 +144,6 @@ public class RenewalDateTest {
     @Test
     public void isRenewalDueWithin() {
         RenewalDate renewalDate = new RenewalDate(LocalDate.now().plusDays(30).format(RenewalDate.DATE_FORMATTER));
-
         assertTrue(renewalDate.isRenewalDueWithin(60)); // within range
         assertTrue(renewalDate.isRenewalDueWithin(30)); // exactly on range
         assertFalse(renewalDate.isRenewalDueWithin(15)); // outside range
@@ -97,19 +153,14 @@ public class RenewalDateTest {
     public void equals() {
         String date = LocalDate.now().plusDays(30).format(RenewalDate.DATE_FORMATTER);
         RenewalDate renewalDate = new RenewalDate(date);
-
         // same values -> returns true
         assertTrue(renewalDate.equals(new RenewalDate(date)));
-
         // same object -> returns true
         assertTrue(renewalDate.equals(renewalDate));
-
         // null -> returns false
         assertFalse(renewalDate.equals(null));
-
         // different types -> returns false
         assertFalse(renewalDate.equals(5.0f));
-
         // different dates -> returns false
         String differentDate = LocalDate.now().plusDays(60).format(RenewalDate.DATE_FORMATTER);
         assertFalse(renewalDate.equals(new RenewalDate(differentDate)));
