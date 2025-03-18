@@ -13,6 +13,7 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.FindCommand.FindPersonsPredicate;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -87,6 +88,12 @@ public class PersonUtil {
             if (predicate.getPhonePredicate().get().getNumbers().isPresent()) {
                 Set<Phone> numbers = predicate.getPhonePredicate().get().getNumbers().get();
                 numbers.forEach(s -> sb.append(PREFIX_PHONE).append(s.value).append(" "));
+            }
+        }
+        if (predicate.getAddressPredicate().isPresent()) {
+            if (predicate.getAddressPredicate().get().getAddresses().isPresent()) {
+                Set<Address> addresses = predicate.getAddressPredicate().get().getAddresses().get();
+                addresses.forEach(s -> sb.append(PREFIX_ADDRESS).append(s.value).append(" "));
             }
         }
         if (predicate.getPolicyPredicate().isPresent()) {
