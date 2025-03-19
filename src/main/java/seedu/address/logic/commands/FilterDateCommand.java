@@ -3,7 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Comparator;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -49,24 +50,16 @@ public class FilterDateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        //to be continued
-        //model.updateFilteredPersonList(RenewalDatePredicate(startDate, endDate));
+        Predicate<Person> renewalFilterPredicate = person ->
+                person.getPolicy().isRenewalDueWithinDateRange(startDate, endDate);
 
-        List<Person> filteredList = model.getFilteredPersonList();
+        model.updateRenewalsList(renewalFilterPredicate);
+        model.updateSortedRenewalsList(sortFilterDate());
 
-        if (filteredList.isEmpty()) {
+        if (model.getRenewalsList().isEmpty()) {
             return new CommandResult(String.format(MESSAGE_NO_RESULTS, startDate, endDate));
         }
-
-        /* to be continued
-        if (sortOrder.equals("name")) {
-            filteredList.sort((p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
-        } else {
-            filteredList.sort((p1, p2) -> p1.getPolicy().getRenewalDate().compareTo(p2.getPolicy().getRenewalDate()));
-        }
-         */
-
-        return new CommandResult("to be continued");
+        return new CommandResult(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS, model.getRenewalsList().size()));
     }
 
     @Override
@@ -81,5 +74,14 @@ public class FilterDateCommand extends Command {
         return startDate.equals(otherCommand.startDate)
                 && endDate.equals(otherCommand.endDate)
                 && sortOrder.equals(otherCommand.sortOrder);
+    }
+
+    private Comparator<Person> sortFilterDate() {
+        if (sortOrder.equals("date")) {
+            return Comparator.comparing(Person::getRenewalDateValue);
+        } else {
+            // Sort by name (alphabetical order)
+            return Comparator.comparing(person -> person.getName().fullName);
+        }
     }
 }
