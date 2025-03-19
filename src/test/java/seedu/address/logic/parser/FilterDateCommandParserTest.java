@@ -64,7 +64,7 @@ public class FilterDateCommandParserTest {
 
     @Test
     public void parse_nonExistentSortType_throwsParseException() {
-        String userInput = "filter sd/2025-02-30 ed/2025-03-31 s/value"; // value is not a valid sort type
+        String userInput = "filter sd/2025-02-11 ed/2025-03-31 s/value"; // value is not a valid sort type
         assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
