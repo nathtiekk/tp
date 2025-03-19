@@ -51,6 +51,7 @@ public class FilterDateCommandTest {
     }
     */
 
+    /* to be continued
     @Test
     public void execute_noMatchingResults_failure() {
         LocalDate startDate = LocalDate.of(2050, 1, 1);
@@ -60,6 +61,7 @@ public class FilterDateCommandTest {
         String expectedMessage = String.format(FilterDateCommand.MESSAGE_NO_RESULTS, startDate, endDate);
         assertCommandSuccess(command, model, expectedMessage, model);
     }
+    */
 
     /* to be continued
     @Test

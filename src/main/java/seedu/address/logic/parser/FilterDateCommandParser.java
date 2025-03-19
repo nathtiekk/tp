@@ -15,10 +15,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class FilterDateCommandParser implements Parser<FilterDateCommand> {
 
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format: Must be valid date in YYYY-MM-DD format";
     private static final String MESSAGE_INVALID_START_DATE = "Invalid start date: Must be valid date in YYYY-MM-DD format " +
-            "and less than or equal to END_DATE.";
+            "and less than or equal to end date.";
     private static final String MESSAGE_INVALID_END_DATE = "Invalid end date: Must be valid date in YYYY-MM-DD format " +
-            "and must be >= start date and within 5 years";
+            "and more than or equal to start date, and within 5 years from the start date";
     private static final String MESSAGE_INVALID_SORT = "Invalid sort. Use 'date' or 'name' (case-insensitive)";
     private static final int MAX_YEARS_RANGE = 5;
 
@@ -31,8 +32,8 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
             throw new ParseException("Start date (sd/) and end date (ed/) are required.");
         }
 
-        LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get(), MESSAGE_INVALID_START_DATE);
-        LocalDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get(), MESSAGE_INVALID_END_DATE);
+        LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
+        LocalDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
         if (startDate.isAfter(endDate)) {
             throw new ParseException(MESSAGE_INVALID_START_DATE);
