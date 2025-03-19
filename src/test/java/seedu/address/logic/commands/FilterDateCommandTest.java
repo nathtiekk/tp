@@ -1,3 +1,4 @@
+/*
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -15,11 +16,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+//import seedu.address.model.person.Person;
 
-/**
- * Contains integration tests (interaction with the Model) and unit tests for FilterDateCommand.
- */
 public class FilterDateCommandTest {
 
     private Model model;
@@ -29,7 +27,7 @@ public class FilterDateCommandTest {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
-    /* to be continued
+
     @Test
     public void execute_validDateRange_success() {
         LocalDate startDate = LocalDate.of(2025, 3, 1);
@@ -49,9 +47,9 @@ public class FilterDateCommandTest {
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
-    */
 
-    /* to be continued
+
+
     @Test
     public void execute_noMatchingResults_failure() {
         LocalDate startDate = LocalDate.of(2050, 1, 1);
@@ -61,9 +59,9 @@ public class FilterDateCommandTest {
         String expectedMessage = String.format(FilterDateCommand.MESSAGE_NO_RESULTS, startDate, endDate);
         assertCommandSuccess(command, model, expectedMessage, model);
     }
-    */
 
-    /* to be continued
+
+
     @Test
     public void execute_invalidDateRange_failure() {
         LocalDate startDate = LocalDate.of(2025, 3, 31);
@@ -72,5 +70,6 @@ public class FilterDateCommandTest {
 
         assertCommandFailure(command, model, "Start date must be on or before end date.");
     }
-     */
+
 }
+*/

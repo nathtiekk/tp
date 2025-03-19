@@ -27,6 +27,16 @@ public class FilterDateCommand extends Command {
     private final LocalDate endDate;
     private final String sortOrder;
 
+    /**
+     * Constructs a {@code FilterDateCommand} with the specified start date, end date, and sort order.
+     * The {@code startDate} and {@code endDate} must not be null. If {@code sortOrder} is null,
+     * it defaults to "date".
+     *
+     * @param startDate The starting date for filtering. Must not be null.
+     * @param endDate   The ending date for filtering. Must not be null.
+     * @param sortOrder The sort order for filtering. If null, defaults to "date".
+     * @throws NullPointerException If {@code startDate} or {@code endDate} is null.
+     */
     public FilterDateCommand(LocalDate startDate, LocalDate endDate, String sortOrder) {
         requireNonNull(startDate);
         requireNonNull(endDate);
