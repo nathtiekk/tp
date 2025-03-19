@@ -14,6 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Policy;
+import seedu.address.model.person.RenewalDate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -172,5 +173,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String renewalDate} into a {@code RenewalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code renewalDate} is invalid.
+     */
+    public static String parseRenewalDate(String renewalDate) throws ParseException {
+        requireNonNull(renewalDate);
+        String trimmedRenewalDate = renewalDate.trim();
+        if (!RenewalDate.isValidRenewalDate(trimmedRenewalDate)) {
+            throw new ParseException(RenewalDate.DATE_CONSTRAINTS);
+        }
+        return trimmedRenewalDate;
     }
 }
