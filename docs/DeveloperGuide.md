@@ -93,10 +93,10 @@ The person card UI is implemented using the following components:
 
 -   `PersonCard.java`: Controls the display of person information in the card:
     -   Binds UI elements to person data
-    -   Formats the renewal date display
+    -   Formats the renewal date display with the prefix "Renewal date: " for clarity
     -   Manages tag display
 
-The person card provides a compact view of all essential client information, making it easy for insurance agents to quickly access client details and track policy renewals.
+The person card provides a compact view of all essential client information, making it easy for insurance agents to quickly access client details and track policy renewals. The renewal date is prominently displayed with a clear label to help agents quickly identify when policies need to be renewed.
 
 ### Logic component
 
