@@ -107,6 +107,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> addresses} into a {@code Set<Address>}.
+     */
+    public static Set<Address> parseAddresses(Collection<String> addresses) throws ParseException {
+        requireNonNull(addresses);
+        final Set<Address> addressSet = new HashSet<>();
+        for (String address : addresses) {
+            addressSet.add(parseAddress(address));
+        }
+        return addressSet;
+    }
+
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
