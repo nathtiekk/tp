@@ -37,6 +37,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE]... "
             + "[" + PREFIX_ADDRESS + "ADDRESS]... "
             + "[" + PREFIX_POLICY + "POLICY_NUMBER]...\n"
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "alice "
             + PREFIX_NAME + "bob "
