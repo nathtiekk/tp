@@ -104,8 +104,10 @@ Each person card in the list displays:
 -   Email address
 -   Physical address
 -   Policy number
--   Renewal date (in DD-MM-YYYY format)
+-   Renewal date (displayed as "Renewal date: DD-MM-YYYY")
 -   Tags (if any)
+
+The renewal date is clearly labeled to help insurance agents quickly identify when policies need to be renewed.
 
 ### Editing a person : `edit`
 
@@ -238,12 +240,12 @@ _Details coming soon ..._
 ## Command summary
 
 | Action            | Format, Examples                                                                                                                                                                                   |
-| ----------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 t/friend t/colleague` |
 | **Clear**         | `clear`                                                                                                                                                                                            |
 | **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                |
 | **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                        |
-| **Find**          | `find [n/NAME]… [p/PHONE]… [a/ADDRESS]… [pol/POLICY_NUMBER]…`<br> e.g., `find n/James n/Jake p/98765432`                                                                                                                            |
+| **Find**          | `find [n/NAME]… [p/PHONE]… [a/ADDRESS]… [pol/POLICY_NUMBER]…`<br> e.g., `find n/James n/Jake p/98765432`                                                                                           |
 | **List**          | `list`                                                                                                                                                                                             |
 | **Help**          | `help`                                                                                                                                                                                             |
 | **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                 |
