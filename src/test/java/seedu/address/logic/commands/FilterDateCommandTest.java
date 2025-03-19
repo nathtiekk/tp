@@ -114,7 +114,7 @@ public class FilterDateCommandTest {
         LocalDate startDate = LocalDate.of(2025, 3, 1);
         LocalDate endDate = LocalDate.of(2025, 3, 31);
 
-        FilterDateCommand command = new FilterDateCommand(startDate, endDate, "date");
+        FilterDateCommand command = new FilterDateCommand(startDate, endDate, null);
         CommandResult result = command.execute(model);
 
         assertEquals(String.format(FilterDateCommand.MESSAGE_NO_RESULTS, startDate, endDate),
@@ -129,6 +129,7 @@ public class FilterDateCommandTest {
         FilterDateCommand command3 = new FilterDateCommand(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 30), "date");
         FilterDateCommand command4 = new FilterDateCommand(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), "name");
 
+        assertTrue(command1.equals(command1)); //same object
         assertTrue(command1.equals(command2));
         assertFalse(command1.equals(null)); // Null
         assertFalse(command1.equals(new ClearCommand())); // Different type
