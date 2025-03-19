@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -47,7 +46,7 @@ public class FilterDateCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         Predicate<Person> renewalFilterPredicate = person ->
