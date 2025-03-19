@@ -131,22 +131,24 @@ Examples:
 
 Finds persons whose names contain any of the given values.
 
-Format: `find [n/NAME]… [p/PHONE]… [a/ADDRESS]… [pol/POLICY_NUMBER]…`
+Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]…`
 
--   At least one of the optional fields must be provided.
--   Each field may be provided more than once.
--   Each field may contain more than one word.
--   The search is case-insensitive. e.g `hans` will match `Hans`
--   The order of the values matter for a field but not for different fields. e.g. `n/Hans Bo` will not match `Bo Hans` but `n/Hans n/Bo` will match `Bo Hans`
--   Partial words will also be matched e.g. `n/Han` will match `Hans`
--   Persons matching at least one field will be returned (i.e. `OR` search).
+*   At least one of the optional fields must be provided.
+*   Each field may be provided more than once.
+*   Each field may contain more than one word.
+*   The search is case-insensitive. e.g `hans` will match `Hans`
+*   The order of the values matter for a field but not for different fields. e.g. `n/Hans Bo` will not match `Bo Hans` but `n/Hans n/Bo` will match `Bo Hans`
+*   Partial words will also be matched e.g. `n/Han` will match `Hans`
+*   Partial search for emails must be concatenate with `@` followed by at least 2 characters  e.g. `e/ice@ex` will match `alice@example.com` but `alice@e` will not match `alice@example.com`
+*   Persons matching at least one field will be returned (i.e. `OR` search).
     e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
--   `find n/John` returns `john` and `John Doe`
--   `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
--   `find n/alex n/david` returns `Alex Yeoh`, `David Li`<br>
+*   `find n/John` returns `john` and `John Doe`
+*   `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
+*   `find n/alex n/david` returns `Alex Yeoh`, `David Li`
+*   `find e/ice@example.com e/bob@ex` returns `alice@example.com` and `bob@example.com`<br>
     ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a person : `delete`
@@ -245,7 +247,7 @@ _Details coming soon ..._
 | **Clear**         | `clear`                                                                                                                                                                                            |
 | **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                |
 | **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                        |
-| **Find**          | `find [n/NAME]… [p/PHONE]… [a/ADDRESS]… [pol/POLICY_NUMBER]…`<br> e.g., `find n/James n/Jake p/98765432`                                                                                           |
+| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]…`<br> e.g., `find n/James n/Jake p/98765432`                                                                                                                            |
 | **List**          | `list`                                                                                                                                                                                             |
 | **Help**          | `help`                                                                                                                                                                                             |
 | **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                 |
