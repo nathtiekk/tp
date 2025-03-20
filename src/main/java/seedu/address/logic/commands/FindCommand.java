@@ -117,7 +117,7 @@ public class FindCommand extends Command {
          * Returns true if at least one predicate is set.
          */
         public boolean isAnyPredicateSet() {
-            return CollectionUtil.isAnyNonNull(namePredicate, phonePredicate, emailPredicate, 
+            return CollectionUtil.isAnyNonNull(namePredicate, phonePredicate, emailPredicate,
                     addressPredicate, policyPredicate, tagPredicate);
         }
 
