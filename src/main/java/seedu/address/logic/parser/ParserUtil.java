@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -134,6 +136,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> emails} into a {@code Set<Email>}.
+     */
+    public static Set<Email> parseEmails(Collection<String> emails) throws ParseException {
+        requireNonNull(emails);
+        final Set<Email> emailSet = new HashSet<>();
+        for (String email : emails) {
+            emailSet.add(parseEmail(email));
+        }
+        return emailSet;
+    }
+
+    /**
      * Parses a {@code String policy} into a {@code Policy}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -200,5 +214,21 @@ public class ParserUtil {
             throw new ParseException(RenewalDate.DATE_CONSTRAINTS);
         }
         return trimmedRenewalDate;
+    }
+
+    /**
+     * Parses a {@code String dateStr} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param dateStr The date string to parse.
+     * @return The parsed {@code LocalDate} object.
+     * @throws ParseException if the given {@code dateStr} is invalid.
+     */
+    public static LocalDate parseDate(String dateStr) throws ParseException {
+        try {
+            return LocalDate.parse(dateStr.trim());
+        } catch (DateTimeParseException e) {
+            throw new ParseException(FilterDateCommandParser.MESSAGE_INVALID_DATE_FORMAT);
+        }
     }
 }
