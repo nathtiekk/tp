@@ -85,7 +85,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        String userInput = PHONE_DESC_BOB + NAME_DESC_AMY + POLICY_DESC_AMY + ADDRESS_DESC_BOB + EMAIL_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = PHONE_DESC_BOB + NAME_DESC_AMY + POLICY_DESC_AMY + ADDRESS_DESC_BOB
+                + EMAIL_DESC_AMY + TAG_DESC_FRIEND;
 
         FindCommand.FindPersonsPredicate predicate = new FindPersonsPredicateBuilder().withNames(VALID_NAME_AMY)
                 .withPhones(VALID_PHONE_BOB).withEmails(VALID_EMAIL_AMY).withAddresses(VALID_ADDRESS_BOB)
