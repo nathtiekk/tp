@@ -2,9 +2,11 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -88,5 +90,24 @@ public class TagContainsKeywordsPredicateTest {
 
         String expected = TagContainsKeywordsPredicate.class.getCanonicalName() + "{tags=" + tags + "}";
         assertEquals(expected, predicate.toString());
+    }
+
+    @Test
+    public void getTags_nonNull_returnsImmutableSet() {
+        Set<Tag> tagSet = Set.of(new Tag("friend"), new Tag("colleague"));
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(tagSet);
+        Optional<Set<Tag>> optionalTags = predicate.getTags();
+        assertTrue(optionalTags.isPresent());
+        // Verify that the returned set is unmodifiable
+        assertThrows(UnsupportedOperationException.class, () -> {
+            optionalTags.get().add(new Tag("enemy"));
+        });
+    }
+
+    @Test
+    public void getTags_null_returnsEmptyOptional() {
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(null);
+        Optional<Set<Tag>> optionalTags = predicate.getTags();
+        assertFalse(optionalTags.isPresent());
     }
 }
