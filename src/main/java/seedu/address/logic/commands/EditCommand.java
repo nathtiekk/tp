@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEWAL_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -48,10 +49,12 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_POLICY + "POLICY_NUMBER] "
             + "[" + PREFIX_RENEWAL_DATE + "DD-MM-YYYY] "
+            + "[" + PREFIX_POLICY_TYPE + "TYPE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_POLICY_TYPE + "Health "
             + PREFIX_RENEWAL_DATE + "31-12-2024";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -106,13 +109,18 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Policy updatedPolicy;
-        if (editPersonDescriptor.getPolicy().isPresent() || editPersonDescriptor.getRenewalDate().isPresent()) {
+        if (editPersonDescriptor.getPolicy().isPresent()
+                || editPersonDescriptor.getRenewalDate().isPresent()
+                || editPersonDescriptor.getPolicyType().isPresent()) {
             String policyNumber = editPersonDescriptor.getPolicy()
-                    .map(p -> p.getPolicyNumber())
+                    .map(Policy::getPolicyNumber)
                     .orElse(personToEdit.getPolicy().getPolicyNumber());
-            String renewalDate = editPersonDescriptor.getRenewalDate()
-                    .orElse(personToEdit.getRenewalDate());
-            updatedPolicy = new Policy(policyNumber, renewalDate);
+            String renewalDate = editPersonDescriptor.getRenewalDate().orElse(
+                    personToEdit.getPolicy().renewalDate.toString());
+            String policyType = editPersonDescriptor.getPolicyType().orElse(
+                    personToEdit.getPolicy().getType().toString());
+
+            updatedPolicy = new Policy(policyNumber, renewalDate, policyType);
         } else {
             updatedPolicy = personToEdit.getPolicy();
         }
@@ -156,6 +164,7 @@ public class EditCommand extends Command {
         private Address address;
         private Policy policy;
         private String renewalDate;
+        private String policyType;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -171,6 +180,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setPolicy(toCopy.policy);
             setRenewalDate(toCopy.renewalDate);
+            setPolicyType(toCopy.policyType);
             setTags(toCopy.tags);
         }
 
@@ -178,7 +188,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, policy, renewalDate, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, policy, renewalDate, policyType, tags);
         }
 
         public void setName(Name name) {
@@ -229,6 +239,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(renewalDate);
         }
 
+        public void setPolicyType(String policyType) {
+            this.policyType = policyType;
+        }
+
+        public Optional<String> getPolicyType() {
+            return Optional.ofNullable(policyType);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -264,6 +282,7 @@ public class EditCommand extends Command {
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(policy, otherEditPersonDescriptor.policy)
                     && Objects.equals(renewalDate, otherEditPersonDescriptor.renewalDate)
+                    && Objects.equals(policyType, otherEditPersonDescriptor.policyType)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
@@ -276,6 +295,7 @@ public class EditCommand extends Command {
                     .add("address", address)
                     .add("policy", policy)
                     .add("renewalDate", renewalDate)
+                    .add("policyType", policyType)
                     .add("tags", tags)
                     .toString();
         }

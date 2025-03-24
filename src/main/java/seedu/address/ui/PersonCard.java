@@ -41,6 +41,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label policy;
     @FXML
+    private Label policyType;
+    @FXML
     private Label renewalDate;
     @FXML
     private FlowPane tags;
@@ -57,6 +59,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         policy.setText(person.getPolicy().policyNumber);
+        policyType.setText("Policy Type: " + person.getPolicy().getType().toString());
         renewalDate.setText("Renewal date: " + person.getRenewalDate());
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
