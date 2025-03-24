@@ -21,12 +21,21 @@ public class PersonListPanel extends UiPart<Region> {
     private ListView<Person> personListView;
 
     /**
-     * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * Constructs a {@code PersonListPanel} with the given observable list of persons.
+     *
+     * @param personList the observable list of persons to be displayed in the panel
      */
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+    }
+
+    /**
+     * Exposes the internal ListView so that MainWindow can attach listeners.
+     */
+    public ListView<Person> getListView() {
+        return personListView;
     }
 
     /**
@@ -45,5 +54,5 @@ public class PersonListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
+
