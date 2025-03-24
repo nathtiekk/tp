@@ -14,8 +14,8 @@
              -fx-border-color: #666;
              -fx-border-width: 2;
              -fx-border-radius: 8;
-             -fx-padding: 15;"> 
-    
+             -fx-padding: 15;">
+
     <children>
         <Label text="Person Details"
                style="-fx-font-size: 16px;
