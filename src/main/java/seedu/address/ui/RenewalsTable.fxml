@@ -15,4 +15,4 @@
             <TableColumn fx:id="contactColumn" text="Contact" />
         </columns>
     </TableView>
-</VBox> 
+</VBox>
