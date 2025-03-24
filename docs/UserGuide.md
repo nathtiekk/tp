@@ -180,6 +180,20 @@ Exits the program.
 
 Format: `exit`
 
+### Updating a policy renewal date : `renew`
+
+Updates the renewal date of a client's policy by directly using their policy number, without needing to search for their index.
+
+Format: `renew pol/POLICY_NUMBER r/RENEWAL_DATE`
+
+-   The `pol/POLICY_NUMBER` parameter must be a valid policy number in the system.
+-   The `r/RENEWAL_DATE` parameter must be in the format `DD-MM-YYYY`.
+-   If multiple clients have the same policy number, an error message will be shown. In this case, use the `edit` command with the client's index instead.
+
+Examples:
+
+-   `renew pol/123456 r/31-12-2025` - Updates the renewal date for policy 123456 to December 31, 2025
+
 ### Viewing upcoming policy renewals : `viewrenewals`
 
 Helps insurance agents proactively track and manage upcoming policy renewals for their clients.
@@ -252,4 +266,5 @@ _Details coming soon ..._
 | **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]`<br> e.g., `find n/James n/Jake p/98765432`                                                                                         |
 | **List**          | `list`                                                                                                                                                                                                              |
 | **Help**          | `help`                                                                                                                                                                                                              |
+| **Renew**         | `renew pol/POLICY_NUMBER r/RENEWAL_DATE`<br> e.g., `renew pol/123456 r/31-12-2025`                                                                                                                                  |
 | **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                                  |

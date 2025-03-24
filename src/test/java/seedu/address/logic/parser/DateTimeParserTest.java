@@ -54,7 +54,7 @@ public class DateTimeParserTest {
     @Test
     public void formatDateTime_nonMidnight_returnsShortDateTimeFormat() {
         LocalDateTime dateTime = LocalDateTime.of(2025, Month.MARCH, 18, 14, 15);
-        String expected = "Mar 18 2025 2:15PMH";
+        String expected = "Mar 18 2025 2:15pmH";
         assertEquals(expected, DateTimeParser.formatDateTime(dateTime));
     }
 }
