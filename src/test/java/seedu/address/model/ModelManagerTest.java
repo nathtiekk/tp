@@ -300,6 +300,10 @@ public class ModelManagerTest {
         assertTrue(sortedList.contains(personA));
         assertTrue(sortedList.contains(personB));
         assertTrue(sortedList.contains(personC));
+        // Verify sort order
+        assertEquals(personA, sortedList.get(0));
+        assertEquals(personB, sortedList.get(1));
+        assertEquals(personC, sortedList.get(2));
     }
 
     @Test
