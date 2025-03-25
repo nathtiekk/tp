@@ -184,6 +184,20 @@ Exits the program.
 
 Format: `exit`
 
+### Updating a policy renewal date : `renew`
+
+Updates the renewal date of a client's policy by directly using their policy number, without needing to search for their index.
+
+Format: `renew pol/POLICY_NUMBER r/RENEWAL_DATE`
+
+-   The `pol/POLICY_NUMBER` parameter must be a valid policy number in the system.
+-   The `r/RENEWAL_DATE` parameter must be in the format `DD-MM-YYYY`.
+-   If multiple clients have the same policy number, an error message will be shown. In this case, use the `edit` command with the client's index instead.
+
+Examples:
+
+-   `renew pol/123456 r/31-12-2025` - Updates the renewal date for policy 123456 to December 31, 2025
+
 ### Viewing upcoming policy renewals : `viewrenewals`
 
 Helps insurance agents proactively track and manage upcoming policy renewals for their clients.
@@ -256,13 +270,15 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                                                                               |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [pt/POLICY_TYPE] [r/RENEWAL_DATE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 pt/Health t/friend t/colleague` |
-| **Clear**         | `clear`                                                                                                                                                                                                                                        |
-| **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                                            |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com pt/Travel`                                                           |
-| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]`<br> e.g., `find n/James n/Jake pt/Health p/98765432`                                                                                        |
-| **List**          | `list`                                                                                                                                                                                                                                         |
-| **Help**          | `help`                                                                                                                                                                                                                                         |
-| **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                                                             |
+| Action            | Format, Examples                                                                                                                                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [r/RENEWAL_DATE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 t/friend t/colleague` |
+| **Clear**         | `clear`                                                                                                                                                                                                             |
+| **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                 |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [r/RENEWAL_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                           |
+| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]`<br> e.g., `find n/James n/Jake p/98765432`                                                                                         |
+| **List**          | `list`                                                                                                                                                                                                              |
+| **Help**          | `help`                                                                                                                                                                                                              |
+| **Renew**         | `renew pol/POLICY_NUMBER r/RENEWAL_DATE`<br> e.g., `renew pol/123456 r/31-12-2025`                                                                                                                                  |
+| **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                                  |
+
