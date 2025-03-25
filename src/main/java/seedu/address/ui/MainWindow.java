@@ -147,6 +147,9 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
         );
+        if (personListPanel.getListView().getSelectionModel().getSelectedItem() != null) {
+            personDetailPanel.setPerson(personListPanel.getListView().getSelectionModel().getSelectedItem());
+        }
     }
 
     /**

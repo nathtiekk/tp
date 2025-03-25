@@ -29,6 +29,10 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+
+        if (!personListView.getItems().isEmpty()) {
+            personListView.getSelectionModel().selectFirst();
+        }
     }
 
     /**
