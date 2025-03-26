@@ -78,7 +78,7 @@ public class AddressBookParserTest {
         FindPersonsPredicate predicate = new FindPersonsPredicateBuilder(person).build();
         FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " "
                 + PersonUtil.getFindPersonDetails(predicate));
-        assertEquals(new FindCommand(predicate), command);
+        assertEquals(new FindCommand(predicate, FindCommand.DEFAULT_SORT), command);
     }
 
     @Test

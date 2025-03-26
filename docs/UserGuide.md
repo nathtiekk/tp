@@ -131,7 +131,7 @@ Examples:
 
 Finds persons whose names contain any of the given values.
 
-Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]…`
+Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]… [s/SORT_ORDER]`
 
 -   At least one of the optional fields must be provided.
 -   Each field may be provided more than once.
@@ -143,6 +143,7 @@ Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_N
 -   Persons matching at least one field will be returned (i.e. `OR` search).
     e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 -   Tags are supported. You can add one or more tags using `t/TAG`. The search for tags is not case-sensitive and must be an exact word.
+-  The search results can be sorted by `name` or by `tag`. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
 
 Examples:
 
@@ -152,6 +153,7 @@ Examples:
 -   `find e/ice@example.com e/bob@ex` returns `alice@example.com` and `bob@example.com`<br>
     ![result for 'find alex david'](images/findAlexDavidResult.png)
 -   `find t/colleagues` returns `Bernice Yu` and `Roy Balakrishnan`
+-   `find t/friends t/colleagues s/tag` returns entries containing one or more of the tags `friends` or `colleagues`, sorted by entries with most number of tags first.
 
 ### Deleting a person : `delete`
 
@@ -258,12 +260,12 @@ _Details coming soon ..._
 ## Command summary
 
 | Action            | Format, Examples                                                                                                                                                                                                    |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ----------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [r/RENEWAL_DATE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 t/friend t/colleague` |
 | **Clear**         | `clear`                                                                                                                                                                                                             |
 | **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                 |
 | **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [r/RENEWAL_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]`<br> e.g., `find n/James n/Jake p/98765432`                                                                                         |
+| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]… [s/SORT_ORDER]`<br> e.g., `find n/James n/Jake p/98765432`                                                                         |
 | **List**          | `list`                                                                                                                                                                                                              |
 | **Help**          | `help`                                                                                                                                                                                                              |
 | **Renew**         | `renew pol/POLICY_NUMBER r/RENEWAL_DATE`<br> e.g., `renew pol/123456 r/31-12-2025`                                                                                                                                  |
