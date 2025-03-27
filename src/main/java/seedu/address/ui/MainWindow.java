@@ -2,8 +2,10 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -58,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personDetailPanelPlaceholder;
+
+    @FXML
+    private Button showAllButton;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -140,6 +146,13 @@ public class MainWindow extends UiPart<Stage> {
         PersonDetailPanel personDetailPanel = new PersonDetailPanel();
         personDetailPanelPlaceholder.getChildren().add(personDetailPanel.getRoot());
 
+        // Observe changes in the filtered person list
+        logic.getFilteredPersonList().addListener((ListChangeListener<? super Person>) observable -> {
+            boolean isFiltered = logic.getFilteredPersonList().size()
+                    < logic.getModel().getAddressBook().getPersonList().size();
+            showAllButton.setVisible(isFiltered);
+            showAllButton.setManaged(isFiltered);
+        });
         personListPanel.getListView().getSelectionModel().selectedItemProperty().addListener((
             observable, oldSelection, newSelection) -> {
                 if (newSelection != null) {
@@ -190,6 +203,11 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    @FXML
+    private void handleShowAll() throws CommandException, ParseException {
+        executeCommand("list"); // Reset filter to show all people
     }
 
     public PersonListPanel getPersonListPanel() {

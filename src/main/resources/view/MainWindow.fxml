@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Button?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
          title="InsureBook" minWidth="1200" minHeight="1200">
   <icons>
@@ -45,6 +46,15 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
+
+        <HBox fx:id="showAllButtonBox" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+          <Button fx:id="showAllButton" text="Show full list" onAction="#handleShowAll" visible="false" managed="false"
+                  maxWidth="200" alignment="CENTER" styleClass="button">
+          </Button>
+        </HBox>
 
         <HBox fx:id="personListAndDetailBox" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
