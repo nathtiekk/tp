@@ -38,8 +38,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                    PREFIX_ADDRESS, PREFIX_POLICY, PREFIX_POLICY_TYPE, PREFIX_TAG);
-                    PREFIX_ADDRESS, PREFIX_POLICY, PREFIX_TAG, PREFIX_SORT_ORDER);
+                    PREFIX_ADDRESS, PREFIX_POLICY, PREFIX_POLICY_TYPE, PREFIX_TAG, PREFIX_SORT_ORDER);
         String sortOrder = FindCommand.DEFAULT_SORT;
 
         if (!argMultimap.getPreamble().isEmpty()) {

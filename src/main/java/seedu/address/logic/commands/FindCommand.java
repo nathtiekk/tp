@@ -55,7 +55,6 @@ public class FindCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_POLICY + "104343 "
             + PREFIX_POLICY_TYPE + "Life "
-            + PREFIX_TAG + "friends";
             + PREFIX_TAG + "friends"
             + PREFIX_SORT_ORDER + "tag";
 
