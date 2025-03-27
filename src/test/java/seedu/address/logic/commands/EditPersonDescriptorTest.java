@@ -82,7 +82,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
                 + editPersonDescriptor.getAddress().orElse(null) + ", policy="
                 + editPersonDescriptor.getPolicy().orElse(null) + ", renewalDate="
-                + editPersonDescriptor.getRenewalDate().orElse(null) + ", tags="
+                + editPersonDescriptor.getRenewalDate().orElse(null) + ", policyType="
+                + editPersonDescriptor.getPolicyType().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }

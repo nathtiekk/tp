@@ -148,7 +148,7 @@ public class FindCommandParserTest {
         // policy type
         userInput = POLICY_TYPE_DESC_LIFE;
         predicate = new FindPersonsPredicateBuilder().withPolicyTypes(VALID_POLICY_TYPE_LIFE).build();
-        expectedCommand = new FindCommand(predicate);
+        expectedCommand = new FindCommand(predicate, FindCommand.DEFAULT_SORT);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         userInput = TAG_DESC_FRIEND;
