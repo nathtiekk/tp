@@ -1,11 +1,13 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -64,6 +66,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Button showAllButton;
+
+    @FXML
+    private Label filterLabel;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -210,6 +215,25 @@ public class MainWindow extends UiPart<Stage> {
         executeCommand("list"); // Reset filter to show all people
     }
 
+    /**
+     * Updates the filter label with the specified date range.
+     * If both startDate and endDate are not null, the label will be set to display
+     * the range in the format: "Filtered from [startDate] to [endDate]".
+     *
+     * @param startDate The start date of the filter range.
+     * @param endDate The end date of the filter range.
+     */
+    public void updateFilterLabel(LocalDate startDate, LocalDate endDate) {
+        if (startDate != null && endDate != null) {
+            filterLabel.setText("Filtered from " + startDate + " to " + endDate);
+        }
+    }
+
+    private void updateFilterLabelEmpty() {
+        filterLabel.setText("No active filter");
+
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -231,6 +255,25 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandText.startsWith("filter")) {
+                String feedback = commandResult.getFeedbackToUser();
+
+                // Check if it contains a valid date range
+                if (feedback.contains("between") && feedback.contains(".")) {
+                    String[] parts = feedback.split("between|\\.");
+                    if (parts.length >= 2) {
+                        String[] dates = parts[1].trim().split(" and ");
+                        if (dates.length == 2) {
+                            LocalDate startDate = LocalDate.parse(dates[0].trim());
+                            LocalDate endDate = LocalDate.parse(dates[1].trim());
+                            updateFilterLabel(startDate, endDate);
+                        }
+                    }
+                }
+            } else {
+                updateFilterLabelEmpty();
             }
 
             // Update renewals table after each command
