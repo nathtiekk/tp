@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -43,6 +45,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_POLICY + "POLICY_NUMBER]...\n"
             + "[" + PREFIX_POLICY_TYPE + "POLICY_TYPE]...\n"
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_SORT_ORDER + "SORT_ORDER]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "alice "
             + PREFIX_NAME + "bob "
@@ -52,21 +55,49 @@ public class FindCommand extends Command {
             + PREFIX_POLICY + "104343 "
             + PREFIX_POLICY_TYPE + "Life "
             + PREFIX_TAG + "friends";
+            + PREFIX_TAG + "friends"
+            + PREFIX_SORT_ORDER + "tag";
 
     public static final String MESSAGE_NOT_FOUND = "At least one field to find must be provided.";
 
-    private final FindPersonsPredicate predicate;
+    public static final String DEFAULT_SORT = "name";
+    public static final String SORT_BY_TAG = "tag";
+    public static final String SORT_BY_NAME = "name";
 
-    public FindCommand(FindPersonsPredicate predicate) {
+    public static final Comparator<Person> NAME_COMPARATOR = Comparator.comparing(person ->
+            person.getName().fullName);
+    public static final Comparator<Person> TAG_COMPARATOR = Comparator.comparing((Person person) ->
+            person.getTags().size()).reversed();
+
+    private final FindPersonsPredicate predicate;
+    private final String sortOrder;
+
+    /**
+     * Creates a FindCommand with the specified parameters.
+     *
+     * @param predicate The predicate to test if a person's details match any of the given information
+     * @param sortOrder How to sort the results
+     */
+    public FindCommand(FindPersonsPredicate predicate, String sortOrder) {
         this.predicate = predicate;
+        this.sortOrder = sortOrder.toLowerCase();
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
+        model.updateSortedPersonList(getComparator());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    }
+
+    private Comparator<Person> getComparator() {
+        if (SORT_BY_TAG.equals(sortOrder)) {
+            return TAG_COMPARATOR;
+        } else {
+            return NAME_COMPARATOR;
+        }
     }
 
     @Override
@@ -81,13 +112,14 @@ public class FindCommand extends Command {
         }
 
         FindCommand otherFindCommand = (FindCommand) other;
-        return predicate.equals(otherFindCommand.predicate);
+        return predicate.equals(otherFindCommand.predicate) && sortOrder.equals(otherFindCommand.sortOrder);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
+                .add("sortOrder", sortOrder)
                 .toString();
     }
 
