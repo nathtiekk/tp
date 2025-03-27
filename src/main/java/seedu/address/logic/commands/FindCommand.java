@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
@@ -136,7 +137,8 @@ public class FindCommand extends Command {
         private PolicyTypeContainsKeywordsPredicate policyTypePredicate;
         private TagContainsKeywordsPredicate tagPredicate;
 
-        public FindPersonsPredicate() {}
+        public FindPersonsPredicate() {
+        }
 
         /**
          * Copy constructor.
@@ -155,13 +157,14 @@ public class FindCommand extends Command {
          * Returns true if at least one predicate is set.
          */
         public boolean isAnyPredicateSet() {
-            return namePredicate != null
-                    || phonePredicate != null
-                    || emailPredicate != null
-                    || addressPredicate != null
-                    || policyPredicate != null
-                    || policyTypePredicate != null
-                    || tagPredicate != null;
+            return CollectionUtil.isAnyNonNull(
+                    namePredicate,
+                    phonePredicate,
+                    emailPredicate,
+                    addressPredicate,
+                    policyPredicate,
+                    policyTypePredicate,
+                    tagPredicate);
         }
 
         public void setNamePredicate(NameContainsKeywordsPredicate namePredicate) {
@@ -222,17 +225,14 @@ public class FindCommand extends Command {
 
         @Override
         public boolean test(Person person) {
-            // Return false if no predicates are set
-            if (!isAnyPredicateSet()) {
-                return false;
-            }
-            return (namePredicate == null || namePredicate.test(person))
-                    && (phonePredicate == null || phonePredicate.test(person))
-                    && (emailPredicate == null || emailPredicate.test(person))
-                    && (addressPredicate == null || addressPredicate.test(person))
-                    && (policyPredicate == null || policyPredicate.test(person))
-                    && (policyTypePredicate == null || policyTypePredicate.test(person))
-                    && (tagPredicate == null || tagPredicate.test(person));
+            boolean nameMatch = getNamePredicate().map(pred -> pred.test(person)).orElse(false);
+            boolean phoneMatch = getPhonePredicate().map(pred -> pred.test(person)).orElse(false);
+            boolean emailMatch = getEmailPredicate().map(pred -> pred.test(person)).orElse(false);
+            boolean addressMatch = getAddressPredicate().map(pred -> pred.test(person)).orElse(false);
+            boolean policyMatch = getPolicyPredicate().map(pred -> pred.test(person)).orElse(false);
+            boolean tagMatch = getTagPredicate().map(pred -> pred.test(person)).orElse(false);
+            // Match if any predicate matches (OR logic)
+            return nameMatch || phoneMatch || emailMatch || addressMatch || policyMatch || tagMatch;
         }
 
         @Override

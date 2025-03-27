@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
@@ -75,14 +76,14 @@ public class EditPersonDescriptorTest {
     public void toStringMethod() {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         String actual = editPersonDescriptor.toString();
-        // Check that the string contains all the expected fields
-        assertTrue(actual.contains("name="));
-        assertTrue(actual.contains("phone="));
-        assertTrue(actual.contains("email="));
-        assertTrue(actual.contains("address="));
-        assertTrue(actual.contains("policy="));
-        assertTrue(actual.contains("renewalDate="));
-        assertTrue(actual.contains("policyType="));
-        assertTrue(actual.contains("tags="));
+        String expected = EditPersonDescriptor.class.getCanonicalName() + "{name="
+                + editPersonDescriptor.getName().orElse(null) + ", phone="
+                + editPersonDescriptor.getPhone().orElse(null) + ", email="
+                + editPersonDescriptor.getEmail().orElse(null) + ", address="
+                + editPersonDescriptor.getAddress().orElse(null) + ", policy="
+                + editPersonDescriptor.getPolicy().orElse(null) + ", renewalDate="
+                + editPersonDescriptor.getRenewalDate().orElse(null) + ", tags="
+                + editPersonDescriptor.getTags().orElse(null) + "}";
+        assertEquals(expected, editPersonDescriptor.toString());
     }
 }
