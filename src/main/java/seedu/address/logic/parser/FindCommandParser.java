@@ -71,7 +71,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         if (argMultimap.getValue(PREFIX_POLICY_TYPE).isPresent()) {
             findPersonsPredicate.setPolicyTypePredicate(new PolicyTypeContainsKeywordsPredicate(
-                    new HashSet<>(argMultimap.getAllValues(PREFIX_POLICY_TYPE))));
+                    ParserUtil.parsePolicyTypes(argMultimap.getAllValues(PREFIX_POLICY_TYPE))));
         }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             findPersonsPredicate.setTagPredicate(new TagContainsKeywordsPredicate(
