@@ -78,7 +78,7 @@ public class PolicyTypeContainsKeywordsPredicateTest {
         Set<String> keywords = Set.of("Health", "Life");
         PolicyTypeContainsKeywordsPredicate predicate = new PolicyTypeContainsKeywordsPredicate(keywords);
 
-        String expected = PolicyTypeContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=[Life, Health]}";
+        String expected = PolicyTypeContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=[Health, Life]}";
         String actual = predicate.toString();
         assertEquals(expected, actual);
     }
