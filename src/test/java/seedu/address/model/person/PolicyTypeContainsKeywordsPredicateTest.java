@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -77,9 +78,8 @@ public class PolicyTypeContainsKeywordsPredicateTest {
         Set<String> keywords = Set.of("Health", "Life");
         PolicyTypeContainsKeywordsPredicate predicate = new PolicyTypeContainsKeywordsPredicate(keywords);
 
+        String expected = PolicyTypeContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=[Health, Life]}";
         String actual = predicate.toString();
-        assertTrue(actual.startsWith(PolicyTypeContainsKeywordsPredicate.class.getCanonicalName()));
-        assertTrue(actual.contains("Health"));
-        assertTrue(actual.contains("Life"));
+        assertEquals(expected, actual);
     }
 }
