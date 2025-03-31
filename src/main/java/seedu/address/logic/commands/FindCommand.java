@@ -55,7 +55,7 @@ public class FindCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_POLICY + "104343 "
             + PREFIX_POLICY_TYPE + "Life "
-            + PREFIX_TAG + "friends"
+            + PREFIX_TAG + "friends "
             + PREFIX_SORT_ORDER + "tag";
 
     public static final String MESSAGE_NOT_FOUND = "At least one field to find must be provided.";
@@ -229,10 +229,9 @@ public class FindCommand extends Command {
             boolean emailMatch = getEmailPredicate().map(pred -> pred.test(person)).orElse(false);
             boolean addressMatch = getAddressPredicate().map(pred -> pred.test(person)).orElse(false);
             boolean policyMatch = getPolicyPredicate().map(pred -> pred.test(person)).orElse(false);
-            boolean policyTypeMatch = getPolicyTypePredicate().map(pred -> pred.test(person)).orElse(false);
             boolean tagMatch = getTagPredicate().map(pred -> pred.test(person)).orElse(false);
             // Match if any predicate matches (OR logic)
-            return nameMatch || phoneMatch || emailMatch || addressMatch || policyMatch || policyTypeMatch || tagMatch;
+            return nameMatch || phoneMatch || emailMatch || addressMatch || policyMatch || tagMatch;
         }
 
         @Override

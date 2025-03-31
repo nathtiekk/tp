@@ -237,7 +237,6 @@ The following sequence diagram shows how the viewrenewals operation works:
     -   Pros: Centralizes filtering logic
     -   Cons: Makes Model more complex
 
-
 ### Renewal Date Update Feature
 
 The renewal date update feature allows insurance agents to directly update a client's policy renewal date by specifying the policy number, without needing to find the client's index in the list. This feature streamlines the renewal date management process.
@@ -251,22 +250,7 @@ The renewal date update functionality is implemented through the `RenewCommand` 
 
 The following class diagram shows the structure of the Renew Command:
 
-```
-+----------------+       +---------------------+
-| RenewCommand   |<------|RenewCommandParser   |
-+----------------+       +---------------------+
-| -policyNumber  |       | +parse(String)      |
-| -newRenewalDate|       +---------------------+
-+----------------+
-| +execute(Model)|
-+----------------+
-        |
-        | uses
-        v
-+----------------+
-|     Model      |
-+----------------+
-```
+<puml src="diagrams/RenewCommandClassDiagram.puml" width="800"/>
 
 The feature works through the following process flow:
 
