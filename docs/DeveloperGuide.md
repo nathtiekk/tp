@@ -268,37 +268,7 @@ The feature works through the following process flow:
 
 The following sequence diagram shows how the renew operation works:
 
-```
-User            :AddressBookParser     :RenewCommandParser    :RenewCommand            :Model
- |                     |                      |                     |                     |
- | renew command       |                      |                     |                     |
- |-------------------->|                      |                     |                     |
- |                     |                      |                     |                     |
- |                     | parse                |                     |                     |
- |                     |--------------------->|                     |                     |
- |                     |                      |                     |                     |
- |                     |                      | create              |                     |
- |                     |                      |-------------------->|                     |
- |                     |                      |                     |                     |
- |                     | RenewCommand         |                     |                     |
- |                     |<---------------------|                     |                     |
- |                     |                      |                     |                     |
- | execute             |                      |                     |                     |
- |-------------------->|                      |                     |                     |
- |                     | execute              |                     |                     |
- |                     |--------------------------------------------->                     |
- |                     |                      |                     | filter by policy    |
- |                     |                      |                     |-------------------->|
- |                     |                      |                     |                     |
- |                     |                      |                     | filtered list       |
- |                     |                      |                     |<--------------------|
- |                     |                      |                     |                     |
- |                     |                      |                     | update Person       |
- |                     |                      |                     |-------------------->|
- |                     |                      |                     |                     |
- |                     | CommandResult        |                     |                     |
- |<--------------------|                      |                     |                     |
-```
+<puml src="diagrams/RenewSequenceDiagram.puml" width="800"/>
 
 #### Design Considerations
 
