@@ -57,4 +57,4 @@ RenewalsPredicate --> Person
 Person *-- Policy
 Policy *-- RenewalDate
 
-@enduml 
+@enduml

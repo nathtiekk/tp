@@ -44,4 +44,4 @@ deactivate RenewCommand
 [<-- AddressBookParser : CommandResult
 deactivate AddressBookParser
 
-@enduml 
+@enduml

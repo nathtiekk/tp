@@ -58,4 +58,4 @@ deactivate ViewRenewalsCommand
 [<-- LogicManager : result
 deactivate LogicManager
 
-@enduml 
+@enduml
