@@ -38,8 +38,7 @@ public class PolicyTypeContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         PolicyType personPolicyType = person.getPolicy().getType();
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(personPolicyType.name(), keyword.name()));
+        return keywords.contains(personPolicyType);
     }
 
     @Override
