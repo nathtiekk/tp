@@ -254,7 +254,7 @@ The following class diagram shows the structure of the Renew Command:
 
 The feature works through the following process flow:
 
-1. The user enters a command in the format `renew pol/POLICY_NUMBER rd/DD-MM-YYYY`.
+1. The user enters a command in the format `renew pol/POLICY_NUMBER r/RENEWAL_DATE`.
 2. The `LogicManager` passes the command string to `AddressBookParser`.
 3. `AddressBookParser` identifies the command as a `renew` command and delegates to `RenewCommandParser`.
 4. `RenewCommandParser` extracts and validates:
