@@ -296,6 +296,52 @@ The following sequence diagram shows how the renew operation works:
     -   Pros: More convenient if updating all matching policies is the intended action.
     -   Cons: High risk of unintended updates; insurance operations generally require precision.
 
+### Find Persons Feature
+
+The Find Command allows users to search for persons in the address book by specifying various attributes. This feature is enhanced to support searching across all person attributes, providing a flexible and comprehensive search capability.
+
+#### Find Command
+
+The FindCommand enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
+
+* FindCommand: Executes the search operation.
+* FindCommandParser: Parses and validates the user input into a FindCommand object.
+* FindPersonPredicate: A predicate that evaluates whether a person matches the search criteria.
+
+#### FindPersonPredicate
+
+The `FindPersonPredicate` class is responsible for evaluating whether a person matches the search criteria. It is implemented as follows:
+
+Attributes: The predicate stores the search criteria for each attribute in their own predicate object.
+Evaluation:
+* The `test` method checks if a person matches the search criteria by evaluating each attribute.
+* It supports partial matches and is case-insensitive.
+* For each attribute, it checks if the person's attribute contains the search value.
+
+The following class diagram shows the structure of the FindPersonPredicate:
+<puml src="diagrams/FindPersonPredicateClassDiagram.puml" width="800"/>
+
+The following partial sequence diagram shows how the test operation works:
+
+<puml src="diagrams/FindPersonPredicateSequenceDiagram.puml" width="800"/>
+
+#### Design Considerations
+
+* Aspect: How to handle multiple search criteria
+
+  * Current Choice: Combine all criteria using logical OR.
+    * Pros: Ensures that a person is considered a match if any of the specified attributes match, providing more flexible search results.
+    * Cons: May result in more matches if multiple criteria are specified.
+  * Alternative: Use logical AND to require all criteria to match.
+    * Pros: Ensures that all specified attributes must match, providing precise search results.
+    * Cons: May result in fewer matches if multiple criteria are specified.
+
+* Aspect: Case sensitivity and partial matches
+
+  * Current Choice: Use case-insensitive and partial matches.
+    * Pros: More user-friendly and flexible, accommodating various input styles.
+    * Cons: May result in unintended matches if search values are too general.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Current Implementation
