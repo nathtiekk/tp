@@ -1,5 +1,5 @@
 package seedu.address.model.person;
- 
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -10,6 +10,11 @@ public class Note {
     public static final Note EMPTY = new Note("");
     public final String note;
 
+    /**
+     * Constructs a {@code Note}.
+     *
+     * @param note A note.
+     */
     public Note(String note) {
         requireNonNull(note);
         this.note = note;
