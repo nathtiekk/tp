@@ -298,15 +298,15 @@ The following sequence diagram shows how the renew operation works:
 
 ### Find Persons Feature
 
-The Find Command allows users to search for persons in the address book by specifying various attributes. This feature is enhanced to support searching across all person attributes, providing a flexible and comprehensive search capability.
+The `FindCommand` allows users to search for persons in the address book by specifying various attributes. This feature is enhanced to support searching across all person attributes, providing a flexible and comprehensive search capability.
 
-#### Find Command
+#### FindCommand
 
-The FindCommand enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
+The `FindCommand` enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
 
-* FindCommand: Executes the search operation.
-* FindCommandParser: Parses and validates the user input into a FindCommand object.
-* FindPersonPredicate: A predicate that evaluates whether a person matches the search criteria.
+* `FindCommand`: Executes the search operation.
+* `FindCommandParser`: Parses and validates the user input into a FindCommand object.
+* `FindPersonPredicate`: A predicate that evaluates whether a person matches the search criteria.
 
 #### FindPersonPredicate
 
