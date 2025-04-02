@@ -172,6 +172,20 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-line-spacing: 5px;
+    -fx-padding: 5px;
+}
+
+.result-display .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+    -fx-padding: 5px;
+}
+
+.result-display .text {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
 }
 
 .result-display .label {

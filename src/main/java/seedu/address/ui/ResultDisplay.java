@@ -22,7 +22,8 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        resultDisplay.setText(feedbackToUser);
+        String formattedFeedback = formatFeedback(feedbackToUser);
+        resultDisplay.setText(formattedFeedback);
     }
 
     /**
@@ -32,4 +33,33 @@ public class ResultDisplay extends UiPart<Region> {
         return resultDisplay.getText();
     }
 
+    /**
+     * Formats the feedback text for better readability.
+     */
+    private String formatFeedback(String feedback) {
+        String[] lines = feedback.split("\\n");
+        StringBuilder formatted = new StringBuilder();
+
+        for (String line : lines) {
+            if (line.contains(";")) {
+                String prefix = line.contains(":") ? line.substring(0, line.indexOf(":") + 1) + "\n" : "";
+                formatted.append(prefix);
+                String paramsSection = line.substring(prefix.isEmpty() ? 0 : line.indexOf(":") + 1);
+                String[] params = paramsSection.split(";");
+                
+                for (String param : params) {
+                    param = param.trim();
+                    if (!param.isEmpty()) {
+                        formatted.append("  • ").append(param).append("\n");
+                    }
+                }
+            } else {
+                if (!line.trim().isEmpty()) {
+                    formatted.append(line.trim()).append("\n");
+                }
+            }
+        }
+
+        return formatted.toString().trim();
+    }
 }
