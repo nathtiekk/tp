@@ -627,6 +627,22 @@ _{More to be added}_
 
 ---
 
+**Use case: Set reminders for renewals**
+
+**MSS**
+
+1. Insurance Agent requests to set a renewal reminder for a client.
+1. System schedules the reminder.
+
+    Use case ends.
+
+**Extensions**
+
+-   2a. Client does not have a policy renewal date.
+    -   2a1. System shows an error message.
+
+---
+
 **Use case: Persist client data**
 
 **MSS**
