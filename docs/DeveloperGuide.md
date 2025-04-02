@@ -39,10 +39,10 @@ Given below is a quick overview of main components and how they interact with ea
 
 The bulk of the app's work is done by the following four components:
 
--   [**`UI`**](#ui-component): The UI of InsureBook.
--   [**`Logic`**](#logic-component): The command executor.
--   [**`Model`**](#model-component): Holds the data of InsureBook in memory.
--   [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+*   [**`UI`**](#ui-component): The UI of InsureBook.
+*   [**`Logic`**](#logic-component): The command executor.
+*   [**`Model`**](#model-component): Holds the data of InsureBook in memory.
+*   [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
@@ -54,8 +54,8 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 Each of the four main components (also shown in the diagram above),
 
--   defines its _API_ in an `interface` with the same name as the Component.
--   implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+*   defines its _API_ in an `interface` with the same name as the Component.
+*   implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -75,26 +75,26 @@ The `UI` component uses the JavaFx UI framework. The layout of these UI parts ar
 
 The `UI` component,
 
--   executes user commands using the `Logic` component.
--   listens for changes to `Model` data so that the UI can be updated with the modified data.
--   keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
--   depends on some classes in the `Model` component, as it displays `Person` and `Policy` objects residing in the `Model`.
+*   executes user commands using the `Logic` component.
+*   listens for changes to `Model` data so that the UI can be updated with the modified data.
+*   keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
+*   depends on some classes in the `Model` component, as it displays `Person` and `Policy` objects residing in the `Model`.
 
 #### Person Card UI
 
 The person card UI is implemented using the following components:
 
--   `PersonListCard.fxml`: Defines the layout of each person card, including:
+*   `PersonListCard.fxml`: Defines the layout of each person card, including:
 
-    -   Name and ID
-    -   Contact information (phone, email, address)
-    -   Policy information (policy number and renewal date)
-    -   Tags
+    *   Name and ID
+    *   Contact information (phone, email, address)
+    *   Policy information (policy number and renewal date)
+    *   Tags
 
--   `PersonCard.java`: Controls the display of person information in the card:
-    -   Binds UI elements to person data
-    -   Formats the renewal date display with the prefix "Renewal date: " for clarity
-    -   Manages tag display
+*   `PersonCard.java`: Controls the display of person information in the card:
+    *   Binds UI elements to person data
+    *   Formats the renewal date display with the prefix "Renewal date: " for clarity
+    *   Manages tag display
 
 The person card provides a compact view of all essential client information, making it easy for insurance agents to quickly access client details and track policy renewals. The renewal date is prominently displayed with a clear label to help agents quickly identify when policies need to be renewed.
 
@@ -129,8 +129,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 
--   When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
--   All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+*   When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+*   All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 
@@ -140,10 +140,10 @@ How the parsing works:
 
 The `Model` component,
 
--   stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
--   stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
--   stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
--   does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+*   stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+*   stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+*   stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+*   does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
 
@@ -161,9 +161,9 @@ The `Model` component,
 
 The `Storage` component,
 
--   can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
--   inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
--   depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+*   can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
+*   inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+*   depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
 
@@ -183,31 +183,31 @@ The policy renewal feature allows insurance agents to track and manage policy re
 
 The `Policy` class represents an insurance policy and contains:
 
--   Policy number (in format POL-XXX)
--   Renewal date
--   Methods to calculate days until renewal
+*   Policy number (in format POL-XXX)
+*   Renewal date
+*   Methods to calculate days until renewal
 
 #### ViewRenewalsCommand
 
 The `ViewRenewalsCommand` allows users to view policies due for renewal within a specified number of days:
 
--   Takes a parameter for number of days (1-365)
--   Optional sort parameter (by name or date)
--   Filters the person list based on policy renewal dates
--   Updates the UI to show filtered results
+*   Takes a parameter for number of days (1-365)
+*   Optional sort parameter (by name or date)
+*   Filters the person list based on policy renewal dates
+*   Updates the UI to show filtered results
 
 #### Implementation
 
 The renewal tracking mechanism is facilitated by the `Policy` class and the `ViewRenewalsCommand`. Here's how it works:
 
 1. When a user executes `viewrenewals n/30`, the command is parsed by `ViewRenewalsCommandParser`.
-2. The parser validates the days parameter (must be 1-365) and optional sort parameter.
-3. A new `ViewRenewalsCommand` is created with the validated parameters.
-4. When executed, the command:
-    - Filters the person list to include only those with policies due within the specified days
-    - Updates the model's filtered person list
-    - Updates the renewals table in the UI
-    - Returns a command result with the number of matching entries
+1. The parser validates the days parameter (must be 1-365) and optional sort parameter.
+1. A new `ViewRenewalsCommand` is created with the validated parameters.
+1. When executed, the command:
+    * Filters the person list to include only those with policies due within the specified days
+    * Updates the model's filtered person list
+    * Updates the renewals table in the UI
+    * Returns a command result with the number of matching entries
 
 The following sequence diagram shows how the viewrenewals operation works:
 
@@ -217,25 +217,25 @@ The following sequence diagram shows how the viewrenewals operation works:
 
 **Aspect: How to calculate renewal due dates**
 
--   **Alternative 1 (current choice):** Calculate days until renewal on demand
+*   **Alternative 1 (current choice):** Calculate days until renewal on demand
 
-    -   Pros: More memory efficient
-    -   Cons: May impact performance if calculated frequently
+    *   Pros: More memory efficient
+    *   Cons: May impact performance if calculated frequently
 
--   **Alternative 2:** Store days until renewal as a field
-    -   Pros: Faster retrieval
-    -   Cons: Needs to be updated daily
+*   **Alternative 2:** Store days until renewal as a field
+    *   Pros: Faster retrieval
+    *   Cons: Needs to be updated daily
 
 **Aspect: Where to implement filtering logic**
 
--   **Alternative 1 (current choice):** In the command
+*   **Alternative 1 (current choice):** In the command
 
-    -   Pros: Keeps filtering logic with the command that needs it
-    -   Cons: Logic might be duplicated if needed elsewhere
+    *   Pros: Keeps filtering logic with the command that needs it
+    *   Cons: Logic might be duplicated if needed elsewhere
 
--   **Alternative 2:** In the Model
-    -   Pros: Centralizes filtering logic
-    -   Cons: Makes Model more complex
+*   **Alternative 2:** In the Model
+    *   Pros: Centralizes filtering logic
+    *   Cons: Makes Model more complex
 
 ### Renewal Date Update Feature
 
@@ -246,191 +246,193 @@ The renewal date update feature allows insurance agents to directly update a cli
 The renewal date update functionality is implemented through the `RenewCommand` class, which follows the command pattern used throughout the application. The feature is primarily made up of the following components:
 
 1. `RenewCommand` - Executes the updating of a renewal date for a client with a specific policy number
-2. `RenewCommandParser` - Parses the user input into a RenewCommand object
+1. `RenewCommandParser` - Parses and validates the user input into a RenewCommand object
 
 The following class diagram shows the structure of the Renew Command:
 
-```
-+----------------+       +---------------------+
-| RenewCommand   |<------|RenewCommandParser   |
-+----------------+       +---------------------+
-| -policyNumber  |       | +parse(String)      |
-| -newRenewalDate|       +---------------------+
-+----------------+
-| +execute(Model)|
-+----------------+
-        |
-        | uses
-        v
-+----------------+
-|     Model      |
-+----------------+
-```
+<puml src="diagrams/RenewCommandClassDiagram.puml" width="800"/>
 
 The feature works through the following process flow:
 
 1. The user enters a command in the format `renew pol/POLICY_NUMBER r/RENEWAL_DATE`.
-2. The `LogicManager` passes the command string to `AddressBookParser`.
-3. `AddressBookParser` identifies the command as a `renew` command and delegates to `RenewCommandParser`.
-4. `RenewCommandParser` extracts the policy number and renewal date, validates them, and creates a new `RenewCommand` object.
-5. `LogicManager` calls the `execute()` method of the command object.
-6. The `RenewCommand`:
-    - Filters the list of persons to find those with the specified policy number
-    - Validates that exactly one match is found (not zero, not multiple)
-    - Creates a new `Person` with the updated renewal date
-    - Updates the model with the new `Person` object
-    - Returns a `CommandResult` with a success message
+1. The `LogicManager` passes the command string to `AddressBookParser`.
+1. `AddressBookParser` identifies the command as a `renew` command and delegates to `RenewCommandParser`.
+1. `RenewCommandParser` extracts and validates:
+    * Policy number (must be a valid policy number format)
+    * Renewal date (must be a valid date in DD-MM-YYYY format)
+1. `LogicManager` calls the `execute()` method of the command object.
+1. The `RenewCommand`:
+    * Filters the list of persons to find those with the specified policy number
+    * Validates that exactly one match is found (not zero, not multiple)
+    * Creates a new `Person` with the updated renewal date while preserving other fields (including policy type)
+    * Updates the model with the new `Person` object
+    * Returns a `CommandResult` with a success message
 
 The following sequence diagram shows how the renew operation works:
 
-```
-User            :AddressBookParser     :RenewCommandParser    :RenewCommand            :Model
- |                     |                      |                     |                     |
- | renew command       |                      |                     |                     |
- |-------------------->|                      |                     |                     |
- |                     |                      |                     |                     |
- |                     | parse                |                     |                     |
- |                     |--------------------->|                     |                     |
- |                     |                      |                     |                     |
- |                     |                      | create              |                     |
- |                     |                      |-------------------->|                     |
- |                     |                      |                     |                     |
- |                     | RenewCommand         |                     |                     |
- |                     |<---------------------|                     |                     |
- |                     |                      |                     |                     |
- | execute             |                      |                     |                     |
- |-------------------->|                      |                     |                     |
- |                     | execute              |                     |                     |
- |                     |--------------------------------------------->                     |
- |                     |                      |                     | filter by policy    |
- |                     |                      |                     |-------------------->|
- |                     |                      |                     |                     |
- |                     |                      |                     | filtered list       |
- |                     |                      |                     |<--------------------|
- |                     |                      |                     |                     |
- |                     |                      |                     | update Person       |
- |                     |                      |                     |-------------------->|
- |                     |                      |                     |                     |
- |                     | CommandResult        |                     |                     |
- |<--------------------|                      |                     |                     |
-```
+<puml src="diagrams/RenewSequenceDiagram.puml" width="800"/>
 
 #### Design Considerations
 
 **Aspect: How to identify the client to update:**
 
--   **Alternative 1 (current choice):** Use policy number as identifier.
+*   **Alternative 1 (current choice):** Use policy number as identifier.
 
-    -   Pros: More intuitive for insurance agents who often reference clients by policy number.
-    -   Cons: Requires handling cases where multiple clients have the same policy number.
+    *   Pros: More intuitive for insurance agents who often reference clients by policy number.
+    *   Cons: Requires handling cases where multiple clients have the same policy number.
 
--   **Alternative 2:** Use client index in the displayed list.
-    -   Pros: Consistent with other commands like `edit` and `delete`.
-    -   Cons: Less convenient as agents need to find the index first.
+*   **Alternative 2:** Use client index in the displayed list.
+    *   Pros: Consistent with other commands like `edit` and `delete`.
+    *   Cons: Less convenient as agents need to find the index first.
 
 **Aspect: Error handling for duplicate policy numbers:**
 
--   **Alternative 1 (current choice):** Show error and suggest using `edit` command.
+*   **Alternative 1 (current choice):** Show error and suggest using `edit` command.
 
-    -   Pros: Prevents unintended updates to the wrong client.
-    -   Cons: Less convenient when there are duplicate policy numbers.
+    *   Pros: Prevents unintended updates to the wrong client.
+    *   Cons: Less convenient when there are duplicate policy numbers.
 
--   **Alternative 2:** Update all clients with matching policy numbers.
-    -   Pros: More convenient if updating all matching policies is the intended action.
-    -   Cons: High risk of unintended updates; insurance operations generally require precision.
+*   **Alternative 2:** Update all clients with matching policy numbers.
+    *   Pros: More convenient if updating all matching policies is the intended action.
+    *   Cons: High risk of unintended updates; insurance operations generally require precision.
+
+### Find Persons Feature
+
+The `FindCommand` allows users to search for persons in the address book by specifying various attributes. This feature is enhanced to support searching across all person attributes, providing a flexible and comprehensive search capability.
+
+#### FindCommand
+
+The `FindCommand` enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
+
+* `FindCommand`: Executes the search operation.
+* `FindCommandParser`: Parses and validates the user input into a FindCommand object.
+* `FindPersonPredicate`: A predicate that evaluates whether a person matches the search criteria.
+
+#### FindPersonPredicate
+
+The `FindPersonPredicate` class is responsible for evaluating whether a person matches the search criteria. It is implemented as follows:
+
+Attributes: The predicate stores the search criteria for each attribute in their own predicate object.
+Evaluation:
+* The `test` method checks if a person matches the search criteria by evaluating each attribute.
+* It supports partial matches and is case-insensitive.
+* For each attribute, it checks if the person's attribute contains the search value.
+
+The following class diagram shows the structure of the FindPersonPredicate:
+<puml src="diagrams/FindPersonPredicateClassDiagram.puml" width="500"/>
+
+The following partial sequence diagram shows how the test operation works:
+
+<puml src="diagrams/FindPersonPredicateSequenceDiagram.puml" width="800"/>
+
+#### Design Considerations
+
+* Aspect: How to handle multiple search criteria
+
+  * Current Choice: Combine all criteria using logical OR.
+    * Pros: Ensures that a person is considered a match if any of the specified attributes match, providing more flexible search results.
+    * Cons: May result in more matches if multiple criteria are specified.
+  * Alternative: Use logical AND to require all criteria to match.
+    * Pros: Ensures that all specified attributes must match, providing precise search results.
+    * Cons: May result in fewer matches if multiple criteria are specified.
+
+* Aspect: Case sensitivity and partial matches
+
+  * Current Choice: Use case-insensitive and partial matches.
+    * Pros: More user-friendly and flexible, accommodating various input styles.
+    * Cons: May result in unintended matches if search values are too general.
 
 ### \[Proposed\] Undo/redo feature
 
-#### Proposed Implementation
+#### Current Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The policy type feature enhances the insurance management capabilities of the application by allowing users to categorize policies into specific types (Life, Health, Property, Vehicle, and Travel). This helps insurance agents quickly identify and manage different types of policies.
 
--   `VersionedAddressBook#commit()` — Saves the current address book state in its history.
--   `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
--   `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+The implementation consists of the following key components:
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+1. **`PolicyType` Enum** - Defines the available policy types and provides utilities for validation and conversion.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+    ```java
+    public enum PolicyType {
+        LIFE, HEALTH, PROPERTY, VEHICLE, TRAVEL;
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+        public static PolicyType fromString(String type) { ... }
+        public static boolean isValidPolicyType(String test) { ... }
+    }
+    ```
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+1. **`Policy` Class Extension** - The existing `Policy` class has been enhanced to include a `PolicyType` field.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+    ```java
+    public class Policy {
+        // Existing fields
+        public final String policyNumber;
+        public final RenewalDate renewalDate;
+        // New field
+        private final PolicyType type;
 
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+        // Constructors that handle policy type
+        public Policy(String policyNumber, String renewalDate, String type) { ... }
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+        // Getter for policy type
+        public PolicyType getType() { ... }
+    }
+    ```
 
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+1. **Command Parsers** - The parsers for `AddCommand`, `EditCommand`, and `FindCommand` have been updated to recognize and process the policy type prefix (`pt/`).
 
-<box type="info" seamless>
+1. **UI Components** - The `PersonCard` and `RenewalsTable` UI components have been modified to display the policy type.
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+1. **Predicate for Searching** - A `PolicyTypeContainsKeywordsPredicate` class has been added to support searching by policy type.
 
-</box>
+#### Design Considerations
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+**Aspect: Implementation of Policy Types**
 
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+*   **Alternative 1 (current choice):** Use an enumeration to represent policy types.
 
-<box type="info" seamless>
+    *   Pros: Type safety, easy validation, prevents invalid policy types.
+    *   Cons: Less flexible if new types need to be added (requires code changes).
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+*   **Alternative 2:** Use a string field without constraints.
+    *   Pros: More flexible, users can add any type they want.
+    *   Cons: Less type safety, harder to validate, potential for inconsistent data (e.g., "Health" vs "health").
 
-</box>
+**Aspect: Storage of Policy Type**
 
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
+*   **Alternative 1 (current choice):** Store as part of the Policy object.
 
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+    *   Pros: Logical grouping, keeps policy information together.
+    *   Cons: Increases complexity of the Policy class.
 
-<box type="info" seamless>
+*   **Alternative 2:** Store as a separate field in the Person object.
+    *   Pros: Simpler Policy class.
+    *   Cons: Less logical grouping, policy information is split between different attributes.
 
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+#### Example Usage
 
-</box>
+The following diagram shows how the policy type feature interacts with the existing components:
 
-Similarly, how an undo operation goes through the `Model` component is shown below:
+```
+User Input: add n/John Doe pt/Life ...
+    v
+AddCommandParser (parses policy type prefix)
+    v
+AddCommand (creates Person with Policy that includes PolicyType)
+    v
+Model (stores Person)
+    v
+UI (displays policy type in PersonCard and RenewalsTable)
+```
 
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
+When the user adds a new person with a policy type:
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+1. The `AddCommandParser` parses the policy type prefix and value.
+1. A new `Policy` object is created with the specified policy type.
+1. This `Policy` is included in the new `Person` object.
+1. The UI components display the policy type along with other person information.
 
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
--   **Alternative 1 (current choice):** Saves the entire address book.
-
-    -   Pros: Easy to implement.
-    -   Cons: May have performance issues in terms of memory usage.
-
--   **Alternative 2:** Individual command knows how to undo/redo by
-    itself.
-    -   Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    -   Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
+Similarly, when editing a person's policy type or finding persons by policy type, the appropriate parsers handle the policy type prefix and create the necessary commands or predicates.
 
 ### \[Proposed\] Data archiving
 
@@ -440,11 +442,11 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
--   [Documentation guide](Documentation.md)
--   [Testing guide](Testing.md)
--   [Logging guide](Logging.md)
--   [Configuration guide](Configuration.md)
--   [DevOps guide](DevOps.md)
+*   [Documentation guide](Documentation.md)
+*   [Testing guide](Testing.md)
+*   [Logging guide](Logging.md)
+*   [Configuration guide](Configuration.md)
+*   [DevOps guide](DevOps.md)
 
 ---
 
@@ -454,12 +456,12 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
--   Insurance Agents who need to keep track of Customers / Potential Customers
--   Moderate Tech saviness.
--   prefer desktop apps over other types
--   can type fast
--   prefers typing to mouse interactions
--   is reasonably comfortable using CLI apps
+*   Insurance Agents who need to keep track of Customers / Potential Customers
+*   Moderate Tech saviness.
+*   prefer desktop apps over other types
+*   can type fast
+*   prefers typing to mouse interactions
+*   is reasonably comfortable using CLI apps
 
 **Value proposition**: It solves the issue of managing a large clientele by simplifying client tracking, automating follow-ups, and staying organized. By using InsureBook, insurance agents can focus more on growth and client retention, rather than spending more time on admin tasks and more time on sales.
 
@@ -493,9 +495,9 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to add a new client.
-2. System prompts for client details.
-3. Insurance Agent enters required details.
-4. System validates and saves the new client.
+1. System prompts for client details.
+1. Insurance Agent enters required details.
+1. System validates and saves the new client.
 
     Use case ends.
 
@@ -516,7 +518,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to list clients.
-2. System displays all stored clients in alphabetical order.
+1. System displays all stored clients in alphabetical order.
 
     Use case ends.
 
@@ -532,9 +534,9 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to update a client's information.
-2. System prompts for the client index and new details.
-3. Insurance Agent provides updates.
-4. System validates and updates the information.
+1. System prompts for the client index and new details.
+1. Insurance Agent provides updates.
+1. System validates and updates the information.
 
     Use case ends.
 
@@ -555,9 +557,9 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to list clients.
-2. System shows a list of clients.
-3. Insurance Agent requests to delete a specific client.
-4. System deletes the client.
+1. System shows a list of clients.
+1. Insurance Agent requests to delete a specific client.
+1. System deletes the client.
 
     Use case ends.
 
@@ -578,7 +580,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to search for a client by specific criteria.
-2. System displays matching clients.
+1. System displays matching clients.
 
     Use case ends.
 
@@ -594,7 +596,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to filter clients by renewal date.
-2. System displays clients with renewals within the specified period.
+1. System displays clients with renewals within the specified period.
 
     Use case ends.
 
@@ -610,7 +612,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to tag a client.
-2. System adds the tag to the client's record.
+1. System adds the tag to the client's record.
 
     Use case ends.
 
@@ -630,7 +632,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to set a renewal reminder for a client.
-2. System schedules the reminder.
+1. System schedules the reminder.
 
     Use case ends.
 
@@ -661,7 +663,7 @@ _{More to be added}_
 **MSS**
 
 1. Insurance Agent requests to filter clients by specific tags.
-2. System displays a list of clients with the matching tags.
+1. System displays a list of clients with the matching tags.
 
     Use case ends.
 
@@ -675,9 +677,9 @@ _{More to be added}_
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. Should be able to hold up to 1000 clients without noticeable sluggishness in performance.
-3. A user with above-average typing speed should be able to accomplish most tasks faster using commands than using the mouse.
-4. Client data should persist even if the system shuts down unexpectedly.
+1. Should be able to hold up to 1000 clients without noticeable sluggishness in performance.
+1. A user with above-average typing speed should be able to accomplish most tasks faster using commands than using the mouse.
+1. Client data should persist even if the system shuts down unexpectedly.
 
 ### Glossary
 

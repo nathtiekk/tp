@@ -14,8 +14,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Policy;
+import seedu.address.model.person.PolicyType;
 import seedu.address.model.person.RenewalDate;
 import seedu.address.model.tag.Tag;
 
@@ -175,6 +177,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        // Optionally, add any validation logic for note here if necessary.
+        return new Note(trimmedNote);
+    }
+
+    /**
+     * Parses a {@code Collection<String> notes} into a {@code Set<Note>}.
+     * Leading and trailing whitespaces will be trimmed for each note.
+     *
+     * @throws ParseException if any of the given {@code notes} are invalid.
+     */
+    public static Set<Note> parseNotes(Collection<String> notes) throws ParseException {
+        requireNonNull(notes);
+        final Set<Note> noteSet = new HashSet<>();
+        for (String noteStr : notes) {
+            noteSet.add(parseNote(noteStr));
+        }
+        return noteSet;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -207,13 +237,40 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code renewalDate} is invalid.
      */
-    public static String parseRenewalDate(String renewalDate) throws ParseException {
+    public static RenewalDate parseRenewalDate(String renewalDate) throws ParseException {
         requireNonNull(renewalDate);
         String trimmedRenewalDate = renewalDate.trim();
         if (!RenewalDate.isValidRenewalDate(trimmedRenewalDate)) {
             throw new ParseException(RenewalDate.DATE_CONSTRAINTS);
         }
-        return trimmedRenewalDate;
+        return new RenewalDate(trimmedRenewalDate);
+    }
+
+    /**
+     * Parses a {@code String policyType} into a {@code PolicyType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code policyType} is invalid.
+     */
+    public static PolicyType parsePolicyType(String policyType) throws ParseException {
+        requireNonNull(policyType);
+        String trimmedPolicyType = policyType.trim();
+        if (!PolicyType.isValidPolicyType(trimmedPolicyType)) {
+            throw new ParseException(PolicyType.MESSAGE_CONSTRAINTS);
+        }
+        return PolicyType.fromString(trimmedPolicyType);
+    }
+
+    /**
+     * Parses {@code Collection<String> policyTypes} into a {@code Set<PolicyType>}.
+     */
+    public static Set<PolicyType> parsePolicyTypes(Collection<String> policyTypes) throws ParseException {
+        requireNonNull(policyTypes);
+        final Set<PolicyType> policyTypeSet = new HashSet<>();
+        for (String policyType : policyTypes) {
+            policyTypeSet.add(parsePolicyType(policyType));
+        }
+        return policyTypeSet;
     }
 
     /**

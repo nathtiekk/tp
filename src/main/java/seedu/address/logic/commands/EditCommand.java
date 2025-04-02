@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEWAL_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.COMPARATOR_ORIGINAL_ORDER;
@@ -27,9 +29,12 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Policy;
+import seedu.address.model.person.PolicyType;
+import seedu.address.model.person.RenewalDate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -49,10 +54,13 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_POLICY + "POLICY_NUMBER] "
             + "[" + PREFIX_RENEWAL_DATE + "DD-MM-YYYY] "
+            + "[" + PREFIX_POLICY_TYPE + "TYPE] "
+            + "[" + PREFIX_NOTE + "NOTE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_POLICY_TYPE + "Health "
             + PREFIX_RENEWAL_DATE + "31-12-2024";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -108,19 +116,26 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Policy updatedPolicy;
-        if (editPersonDescriptor.getPolicy().isPresent() || editPersonDescriptor.getRenewalDate().isPresent()) {
+        if (editPersonDescriptor.getPolicy().isPresent()
+                || editPersonDescriptor.getRenewalDate().isPresent()
+                || editPersonDescriptor.getPolicyType().isPresent()) {
             String policyNumber = editPersonDescriptor.getPolicy()
-                    .map(p -> p.getPolicyNumber())
+                    .map(Policy::getPolicyNumber)
                     .orElse(personToEdit.getPolicy().getPolicyNumber());
-            String renewalDate = editPersonDescriptor.getRenewalDate()
-                    .orElse(personToEdit.getRenewalDate());
-            updatedPolicy = new Policy(policyNumber, renewalDate);
+            RenewalDate renewalDate = editPersonDescriptor.getRenewalDate().orElse(
+                    personToEdit.getPolicy().renewalDate);
+            PolicyType policyType = editPersonDescriptor.getPolicyType().orElse(
+                    personToEdit.getPolicy().getType());
+
+            updatedPolicy = new Policy(policyNumber, renewalDate, policyType);
         } else {
             updatedPolicy = personToEdit.getPolicy();
         }
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPolicy, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPolicy,
+                        updatedNote, updatedTags);
     }
 
     @Override
@@ -157,8 +172,10 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Policy policy;
-        private String renewalDate;
+        private RenewalDate renewalDate;
+        private PolicyType policyType;
         private Set<Tag> tags;
+        private Note note;
 
         public EditPersonDescriptor() {}
 
@@ -173,14 +190,17 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setPolicy(toCopy.policy);
             setRenewalDate(toCopy.renewalDate);
+            setPolicyType(toCopy.policyType);
             setTags(toCopy.tags);
+            setNote(toCopy.note);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, policy, renewalDate, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, policy, renewalDate, policyType,
+                                            tags, note);
         }
 
         public void setName(Name name) {
@@ -189,6 +209,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setNote(Note note) {
+            this.note = note;
+        }
+
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
         }
 
         public void setPhone(Phone phone) {
@@ -223,12 +251,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(policy);
         }
 
-        public void setRenewalDate(String renewalDate) {
+        public void setRenewalDate(RenewalDate renewalDate) {
             this.renewalDate = renewalDate;
         }
 
-        public Optional<String> getRenewalDate() {
+        public Optional<RenewalDate> getRenewalDate() {
             return Optional.ofNullable(renewalDate);
+        }
+
+        public void setPolicyType(PolicyType policyType) {
+            this.policyType = policyType;
+        }
+
+        public Optional<PolicyType> getPolicyType() {
+            return Optional.ofNullable(policyType);
         }
 
         /**
@@ -266,7 +302,9 @@ public class EditCommand extends Command {
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(policy, otherEditPersonDescriptor.policy)
                     && Objects.equals(renewalDate, otherEditPersonDescriptor.renewalDate)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(policyType, otherEditPersonDescriptor.policyType)
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(note, otherEditPersonDescriptor.note);
         }
 
         @Override
@@ -278,7 +316,9 @@ public class EditCommand extends Command {
                     .add("address", address)
                     .add("policy", policy)
                     .add("renewalDate", renewalDate)
+                    .add("policyType", policyType)
                     .add("tags", tags)
+                    .add("note", note)
                     .toString();
         }
     }

@@ -6,9 +6,12 @@ import java.util.Set;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Policy;
+import seedu.address.model.person.PolicyType;
+import seedu.address.model.person.RenewalDate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -28,6 +31,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Policy policy;
+    private Note note;
     private Set<Tag> tags;
 
     /**
@@ -39,6 +43,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         policy = new Policy(DEFAULT_POLICY);
+        note = Note.EMPTY;
         tags = new HashSet<>();
     }
 
@@ -51,6 +56,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         policy = personToCopy.getPolicy();
+        note = personToCopy.getNote();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -106,7 +112,7 @@ public class PersonBuilder {
      * Sets the {@code Policy} of the {@code Person} that we are building with specific policy number and renewal date.
      */
     public PersonBuilder withPolicy(String policyNumber, String renewalDate) {
-        this.policy = new Policy(policyNumber, renewalDate);
+        this.policy = new Policy(policyNumber, new RenewalDate(renewalDate));
         return this;
     }
 
@@ -114,12 +120,28 @@ public class PersonBuilder {
      * Sets the {@code Policy} of the {@code Person} that we are building with a specific renewal date.
      */
     public PersonBuilder withRenewalDate(String renewalDate) {
-        this.policy = new Policy(this.policy.policyNumber, renewalDate);
+        this.policy = new Policy(this.policy.policyNumber, new RenewalDate(renewalDate));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Policy} of the {@code Person} that we are building with a specific policy type.
+     */
+    public PersonBuilder withPolicyType(String policyType) {
+        this.policy = new Policy(this.policy.policyNumber, this.policy.renewalDate, PolicyType.fromString(policyType));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Note} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNote(String note) {
+        this.note = new Note(note);
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, policy, tags);
+        return new Person(name, phone, email, address, policy, note, tags);
     }
 
 }
