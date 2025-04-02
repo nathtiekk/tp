@@ -1,6 +1,14 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scene-background {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-insets: 0;
+    -fx-padding: 0;
 }
 
 .label {
