@@ -319,7 +319,7 @@ Evaluation:
 * For each attribute, it checks if the person's attribute contains the search value.
 
 The following class diagram shows the structure of the FindPersonPredicate:
-<puml src="diagrams/FindPersonPredicateClassDiagram.puml" width="600"/>
+<puml src="diagrams/FindPersonPredicateClassDiagram.puml" width="500"/>
 
 The following partial sequence diagram shows how the test operation works:
 
