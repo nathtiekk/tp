@@ -298,15 +298,15 @@ The following sequence diagram shows how the renew operation works:
 
 ### Find Persons Feature
 
-The Find Command allows users to search for persons in the address book by specifying various attributes. This feature is enhanced to support searching across all person attributes, providing a flexible and comprehensive search capability.
+The `FindCommand` allows users to search for persons in the address book by specifying various attributes. This feature is enhanced to support searching across all person attributes, providing a flexible and comprehensive search capability.
 
-#### Find Command
+#### FindCommand
 
-The FindCommand enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
+The `FindCommand` enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
 
-* FindCommand: Executes the search operation.
-* FindCommandParser: Parses and validates the user input into a FindCommand object.
-* FindPersonPredicate: A predicate that evaluates whether a person matches the search criteria.
+* `FindCommand`: Executes the search operation.
+* `FindCommandParser`: Parses and validates the user input into a FindCommand object.
+* `FindPersonPredicate`: A predicate that evaluates whether a person matches the search criteria.
 
 #### FindPersonPredicate
 
@@ -624,22 +624,6 @@ _{More to be added}_
 
 -   2b. Tag is a duplicate.
     -   2b1. System shows "Tag already exists."
-
----
-
-**Use case: Set reminders for renewals**
-
-**MSS**
-
-1. Insurance Agent requests to set a renewal reminder for a client.
-1. System schedules the reminder.
-
-    Use case ends.
-
-**Extensions**
-
--   2a. Client does not have a policy renewal date.
-    -   2a1. System shows an error message.
 
 ---
 
