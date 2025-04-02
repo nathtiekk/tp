@@ -1,6 +1,8 @@
 @startuml
 skinparam classAttributeIconSize 0
 skinparam classBackgroundColor LOGIC_COLOR
+skinparam ArrowColor BLACK
+skinparam ClassBorderColor BLACK
 
 class RenewCommand {
     - policyNumber : String
@@ -12,7 +14,7 @@ class RenewCommandParser {
     + parse(args : String) : RenewCommand
 }
 
-interface Parser {
+interface Parser<T> {
     + {abstract} parse(userInput : String) : T
 }
 
@@ -21,6 +23,7 @@ interface Model {
     + getFilteredPersonList() : ObservableList<Person>
 }
 
-RenewCommandParser ..> RenewCommand
-RenewCommand --> Model
+RenewCommandParser ..|> Parser
+RenewCommandParser ..> RenewCommand : creates >
+RenewCommand --> Model : uses >
 @enduml
