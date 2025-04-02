@@ -46,7 +46,6 @@ public class ResultDisplay extends UiPart<Region> {
                 formatted.append(prefix);
                 String paramsSection = line.substring(prefix.isEmpty() ? 0 : line.indexOf(":") + 1);
                 String[] params = paramsSection.split(";");
-                
                 for (String param : params) {
                     param = param.trim();
                     if (!param.isEmpty()) {
