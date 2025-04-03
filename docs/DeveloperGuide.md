@@ -13,7 +13,17 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* Libraries used:
+  * JavaFX: Main GUI library
+  * JUnit5: Testing framework
+  * Jackson: JSON processing library (jackson-databind, jackson-datatype-jsr310)
+  * Gradle: Build automation tool
+  * Checkstyle: Code style checking
+  * JaCoCo: Code coverage
+  * Shadow: JAR packaging
+
+* UI Design:
+  * Original AddressBook-Level3 source code from SE-EDU initiative at https://github.com/se-edu/
 
 ---
 
@@ -354,7 +364,7 @@ The following partial sequence diagram shows how the test operation works:
     * Pros: More user-friendly and flexible, accommodating various input styles.
     * Cons: May result in unintended matches if search values are too general.
 
-### \[Proposed\] Undo/redo feature
+### Policy Type Feature
 
 #### Current Implementation
 
@@ -423,32 +433,19 @@ The implementation consists of the following key components:
 
 #### Example Usage
 
-The following diagram shows how the policy type feature interacts with the existing components:
+The following sequence diagram shows how adding a person with a policy type works:
 
-```
-User Input: add n/John Doe pt/Life ...
-    v
-AddCommandParser (parses policy type prefix)
-    v
-AddCommand (creates Person with Policy that includes PolicyType)
-    v
-Model (stores Person)
-    v
-UI (displays policy type in PersonCard and RenewalsTable)
-```
+<puml src="diagrams/AddPersonWithPolicyTypeSequenceDiagram.puml" width="800"/>
 
 When the user adds a new person with a policy type:
 
-1. The `AddCommandParser` parses the policy type prefix and value.
-1. A new `Policy` object is created with the specified policy type.
-1. This `Policy` is included in the new `Person` object.
-1. The UI components display the policy type along with other person information.
+1. The `AddCommandParser` parses the command including the policy type prefix.
+2. A new `Policy` object is created with the specified policy type.
+3. This `Policy` is included in the new `Person` object.
+4. The Model stores the new person and returns success.
+5. A `CommandResult` is returned to indicate success.
 
-Similarly, when editing a person's policy type or finding persons by policy type, the appropriate parsers handle the policy type prefix and create the necessary commands or predicates.
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
+The UI components will automatically update to reflect the changes in the Model.
 
 ---
 
