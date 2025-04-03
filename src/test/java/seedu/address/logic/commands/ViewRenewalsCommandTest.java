@@ -46,7 +46,7 @@ public class ViewRenewalsCommandTest {
     public void execute_emptyModel_noRenewals() {
         ViewRenewalsCommand command = new ViewRenewalsCommand(30, ViewRenewalsCommand.SORT_BY_DATE);
         CommandResult result = command.execute(model);
-        assertEquals(ViewRenewalsCommand.MESSAGE_NO_RENEWALS, result.getFeedbackToUser());
+        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_NO_RENEWALS, 30), result.getFeedbackToUser());
         assertTrue(model.getRenewalsList().isEmpty());
     }
 
@@ -117,7 +117,7 @@ public class ViewRenewalsCommandTest {
         model.addPerson(farFuturePerson);
         ViewRenewalsCommand command = new ViewRenewalsCommand(30, ViewRenewalsCommand.SORT_BY_DATE);
         CommandResult result = command.execute(model);
-        assertEquals(ViewRenewalsCommand.MESSAGE_NO_RENEWALS, result.getFeedbackToUser());
+        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_NO_RENEWALS, 30), result.getFeedbackToUser());
         assertTrue(model.getRenewalsList().isEmpty());
     }
 
