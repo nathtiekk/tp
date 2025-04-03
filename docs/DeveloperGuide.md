@@ -250,7 +250,7 @@ The renewal date update functionality is implemented through the `RenewCommand` 
 
 The following class diagram shows the structure of the Renew Command:
 
-<puml src="diagrams/RenewCommandClassDiagram.puml" width="800"/>
+<puml src="diagrams/RenewCommandClassDiagram.puml" width="400"/>
 
 The feature works through the following process flow:
 
