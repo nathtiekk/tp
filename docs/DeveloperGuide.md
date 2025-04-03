@@ -302,7 +302,7 @@ The `FindCommand` allows users to search for persons in the address book by spec
 
 #### FindCommand
 
-The `FindCommand` enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy. It is implemented using the following components:
+The `FindCommand` enables users to search for persons based on any attribute, such as name, address, phone number, email, tags or policy number. It is implemented using the following components:
 
 * `FindCommand`: Executes the search operation.
 * `FindCommandParser`: Parses and validates the user input into a FindCommand object.
