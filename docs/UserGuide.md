@@ -69,7 +69,7 @@ InsureBook is a **desktop app for managing contacts, optimized for use via a Lin
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -127,9 +127,9 @@ Examples:
 *   `edit 1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2024` Edits the phone number, email address, policy type and renewal date of the 1st person to be `91234567`, `johndoe@example.com`, `Health` and `31-12-2024` respectively.
 *   `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating persons by keyword: `find`
 
-Finds persons whose names contain any of the given values.
+Searches given person fields by specific keyword and returns any matching entries
 
 Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]…`
 
