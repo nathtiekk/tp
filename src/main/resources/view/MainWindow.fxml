@@ -81,9 +81,6 @@
               <Label fx:id="filterLabel" text="No active filter" visible="true"/>
             </StackPane>
           </VBox>
-        
-
-
           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
         </VBox>
       </ScrollPane>
