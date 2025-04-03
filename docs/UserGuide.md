@@ -237,6 +237,24 @@ Examples:
 *   `viewrenewals n/60` - Shows renewals due in the next 60 days, sorted by date
 *   `viewrenewals n/60 s/name` - Shows renewals due in the next 60 days, sorted alphabetically by name
 
+### View policy renewals in the specified date range: `filter`
+
+Enables insurance agents to find clients with policy renewals falling within a specific calendar range.
+
+Format: `filter sd/START_DATE ed/END_DATE [s/SORT_ORDER]`
+
+The `s/SORT_ORDER` parameter is optional:
+*   Acceptable values: "date" (chronological) or "name" (alphabetical).
+*   Case-insensitive: Both "DATE" and "date" are valid.
+*   Default: "date" if omitted.
+*   Error message: "Invalid sort. Use 'date' or 'name' (case-insensitive)".
+*   Rationale: These two sort options cover the most common use cases for reviewing renewals.
+
+Examples:
+
+*   `filter sd/2025-03-01 ed/2025-03-31` - Shows renewals due from 2025-03-01 to 2025-03-31, sorted by date by default
+*   `filter sd/2025-01-01 ed/2025-06-30 s/name` - Shows renewals due from 2025-01-01 to 2025-06-30, sorted by name
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -273,13 +291,14 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## Command summary
 
 | Action            | Format, Examples                                                                                                                                                                                                                               |
-| ----------------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 note/Is lovely t/friend t/colleague` |
 | **Clear**         | `clear`                                                                                                                                                                                                                                        |
 | **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                                            |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                          |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
 | **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]… [s/SORT_ORDER]`<br> e.g., `find n/James n/Jake p/98765432`                                                                                                    |
 | **List**          | `list`                                                                                                                                                                                                                                         |
 | **Help**          | `help`                                                                                                                                                                                                                                         |
 | **Renew**         | `renew pol/POLICY_NUMBER r/RENEWAL_DATE`<br> e.g., `renew pol/123456 r/31-12-2025`                                                                                                                                                             |
 | **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                                                             |
+| **Filter**        | `filter sd/START_DATE ed/END_DATE [s/SORT_ORDER]`<br> e.g., `filter sd/2025-01-01 ed/2025-06-30 s/name`                                                                                                                                        |
