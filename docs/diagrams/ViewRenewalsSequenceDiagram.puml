@@ -1,58 +1,47 @@
 @startuml
 !include style.puml
 
-skinparam defaultFontSize 16
-skinparam ParticipantFontColor white
-skinparam ArrowColor black
+skinparam defaultFontSize 24
 
 box Logic LOGIC_COLOR_T1
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":ViewRenewalsCommandParser" as Parser LOGIC_COLOR
-participant ":ViewRenewalsCommand" as Command LOGIC_COLOR
+participant ":ViewRenewalsCommandParser" as ViewRenewalsCommandParser LOGIC_COLOR
+participant "command:ViewRenewalsCommand" as ViewRenewalsCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> AddressBookParser : parse("viewrenewals n/30 s/date")
+[-> AddressBookParser : parseCommand()
 activate AddressBookParser
 
-AddressBookParser -> Parser : parse(" n/30 s/date")
-activate Parser
+AddressBookParser -> ViewRenewalsCommandParser : parse()
+activate ViewRenewalsCommandParser
 
-create Command
-Parser -> Command : new(30, "date")
-activate Command
+create ViewRenewalsCommand
+ViewRenewalsCommandParser -> ViewRenewalsCommand : new()
+activate ViewRenewalsCommand
 
-Command --> Parser
-deactivate Command
+ViewRenewalsCommand --> ViewRenewalsCommandParser
+deactivate ViewRenewalsCommand
 
-Parser --> AddressBookParser : cmd
-deactivate Parser
+ViewRenewalsCommandParser --> AddressBookParser : command
+deactivate ViewRenewalsCommandParser
 
-[<-- AddressBookParser : cmd
+[<-- AddressBookParser : command
 deactivate AddressBookParser
 
-[-> Command : execute(model)
-activate Command
+[-> ViewRenewalsCommand : execute()
+activate ViewRenewalsCommand
 
-Command -> Model : updateRenewals(predicate)
+ViewRenewalsCommand -> Model : updateFilteredPersonList()
 activate Model
-Model --> Command
+
+Model --> ViewRenewalsCommand
 deactivate Model
 
-Command -> Model : sortRenewals(comparator)
-activate Model
-Model --> Command
-deactivate Model
-
-Command -> Model : getRenewals()
-activate Model
-Model --> Command : list
-deactivate Model
-
-[<-- Command : result
-deactivate Command
+[<-- ViewRenewalsCommand : result
+deactivate ViewRenewalsCommand
 
 @enduml
