@@ -40,6 +40,9 @@ public class PersonDetailPanel extends UiPart<Region> {
         notesLabel.setText(person.getNote().toString());
     }
 
+    /**
+     * Updates the panel to clear the data.
+     */
     public void clear() {
         policyLabel.setText("");
         renewalDateLabel.setText("");

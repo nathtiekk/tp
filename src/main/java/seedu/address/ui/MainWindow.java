@@ -270,7 +270,7 @@ public class MainWindow extends UiPart<Stage> {
                     personDetailPanel.clear();
                 }
             }
-            
+
             if (commandText.startsWith("filter")) {
                 String feedback = commandResult.getFeedbackToUser();
 
