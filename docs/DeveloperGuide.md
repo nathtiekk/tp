@@ -85,16 +85,28 @@ The `UI` component,
 The person card UI is implemented using the following components:
 
 *   `PersonListCard.fxml`: Defines the layout of each person card, including:
-
     *   Name and ID
     *   Contact information (phone, email, address)
-    *   Policy information (policy number and renewal date)
     *   Tags
 
 *   `PersonCard.java`: Controls the display of person information in the card:
     *   Binds UI elements to person data
-    *   Formats the renewal date display with the prefix "Renewal date: " for clarity
     *   Manages tag display
+
+#### Person Details UI
+
+*   `PersonDetailPanel.fxml`: Defines the layout of the display for a person's details, including:
+    *   Policy Number
+    *   Renewal Date
+    *   Policy Type
+    *   Notes
+
+*   `PersonDetailPanel.java`: Controls the display and updating of information of current selected person:
+    *   Binds UI elements (labels for policy number, renewal date, and notes) to the underlying person data model
+    *   Formats the renewal date display with the prefix "Renewal date: " for clarity
+    *   Dynamically updates the panel’s content when a different person is selected in the main list
+    *   Ensures that the Notes field, if it contains a lengthy string, wraps onto multiple lines without expanding the panel’s width beyond its allocated space
+
 
 The person card provides a compact view of all essential client information, making it easy for insurance agents to quickly access client details and track policy renewals. The renewal date is prominently displayed with a clear label to help agents quickly identify when policies need to be renewed.
 
@@ -481,6 +493,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | Insurance Agent | set reminders for renewals       | never miss important deadlines               |
 | `* * *`  | Insurance Agent | persist client data              | ensure no data is lost                       |
 | `* * *`  | Insurance Agent | filter and sort clients by tags  | manage clients more efficiently              |
+| `* *`  | Insurance Agent | add notes to a client’s profile  | remember key details about them              |
+| `* *`  | Insurance Agent | sort my clients by tag  | so that I can easily rank my clients based on how they were previously tagged              |
+
 
 _{More to be added}_
 
