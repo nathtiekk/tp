@@ -75,6 +75,20 @@
               <Label fx:id="filterLabel" text="No active filter" visible="true"/>
             </StackPane>
           </VBox>
+        
+        <HBox fx:id="personListAndDetailBox" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+          </padding>
+          <StackPane fx:id="personListPanelPlaceholder"
+               HBox.hgrow="ALWAYS"
+               prefWidth="0"
+               maxWidth="Infinity" />
+          <StackPane fx:id="personDetailPanelPlaceholder"
+               HBox.hgrow="ALWAYS"
+               prefWidth="0"
+               maxWidth="Infinity" />
+        </HBox>
 
           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
         </VBox>
