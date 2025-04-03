@@ -131,7 +131,7 @@ Examples:
 
 Searches given person fields by specific keyword and returns any matching entries
 
-Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]…`
+Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]… [s/SORT_ORDER]…`
 
 *   At least one of the optional fields must be provided.
 *   Each field may be provided more than once.
@@ -144,7 +144,7 @@ Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_N
     e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 *   Tags are supported. You can add one or more tags using `t/TAG`. The search for tags is not case-sensitive and must be an exact word.
 *   Policy types are supported. You can search for specific policy types using `pt/POLICY_TYPE`. Valid policy types are: Life, Health, Property, Vehicle, and Travel. The search is not case-sensitive.
-*   The search results can be sorted by `name` or by `tag`. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
+*   The search results can be sorted using `s/SORT_ORDER` by `name` or by `tag`. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
 
 <box type="info" seamless>
 **Note:** The sorting order is case-sensitive and follows ASCII values. This means lowercase letters are ordered after uppercase ones. For example, `alice` will appear after `Bernice`.
@@ -156,7 +156,6 @@ Examples:
 *   `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
 *   `find n/alex n/david` returns `Alex Yeoh`, `David Li`
 *   `find e/ice@example.com e/bob@ex` returns `alice@example.com` and `bob@example.com`<br>
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
 *   `find t/colleagues` returns `Bernice Yu` and `Roy Balakrishnan`
 *   `find pt/Health` returns all persons with health insurance policies
 *   `find pt/Life pt/Health` returns all persons with either life or health insurance policies
@@ -271,9 +270,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
 
-_Details coming soon ..._
 
 ---
 
