@@ -26,7 +26,7 @@ public class ViewRenewalsCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_NEXT_N_DAYS + "60" + " " + PREFIX_SORT_ORDER + "name";
 
     public static final String MESSAGE_SUCCESS = "Found %d policies due for renewal";
-    public static final String MESSAGE_NO_RENEWALS = "No upcoming renewals within the specified time period";
+    public static final String MESSAGE_NO_RENEWALS = "No upcoming renewals within %d days";
 
     public static final int DEFAULT_DAYS = 30;
     public static final String DEFAULT_SORT = "date";
@@ -56,7 +56,7 @@ public class ViewRenewalsCommand extends Command {
         model.updateSortedRenewalsList(getComparator());
 
         if (model.getRenewalsList().isEmpty()) {
-            return new CommandResult(MESSAGE_NO_RENEWALS);
+            return new CommandResult(String.format(MESSAGE_NO_RENEWALS, days));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, model.getRenewalsList().size()));
     }

@@ -48,6 +48,7 @@ public class RenewalsTable extends UiPart<VBox> {
     public RenewalsTable(Model model) {
         super(FXML);
         setupColumns();
+        configureTable();
         updateRenewals(model);
     }
 
@@ -63,6 +64,15 @@ public class RenewalsTable extends UiPart<VBox> {
             daysLeftColumn,
             contactColumn
         );
+    }
+
+    /**
+     * Configures the table properties for optimal display.
+     */
+    private void configureTable() {
+        renewalsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        renewalsTable.setMinHeight(200);
+        renewalsTable.setPrefHeight(200);
     }
 
     /**
