@@ -288,7 +288,7 @@ public class ParserUtil {
         try {
             LocalDate parsedDate = LocalDate.parse(dateStr.trim(), formatter);
 
-            // Ensure the formatted date matches the original input to prevent the invalid date to go through 
+            //Ensure the formatted date matches the original input to prevent the invalid date to go through
             if (!dateStr.equals(parsedDate.format(formatter))) {
                 throw new IllegalArgumentException(FilterDateCommandParser.MESSAGE_INVALID_DATE_FORMAT);
             }
