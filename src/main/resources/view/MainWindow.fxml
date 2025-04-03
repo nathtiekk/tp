@@ -79,7 +79,6 @@
                prefWidth="0"
                maxWidth="Infinity" />
         </HBox>
-        
          <VBox fx:id="renewalsSection" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="NEVER">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
