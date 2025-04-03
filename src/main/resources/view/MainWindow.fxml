@@ -77,7 +77,7 @@
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="renewalsTablePlaceholder" minHeight="200" prefHeight="200"/>
-            <StackPane fx:id="dateFilterInformation">
+            <StackPane fx:id="dateFilterInformation" alignment="CENTER">
               <Label fx:id="filterLabel" text="No active filter" visible="true"/>
             </StackPane>
           </VBox>
