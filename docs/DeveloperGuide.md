@@ -13,7 +13,17 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* Libraries used:
+  * JavaFX: Main GUI library
+  * JUnit5: Testing framework
+  * Jackson: JSON processing library (jackson-databind, jackson-datatype-jsr310)
+  * Gradle: Build automation tool
+  * Checkstyle: Code style checking
+  * JaCoCo: Code coverage
+  * Shadow: JAR packaging
+
+* UI Design:
+  * Original AddressBook-Level3 source code from SE-EDU initiative at https://github.com/se-edu/
 
 ---
 
@@ -424,10 +434,6 @@ When the user adds a new person with a policy type:
 5. A `CommandResult` is returned to indicate success.
 
 The UI components will automatically update to reflect the changes in the Model.
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 ---
 
