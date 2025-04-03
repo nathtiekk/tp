@@ -342,6 +342,33 @@ The following partial sequence diagram shows how the test operation works:
     * Pros: More user-friendly and flexible, accommodating various input styles.
     * Cons: May result in unintended matches if search values are too general.
 
+### Filter Command
+
+The `filter` command allows users to view policies due for renewal within a specified date range:
+
+*   Takes two parameters, startDate and endDate to specify the date range
+*   Optional sort parameter (by date or name); defaults to date
+*   Filters the person list based on policy renewal dates
+*   Updates the UI to show filtered results, and the filter specified when calling this command
+
+#### Implementation
+
+The following class diagram shows how the filter command updates the UI:
+
+<puml src="diagrams/FilterDateCommandClassDiagram.puml" width="800"/>
+
+The following sequence diagram shows how the filter command works:
+
+<puml src="diagrams/FilterDateCommandSequenceDiagram.puml" width="800"/>
+
+Here are the changes to the UI after the filter command executes:
+
+_{To be added}_
+
+#### Design Considerations
+
+_{To be added}_
+
 ### \[Proposed\] Undo/redo feature
 
 #### Current Implementation
