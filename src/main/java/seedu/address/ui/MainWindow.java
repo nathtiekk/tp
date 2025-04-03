@@ -21,6 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.RenewalDate;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -226,13 +227,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void updateFilterLabel(LocalDate startDate, LocalDate endDate) {
         if (startDate != null && endDate != null) {
-            filterLabel.setText("Filtered from " + startDate + " to " + endDate);
+            filterLabel.setText("Filtered from " + startDate.format(RenewalDate.DATE_FORMATTER) + 
+                " to " + endDate.format(RenewalDate.DATE_FORMATTER));
+            filterLabel.setStyle("-fx-text-fill: white; -fx-alignment: center;");
         }
     }
 
     private void updateFilterLabelEmpty() {
         filterLabel.setText("No active filter");
-
+        filterLabel.setStyle("-fx-text-fill: white; -fx-alignment: center;");
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -272,6 +275,21 @@ public class MainWindow extends UiPart<Stage> {
                             updateFilterLabel(startDate, endDate);
                         }
                     }
+                }
+            } else if (commandText.startsWith("viewrenewals")) {
+                String feedback = commandResult.getFeedbackToUser();
+                if (feedback.contains("between")) {
+                    String[] parts = feedback.split("between|\\.");
+                    if (parts.length >= 2) {
+                        String[] dates = parts[1].trim().split(" and ");
+                        if (dates.length == 2) {
+                            LocalDate startDate = LocalDate.parse(dates[0].trim(), RenewalDate.DATE_FORMATTER);
+                            LocalDate endDate = LocalDate.parse(dates[1].trim(), RenewalDate.DATE_FORMATTER);
+                            updateFilterLabel(startDate, endDate);
+                        }
+                    }
+                } else {
+                    updateFilterLabelEmpty();
                 }
             } else {
                 updateFilterLabelEmpty();
