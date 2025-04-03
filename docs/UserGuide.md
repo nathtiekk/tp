@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# InsureBook User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+InsureBook is a **desktop app for managing contacts, optimized for use via a Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InsureBook can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,7 +18,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103-F08-2/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -113,7 +113,7 @@ The policy type and renewal date are clearly labeled to help insurance agents qu
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`
 
 *   Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 *   At least one of the optional fields must be provided.
@@ -280,7 +280,7 @@ _Details coming soon ..._
 | **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 note/Is lovely t/friend t/colleague` |
 | **Clear**         | `clear`                                                                                                                                                                                                                                        |
 | **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                                            |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                          |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                          |
 | **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]… [s/SORT_ORDER]`<br> e.g., `find n/James n/Jake p/98765432`                                                                                                    |
 | **List**          | `list`                                                                                                                                                                                                                                         |
 | **Help**          | `help`                                                                                                                                                                                                                                         |
