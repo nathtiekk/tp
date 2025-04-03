@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private RenewalsTable renewalsTable;
+    private PersonDetailPanel personDetailPanel;
 
     private StatusBarFooter statusBarFooter;
 
@@ -148,7 +149,7 @@ public class MainWindow extends UiPart<Stage> {
         renewalsTable = new RenewalsTable(logic.getModel());
         renewalsTablePlaceholder.getChildren().add(renewalsTable.getRoot());
 
-        PersonDetailPanel personDetailPanel = new PersonDetailPanel();
+        personDetailPanel = new PersonDetailPanel();
         personDetailPanelPlaceholder.getChildren().add(personDetailPanel.getRoot());
 
         // Observe changes in the filtered person list
@@ -258,6 +259,18 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandText.startsWith("find")) {
+                if (!logic.getFilteredPersonList().isEmpty()) {
+                    personListPanel.getListView().getSelectionModel().clearSelection();
+                    personListPanel.getListView().getSelectionModel().selectFirst();
+                    Person firstPerson = personListPanel.getListView().getSelectionModel().getSelectedItem();
+                    personDetailPanel.setPerson(firstPerson);
+                } else {
+                    personListPanel.getListView().getSelectionModel().clearSelection();
+                    personDetailPanel.clear();
+                }
+            }
+
             if (commandText.startsWith("filter")) {
                 String feedback = commandResult.getFeedbackToUser();
 
@@ -279,6 +292,11 @@ public class MainWindow extends UiPart<Stage> {
 
             // Update renewals table after each command
             renewalsTable.updateRenewals(logic.getModel());
+
+            if (commandText.startsWith("clear")) {
+                renewalsTable.clear();
+                personDetailPanel.clear();
+            }
 
             String newLastUpdated = logic.getModel().getAddressBook().getLastUpdatedString();
             statusBarFooter.updateLastUpdated(newLastUpdated);
