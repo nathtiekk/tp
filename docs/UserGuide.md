@@ -156,7 +156,6 @@ Examples:
 *   `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
 *   `find n/alex n/david` returns `Alex Yeoh`, `David Li`
 *   `find e/ice@example.com e/bob@ex` returns `alice@example.com` and `bob@example.com`<br>
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
 *   `find t/colleagues` returns `Bernice Yu` and `Roy Balakrishnan`
 *   `find pt/Health` returns all persons with health insurance policies
 *   `find pt/Life pt/Health` returns all persons with either life or health insurance policies
@@ -253,9 +252,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
 
-_Details coming soon ..._
 
 ---
 
