@@ -52,4 +52,4 @@ deactivate AddCommand
 [<-- AddressBookParser : CommandResult
 deactivate AddressBookParser
 
-@enduml 
+@enduml
