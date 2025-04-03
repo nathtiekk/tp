@@ -227,8 +227,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void updateFilterLabel(LocalDate startDate, LocalDate endDate) {
         if (startDate != null && endDate != null) {
-            filterLabel.setText("Filtered from " + startDate.format(RenewalDate.DATE_FORMATTER) + 
-                " to " + endDate.format(RenewalDate.DATE_FORMATTER));
+            filterLabel.setText("Filtered from " + startDate.format(RenewalDate.DATE_FORMATTER)
+                    + " to " + endDate.format(RenewalDate.DATE_FORMATTER));
             filterLabel.setStyle("-fx-text-fill: white; -fx-alignment: center;");
         }
     }

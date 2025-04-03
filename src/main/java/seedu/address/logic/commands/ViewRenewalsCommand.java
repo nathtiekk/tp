@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_N_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT_ORDER;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.time.LocalDate;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -63,8 +63,8 @@ public class ViewRenewalsCommand extends Command {
         if (model.getRenewalsList().isEmpty()) {
             return new CommandResult(String.format(MESSAGE_NO_RENEWALS, days));
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS + " between %s and %s", 
-            model.getRenewalsList().size(), startDate.format(RenewalDate.DATE_FORMATTER), 
+        return new CommandResult(String.format(MESSAGE_SUCCESS + " between %s and %s",
+            model.getRenewalsList().size(), startDate.format(RenewalDate.DATE_FORMATTER),
             endDate.format(RenewalDate.DATE_FORMATTER)));
     }
 

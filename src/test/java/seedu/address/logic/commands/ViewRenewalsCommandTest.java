@@ -57,7 +57,11 @@ public class ViewRenewalsCommandTest {
         model.addPerson(charlie);
         ViewRenewalsCommand command = new ViewRenewalsCommand(30, ViewRenewalsCommand.SORT_BY_DATE);
         CommandResult result = command.execute(model);
-        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS, 2), result.getFeedbackToUser());
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(30);
+        assertEquals(String.format(ViewRenewalsCommand.MESSAGE_SUCCESS + " between %s and %s",
+            2, startDate.format(RenewalDate.DATE_FORMATTER), endDate.format(RenewalDate.DATE_FORMATTER)),
+            result.getFeedbackToUser());
         List<Person> renewalsList = model.getRenewalsList();
         assertEquals(2, renewalsList.size());
         assertEquals(charlie, renewalsList.get(0));
