@@ -86,6 +86,13 @@ public class RenewalsTable extends UiPart<VBox> {
     }
 
     /**
+     * Clears the renewals table by setting its items to an empty list.
+     */
+    public void clear() {
+        renewalsTable.getItems().clear();
+    }
+
+    /**
      * Shows the renewals table.
      */
     public void show() {

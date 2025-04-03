@@ -39,4 +39,11 @@ public class PersonDetailPanel extends UiPart<Region> {
         policyTypeLabel.setText(person.getPolicy().getType().toString());
         notesLabel.setText(person.getNote().toString());
     }
+
+    public void clear() {
+        policyLabel.setText("");
+        renewalDateLabel.setText("");
+        policyTypeLabel.setText("");
+        notesLabel.setText("");
+    }
 }
