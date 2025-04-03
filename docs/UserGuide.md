@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# InsureBook User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+InsureBook is a **desktop app for managing contacts, optimized for use via a Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InsureBook can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,7 +18,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103-F08-2/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -69,7 +69,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -79,7 +79,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [pt/POLICY_TYPE] [r/RENEWAL_DATE] [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [pt/POLICY_TYPE] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`
 
 <box type="tip" seamless>
 
@@ -87,8 +87,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [pt/POLIC
 </box>
 
 Examples:
-
-*   `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/123456 pt/Life r/31-12-2024`
+*   `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/123456 pt/Life r/31-12-2024 note/Basketball Player`
 *   `add n/Betsy Crowe t/friend pol/654321 pt/Health e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### Listing all persons : `list`
@@ -114,7 +113,7 @@ The policy type and renewal date are clearly labeled to help insurance agents qu
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`
 
 *   Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 *   At least one of the optional fields must be provided.
@@ -128,11 +127,11 @@ Examples:
 *   `edit 1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2024` Edits the phone number, email address, policy type and renewal date of the 1st person to be `91234567`, `johndoe@example.com`, `Health` and `31-12-2024` respectively.
 *   `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating persons by keyword: `find`
 
-Finds persons whose names contain any of the given values.
+Searches given person fields by specific keyword and returns any matching entries
 
-Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]…`
+Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]… [s/SORT_ORDER]…`
 
 *   At least one of the optional fields must be provided.
 *   Each field may be provided more than once.
@@ -145,7 +144,7 @@ Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_N
     e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 *   Tags are supported. You can add one or more tags using `t/TAG`. The search for tags is not case-sensitive and must be an exact word.
 *   Policy types are supported. You can search for specific policy types using `pt/POLICY_TYPE`. Valid policy types are: Life, Health, Property, Vehicle, and Travel. The search is not case-sensitive.
-*   The search results can be sorted by `name` or by `tag`. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
+*   The search results can be sorted using `s/SORT_ORDER` by `name` or by `tag`. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
 
 <box type="info" seamless>
 **Note:** The sorting order is case-sensitive and follows ASCII values. This means lowercase letters are ordered after uppercase ones. For example, `alice` will appear after `Bernice`.
@@ -157,7 +156,6 @@ Examples:
 *   `find n/Amy p/999` returns `Amy Goh (96372716)` and `Local Police (999)`
 *   `find n/alex n/david` returns `Alex Yeoh`, `David Li`
 *   `find e/ice@example.com e/bob@ex` returns `alice@example.com` and `bob@example.com`<br>
-    ![result for 'find alex david'](images/findAlexDavidResult.png)
 *   `find t/colleagues` returns `Bernice Yu` and `Roy Balakrishnan`
 *   `find pt/Health` returns all persons with health insurance policies
 *   `find pt/Life pt/Health` returns all persons with either life or health insurance policies
@@ -239,6 +237,24 @@ Examples:
 *   `viewrenewals n/60` - Shows renewals due in the next 60 days, sorted by date
 *   `viewrenewals n/60 s/name` - Shows renewals due in the next 60 days, sorted alphabetically by name
 
+### View policy renewals in the specified date range: `filter`
+
+Enables insurance agents to find clients with policy renewals falling within a specific calendar range.
+
+Format: `filter sd/START_DATE ed/END_DATE [s/SORT_ORDER]`
+
+The `s/SORT_ORDER` parameter is optional:
+*   Acceptable values: "date" (chronological) or "name" (alphabetical).
+*   Case-insensitive: Both "DATE" and "date" are valid.
+*   Default: "date" if omitted.
+*   Error message: "Invalid sort. Use 'date' or 'name' (case-insensitive)".
+*   Rationale: These two sort options cover the most common use cases for reviewing renewals.
+
+Examples:
+
+*   `filter sd/2025-03-01 ed/2025-03-31` - Shows renewals due from 2025-03-01 to 2025-03-31, sorted by date by default
+*   `filter sd/2025-01-01 ed/2025-06-30 s/name` - Shows renewals due from 2025-01-01 to 2025-06-30, sorted by name
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -254,9 +270,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
 
-_Details coming soon ..._
 
 ---
 
@@ -276,15 +290,15 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                                                    |
-| ----------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [r/RENEWAL_DATE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 t/friend t/colleague` |
-| **Clear**         | `clear`                                                                                                                                                                                                             |
-| **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                 |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY] [r/RENEWAL_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                           |
-| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]… [s/SORT_ORDER]`<br> e.g., `find n/James n/Jake p/98765432`                                                                         |
-| **List**          | `list`                                                                                                                                                                                                              |
-| **Help**          | `help`                                                                                                                                                                                                              |
-| **Renew**         | `renew pol/POLICY_NUMBER r/RENEWAL_DATE`<br> e.g., `renew pol/123456 r/31-12-2025`                                                                                                                                  |
-| **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                                  |
-
+| Action            | Format, Examples                                                                                                                                                                                                                               |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**           | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS pol/POLICY_NUMBER [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 pol/183548 note/Is lovely t/friend t/colleague` |
+| **Clear**         | `clear`                                                                                                                                                                                                                                        |
+| **Delete**        | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                                            |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **Find**          | `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [t/TAG]… [s/SORT_ORDER]`<br> e.g., `find n/James n/Jake p/98765432`                                                                                                    |
+| **List**          | `list`                                                                                                                                                                                                                                         |
+| **Help**          | `help`                                                                                                                                                                                                                                         |
+| **Renew**         | `renew pol/POLICY_NUMBER r/RENEWAL_DATE`<br> e.g., `renew pol/123456 r/31-12-2025`                                                                                                                                                             |
+| **View Renewals** | `viewrenewals [n/NEXT_N_DAYS] [s/SORT_ORDER]`<br> e.g., `viewrenewals n/60 s/name`                                                                                                                                                             |
+| **Filter**        | `filter sd/START_DATE ed/END_DATE [s/SORT_ORDER]`<br> e.g., `filter sd/2025-01-01 ed/2025-06-30 s/name`                                                                                                                                        |

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Policy;
 import seedu.address.model.person.PolicyType;
@@ -176,6 +178,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        // Optionally, add any validation logic for note here if necessary.
+        return new Note(trimmedNote);
+    }
+
+    /**
+     * Parses a {@code Collection<String> notes} into a {@code Set<Note>}.
+     * Leading and trailing whitespaces will be trimmed for each note.
+     *
+     * @throws ParseException if any of the given {@code notes} are invalid.
+     */
+    public static Set<Note> parseNotes(Collection<String> notes) throws ParseException {
+        requireNonNull(notes);
+        final Set<Note> noteSet = new HashSet<>();
+        for (String noteStr : notes) {
+            noteSet.add(parseNote(noteStr));
+        }
+        return noteSet;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -252,11 +282,20 @@ public class ParserUtil {
      * @return The parsed {@code LocalDate} object.
      * @throws ParseException if the given {@code dateStr} is invalid.
      */
-    public static LocalDate parseDate(String dateStr) throws ParseException {
+    public static LocalDate parseDate(String dateStr) throws IllegalArgumentException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         try {
-            return LocalDate.parse(dateStr.trim());
+            LocalDate parsedDate = LocalDate.parse(dateStr.trim(), formatter);
+
+            //Ensure the formatted date matches the original input to prevent the invalid date to go through
+            if (!dateStr.equals(parsedDate.format(formatter))) {
+                throw new IllegalArgumentException(FilterDateCommandParser.MESSAGE_INVALID_DATE_FORMAT);
+            }
+
+            return parsedDate;
         } catch (DateTimeParseException e) {
-            throw new ParseException(FilterDateCommandParser.MESSAGE_INVALID_DATE_FORMAT);
+            throw new IllegalArgumentException(FilterDateCommandParser.MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 }
