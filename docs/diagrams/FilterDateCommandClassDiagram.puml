@@ -32,10 +32,26 @@ interface Model {
 }
 
 class MainWindow {
+    - logic : Logic
     - filterLabel : Label
 
+    - executeCommand(commandText : String) : CommandResult
     - updateFilterLabelEmpty() : void
     + updateFilterLabel(startDate : LocalDate, endDate : LocalDate) : void
+}
+
+interface Logic {
+    + execute(commandText : String) : CommandResult
+}
+
+class LogicManager {
+    - addressBookParser : AddressBookParser
+
+    + execute(commandText : String) : CommandResult
+}
+
+class AddressBookParser {
+     + parseCommand(userInput : String) : Command
 }
 
 FilterDateCommandParser -up-|> Parser
@@ -43,4 +59,9 @@ FilterDateCommand -up-|> Command
 FilterDateCommandParser ..> FilterDateCommand
 FilterDateCommand ..> Model
 MainWindow -up-|> UiPart
+LogicManager -up-|> Logic
+MainWindow --> LogicManager
+LogicManager --> AddressBookParser
+AddressBookParser ..> FilterDateCommandParser
+
 @enduml
