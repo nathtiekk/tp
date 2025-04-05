@@ -39,13 +39,17 @@ public class JsonSerializableAddressBookTest {
         for (int i = 0; i < addressBookFromFile.getPersonList().size(); i++) {
             Person personFromFile = addressBookFromFile.getPersonList().get(i);
             Person typicalPerson = typicalPersonsAddressBook.getPersonList().get(i);
-            assertEquals(personFromFile.getName(), typicalPerson.getName());
-            assertEquals(personFromFile.getPhone(), typicalPerson.getPhone());
-            assertEquals(personFromFile.getEmail(), typicalPerson.getEmail());
-            assertEquals(personFromFile.getAddress(), typicalPerson.getAddress());
-            assertEquals(personFromFile.getPolicy(), typicalPerson.getPolicy());
-            assertEquals(personFromFile.getPolicy().getType(), typicalPerson.getPolicy().getType());
-            assertEquals(personFromFile.getTags(), typicalPerson.getTags());
+            assertEquals(personFromFile.getName(), typicalPerson.getName(), "Name mismatch");
+            assertEquals(personFromFile.getPhone(), typicalPerson.getPhone(), "Phone mismatch");
+            assertEquals(personFromFile.getEmail(), typicalPerson.getEmail(), "Email mismatch");
+            assertEquals(personFromFile.getAddress(), typicalPerson.getAddress(), "Address mismatch");
+            assertEquals(personFromFile.getPolicy().getPolicyNumber(), 
+                    typicalPerson.getPolicy().getPolicyNumber(), "Policy number mismatch");
+            assertEquals(personFromFile.getPolicy().getType(), 
+                    typicalPerson.getPolicy().getType(), "Policy type mismatch");
+            assertEquals(personFromFile.getTags(), typicalPerson.getTags(), "Tags mismatch");
+            assertNotNull(personFromFile.getRenewalDate(), "Renewal date should not be null");
+            assertNotNull(typicalPerson.getRenewalDate(), "Typical person renewal date should not be null");
         }
     }
 
