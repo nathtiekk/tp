@@ -305,7 +305,7 @@ public class MainWindow extends UiPart<Stage> {
                     updateFilterLabelEmpty();
                 }
             } else {
-                updateFilterLabelEmpty();
+                //updateFilterLabelEmpty(); comment instead of deleting to preserve LOC
             }
 
             // Update renewals table after each command
