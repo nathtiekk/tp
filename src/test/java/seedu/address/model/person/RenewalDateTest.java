@@ -57,13 +57,18 @@ public class RenewalDateTest {
         assertFalse(RenewalDate.isValidRenewalDate("31-09-2024")); // invalid date (September has 30 days)
         assertFalse(RenewalDate.isValidRenewalDate("31-11-2024")); // invalid date (November has 30 days)
 
-        // valid dates
-        assertTrue(RenewalDate.isValidRenewalDate("15-03-2024")); // valid date
-        assertTrue(RenewalDate.isValidRenewalDate("01-01-2025")); // valid date
-        assertTrue(RenewalDate.isValidRenewalDate("31-12-2024")); // valid date
-        assertTrue(RenewalDate.isValidRenewalDate("29-02-2024")); // valid date (leap year)
-        assertTrue(RenewalDate.isValidRenewalDate("30-04-2024")); // valid date (30 days month)
-        assertTrue(RenewalDate.isValidRenewalDate("31-01-2024")); // valid date (31 days month)
+        // past dates
+        String pastDate = LocalDate.now().minusDays(1).format(RenewalDate.DATE_FORMATTER);
+        assertFalse(RenewalDate.isValidRenewalDate(pastDate)); // yesterday
+        assertFalse(RenewalDate.isValidRenewalDate(LocalDate.now().format(RenewalDate.DATE_FORMATTER))); // today
+
+        // valid future dates
+        String tomorrow = LocalDate.now().plusDays(1).format(RenewalDate.DATE_FORMATTER);
+        String nextMonth = LocalDate.now().plusMonths(1).format(RenewalDate.DATE_FORMATTER);
+        String nextYear = LocalDate.now().plusYears(1).format(RenewalDate.DATE_FORMATTER);
+        assertTrue(RenewalDate.isValidRenewalDate(tomorrow)); // tomorrow
+        assertTrue(RenewalDate.isValidRenewalDate(nextMonth)); // next month
+        assertTrue(RenewalDate.isValidRenewalDate(nextYear)); // next year
     }
 
     @Test
