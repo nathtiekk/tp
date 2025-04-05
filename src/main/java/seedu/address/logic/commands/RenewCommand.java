@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -53,20 +54,18 @@ public class RenewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         // Find the person with the specified policy number
-        Predicate<Person> exactPolicyPredicate = person ->
-                person.getPolicy().getPolicyNumber().equals(policyNumber);
-        model.updateFilteredPersonList(exactPolicyPredicate);
-        List<Person> filteredPersons = model.getFilteredPersonList();
-        if (filteredPersons.isEmpty()) {
+        List<Person> matchingPersons = model.getAddressBook().getPersonList().stream()
+                .filter(p -> p.getPolicy().getPolicyNumber().equals(policyNumber)).toList();
+
+        if (matchingPersons.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_POLICY_NOT_FOUND, policyNumber));
         }
-        if (filteredPersons.size() > 1) {
+        if (matchingPersons.size() > 1) {
             throw new CommandException(String.format(MESSAGE_MULTIPLE_POLICIES, policyNumber));
         }
-        Person personToUpdate = filteredPersons.get(0);
+        Person personToUpdate = matchingPersons.get(0);
         Person updatedPerson = createUpdatedPerson(personToUpdate);
         model.setPerson(personToUpdate, updatedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_RENEW_SUCCESS, policyNumber, newRenewalDate));
     }
 
