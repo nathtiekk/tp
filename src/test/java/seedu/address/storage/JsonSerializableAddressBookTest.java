@@ -43,9 +43,9 @@ public class JsonSerializableAddressBookTest {
             assertEquals(personFromFile.getPhone(), typicalPerson.getPhone(), "Phone mismatch");
             assertEquals(personFromFile.getEmail(), typicalPerson.getEmail(), "Email mismatch");
             assertEquals(personFromFile.getAddress(), typicalPerson.getAddress(), "Address mismatch");
-            assertEquals(personFromFile.getPolicy().getPolicyNumber(), 
+            assertEquals(personFromFile.getPolicy().getPolicyNumber(),
                     typicalPerson.getPolicy().getPolicyNumber(), "Policy number mismatch");
-            assertEquals(personFromFile.getPolicy().getType(), 
+            assertEquals(personFromFile.getPolicy().getType(),
                     typicalPerson.getPolicy().getType(), "Policy type mismatch");
             assertEquals(personFromFile.getTags(), typicalPerson.getTags(), "Tags mismatch");
             assertNotNull(personFromFile.getRenewalDate(), "Renewal date should not be null");
