@@ -47,6 +47,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SORT_ORDER);
+
         FindCommand.FindPersonsPredicate findPersonsPredicate = new FindPersonsPredicate();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
