@@ -10,6 +10,8 @@
 
 By combining the speed of a **Command Line Interface (CLI)** with the familiarity of a **Graphical User Interface (GUI)**, InsureBook is optimized for fast, efficient use. If you're a quick typist, you'll find that InsureBook lets you **perform contact management tasks faster than traditional point-and-click apps** — all while maintaining clarity and control over your client base.
 
+As a result, with InsureBook, we're not just insuring policies—we're insuring smiles!
+
 
 <!-- * Table of Contents -->
 <page-nav-print />
