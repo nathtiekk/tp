@@ -65,14 +65,15 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "A person with the same %s already exists in the address book";
     public static final String MESSAGE_DUPLICATE_POLICY = "Policy number already exists in another person's record";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -94,13 +95,15 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-        if (!personToEdit.isSamePerson(editedPerson)) {
-            boolean hasDuplicatePolicy = model.getFilteredPersonList().stream()
-                    .anyMatch(p -> !p.equals(personToEdit) && p.isSamePerson(editedPerson));
-            if (hasDuplicatePolicy) {
-                throw new CommandException(MESSAGE_DUPLICATE_POLICY);
-            }
+        Person duplicatePerson = model.getFilteredPersonList().stream()
+                .filter(p -> !p.equals(personToEdit) && p.isSamePerson(editedPerson))
+                .findFirst()
+                .orElse(null);
+        if (duplicatePerson != null) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON,
+                    editedPerson.getDuplicateReason(duplicatePerson)));
         }
+
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -139,7 +142,7 @@ public class EditCommand extends Command {
         Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPolicy,
-                        updatedNote, updatedTags);
+                updatedNote, updatedTags);
     }
 
     @Override
@@ -181,7 +184,8 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private Note note;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -204,7 +208,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, policy, renewalDate, policyType,
-                                            tags, note);
+                    tags, note);
         }
 
         public void setName(Name name) {
