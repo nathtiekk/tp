@@ -151,11 +151,11 @@ Examples:
 
 Searches given person fields by specific keyword and returns any matching entries
 
-Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]… [s/SORT_ORDER]…`
+Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_NUMBER]… [pt/POLICY_TYPE]… [t/TAG]… [s/SORT_ORDER]`
 
 *   At least one of the optional fields must be provided.
-*   Each field may be provided more than once.
-*   Each field may contain more than one word.
+*   Each field may be provided more than once except `SORT_ORDER`.
+*   `NAME` and `ADDRESS` field may contain more than one word.
 *   The search is case-insensitive. e.g `hans` will match `Hans`
 *   The order of the values matter for a field but not for different fields. e.g. `n/Hans Bo` will not match `Bo Hans` but `n/Hans n/Bo` will match `Bo Hans`
 *   Partial words will also be matched e.g. `n/Han` will match `Hans`
@@ -164,7 +164,7 @@ Format: `find [n/NAME]… [p/PHONE]… [e/EMAIL]… [a/ADDRESS]… [pol/POLICY_N
     e.g. `n/Hans n/Bo` will return `Hans Gruber`, `Bo Yang`
 *   Tags are supported. You can add one or more tags using `t/TAG`. The search for tags is not case-sensitive and must be an exact word.
 *   Policy types are supported. You can search for specific policy types using `pt/POLICY_TYPE`. Valid policy types are: Life, Health, Property, Vehicle, and Travel. The search is not case-sensitive.
-*   The search results can be sorted using `s/SORT_ORDER` by `name` or by `tag`. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
+*   The search results can be sorted using `s/SORT_ORDER` by `name` or by `tag` only. The default sort order is by name. Tag sorting sorts by entries with the most number of tags first.
 
 <box type="info" seamless>
 
