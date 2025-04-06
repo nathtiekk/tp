@@ -555,11 +555,6 @@ _{More to be added}_
 
     Use case ends.
 
-**Extensions**
-
--   2a. No clients have been added.
-    -   2a1. System shows "No clients added yet."
-
 ---
 
 **Use case: Update client information**
@@ -712,9 +707,25 @@ _{More to be added}_
 
 ### Glossary
 
--   **Mainstream OS**: Windows, Linux, Unix, MacOS
+-   **Insurance Agent**: A professional who uses the system to manage clients and policies.
 -   **Client**: A person managed within the system with relevant details such as contact, policy information, and tags.
+-   **Policy**: An insurance contract that outlines coverage details, conditions, and terms agreed upon between the insurer and the client.
+-   **Policy Number**: A unique identifier assigned to each insurance policy, typically formatted as “POL-XXX”.
+-   **Renewal Date**: The date on which an insurance policy is due for renewal.
+-   **Policy Type**: A classification that categorizes policies into specific groups such as Life, Health, Property, Vehicle, or Travel.
+-   **User Interface (UI)**: The graphical layout and interactive components (e.g., windows, panels, forms) through which the insurance agent interacts with the system.
+-   **Logic**: The system component that processes user commands by coordinating between the UI and the data model.
+-   **Model**: The component that holds all the client and policy data in memory and represents the business entities.
+-   **Storage**: The component responsible for reading from and writing data to disk, ensuring data persists between sessions.
+-   **Command**: A directive issued by the insurance agent to perform actions such as adding, deleting, or updating a client.
+-   **Command Parser**: The module that interprets raw user input and converts it into a structured command object.
+-   **Command Result**: The outcome returned after a command is executed, including success confirmations or error messages.
+-   **User Preferences**: Settings that store the agent’s configuration choices for a personalized experience.
+-   **ObservableList**: A data structure that automatically notifies the UI of changes in the model, ensuring real-time updates.
+-   **Duplicate Entry**: A situation where a new client record matches an existing record based on key attributes like name and phone number.
 -   **Tag**: A custom keyword used to categorize clients for sorting and filtering.
+-   **Data Persistence**: The capability of the system to save client and policy data so that information is retained across sessions.
+-   **Mainstream OS**: Operating systems such as Windows, Linux, Unix, and MacOS.
 
 ---
 
