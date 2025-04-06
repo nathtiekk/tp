@@ -21,6 +21,8 @@ Class Phone
 Class Tag
 Class Policy
 Class Note
+Class RenewalDate
+Class PolicyType
 
 Class I #FFFFFF
 }
@@ -46,6 +48,9 @@ Person *--> Address
 Person *--> "*" Tag
 Person *--> Policy
 Person *--> Note
+
+Policy *--> RenewalDate
+Policy *--> PolicyType
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
