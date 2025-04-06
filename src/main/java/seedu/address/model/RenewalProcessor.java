@@ -69,7 +69,6 @@ public class RenewalProcessor {
     public static RenewalTableData processRenewals(List<Person> persons) {
         List<RenewalEntry> entries = persons.stream()
                 .map(RenewalEntry::new)
-                .sorted(Comparator.comparingLong(RenewalEntry::getDaysLeft))
                 .collect(Collectors.toList());
         return new RenewalTableData(entries);
     }
