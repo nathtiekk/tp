@@ -2,12 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.RenewalDate;
 
 /**
  * Filters clients based on policy renewal date range.
@@ -26,8 +26,8 @@ public class FilterDateCommand extends Command {
     public static final String MESSAGE_FILTER_SUCCESS = "Found %d policies due for renewal"
             + " between %s and %s.";
 
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final RenewalDate startDate;
+    private final RenewalDate endDate;
     private final String sortOrder;
 
     /**
@@ -40,7 +40,7 @@ public class FilterDateCommand extends Command {
      * @param sortOrder The sort order for filtering. If null, defaults to "date".
      * @throws NullPointerException If {@code startDate} or {@code endDate} is null.
      */
-    public FilterDateCommand(LocalDate startDate, LocalDate endDate, String sortOrder) {
+    public FilterDateCommand(RenewalDate startDate, RenewalDate endDate, String sortOrder) {
         requireNonNull(startDate);
         requireNonNull(endDate);
         this.startDate = startDate;

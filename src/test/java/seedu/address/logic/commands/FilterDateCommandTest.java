@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
@@ -43,9 +45,9 @@ public class FilterDateCommandTest {
     }
 
     @Test
-    public void execute_emptyModel_noResults() {
-        LocalDate startDate = LocalDate.of(2025, 3, 1);
-        LocalDate endDate = LocalDate.of(2025, 3, 31);
+    public void execute_emptyModel_noResults() throws ParseException {
+        RenewalDate startDate = ParserUtil.parseRenewalDate("01-03-2025");
+        RenewalDate endDate = ParserUtil.parseRenewalDate("31-03-2025");
         FilterDateCommand command = new FilterDateCommand(startDate, endDate, "date");
         CommandResult result = command.execute(model);
         assertEquals(String.format(FilterDateCommand.MESSAGE_NO_RESULTS, startDate, endDate),
@@ -54,13 +56,13 @@ public class FilterDateCommandTest {
     }
 
     @Test
-    public void execute_validDateRange_filtersCorrectly() {
+    public void execute_validDateRange_filtersCorrectly() throws ParseException {
         model.addPerson(alice);
         model.addPerson(bob);
         model.addPerson(charlie);
 
-        LocalDate startDate = LocalDate.of(2025, 3, 1);
-        LocalDate endDate = LocalDate.of(2025, 3, 20);
+        RenewalDate startDate = ParserUtil.parseRenewalDate("01-03-2025");
+        RenewalDate endDate = ParserUtil.parseRenewalDate("20-03-2025");
 
         FilterDateCommand command = new FilterDateCommand(startDate, endDate, "date");
         CommandResult result = command.execute(model);
@@ -75,12 +77,15 @@ public class FilterDateCommandTest {
     }
 
     @Test
-    public void execute_sortByName_sortsCorrectly() {
+    public void execute_sortByName_sortsCorrectly() throws ParseException {
         model.addPerson(bob);
         model.addPerson(alice);
         model.addPerson(charlie);
 
-        FilterDateCommand command = new FilterDateCommand(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), "name");
+        RenewalDate startDate = ParserUtil.parseRenewalDate("01-03-2025");
+        RenewalDate endDate = ParserUtil.parseRenewalDate("31-03-2025");
+
+        FilterDateCommand command = new FilterDateCommand(startDate, endDate, "name");
         command.execute(model);
 
         List<Person> filteredList = model.getRenewalsList();
@@ -91,12 +96,15 @@ public class FilterDateCommandTest {
     }
 
     @Test
-    public void execute_sortByDate_sortsCorrectly() {
+    public void execute_sortByDate_sortsCorrectly() throws ParseException {
         model.addPerson(charlie);
         model.addPerson(bob);
         model.addPerson(alice);
 
-        FilterDateCommand command = new FilterDateCommand(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), "date");
+        RenewalDate startDate = ParserUtil.parseRenewalDate("01-03-2025");
+        RenewalDate endDate = ParserUtil.parseRenewalDate("31-03-2025");
+
+        FilterDateCommand command = new FilterDateCommand(startDate, endDate, "date");
         command.execute(model);
 
         List<Person> filteredList = model.getRenewalsList();
@@ -107,7 +115,7 @@ public class FilterDateCommandTest {
     }
 
     @Test
-    public void execute_noResults_returnsNoResults() {
+    public void execute_noResults_returnsNoResults() throws ParseException {
         Person futurePerson = new PersonBuilder().withName("Future")
                 .withPhone("88888888")
                 .withEmail("future@gmail.com")
@@ -115,8 +123,8 @@ public class FilterDateCommandTest {
                 .withPolicy("99999", LocalDate.of(2030, 1, 1).format(RenewalDate.DATE_FORMATTER)).build();
         model.addPerson(futurePerson);
 
-        LocalDate startDate = LocalDate.of(2025, 3, 1);
-        LocalDate endDate = LocalDate.of(2025, 3, 31);
+        RenewalDate startDate = ParserUtil.parseRenewalDate("01-03-2025");
+        RenewalDate endDate = ParserUtil.parseRenewalDate("31-03-2025");
 
         FilterDateCommand command = new FilterDateCommand(startDate, endDate, null);
         CommandResult result = command.execute(model);
@@ -127,11 +135,15 @@ public class FilterDateCommandTest {
     }
 
     @Test
-    public void equals() {
-        FilterDateCommand command1 = new FilterDateCommand(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), "date");
-        FilterDateCommand command2 = new FilterDateCommand(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), "date");
-        FilterDateCommand command3 = new FilterDateCommand(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 30), "date");
-        FilterDateCommand command4 = new FilterDateCommand(LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), "name");
+    public void equals() throws ParseException {
+        FilterDateCommand command1 = new FilterDateCommand(ParserUtil.parseRenewalDate("01-03-2025"),
+                ParserUtil.parseRenewalDate("31-03-2025"), "date");
+        FilterDateCommand command2 = new FilterDateCommand(ParserUtil.parseRenewalDate("01-03-2025"),
+                ParserUtil.parseRenewalDate("31-03-2025"), "date");
+        FilterDateCommand command3 = new FilterDateCommand(ParserUtil.parseRenewalDate("01-04-2025"),
+                ParserUtil.parseRenewalDate("30-04-2025"), "date");
+        FilterDateCommand command4 = new FilterDateCommand(ParserUtil.parseRenewalDate("01-03-2025"),
+                ParserUtil.parseRenewalDate("31-03-2025"), "name");
 
         assertTrue(command1.equals(command1)); //same object
         assertTrue(command1.equals(command2));

@@ -9,9 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RENEWAL_DATE_AM
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -112,14 +109,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        LocalDate startDate = LocalDate.of(2025, 3, 1);
-        LocalDate endDate = LocalDate.of(2025, 3, 31);
+        RenewalDate startDate = ParserUtil.parseRenewalDate("01-03-2025");
+        RenewalDate endDate = ParserUtil.parseRenewalDate("31-03-2025");
 
         // Test with default parameters
         FilterDateCommand defaultCommand = (FilterDateCommand) parser.parseCommand(
                 FilterDateCommand.COMMAND_WORD + " sd/"
-                        + startDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " ed/"
-                        + endDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                        + startDate + " ed/"
+                        + endDate);
         assertEquals(
                 new FilterDateCommand(startDate, endDate, "date"),
                 defaultCommand);
@@ -127,8 +124,8 @@ public class AddressBookParserTest {
         // Test with custom parameters
         FilterDateCommand customCommand = (FilterDateCommand) parser.parseCommand(
                 FilterDateCommand.COMMAND_WORD + " sd/"
-                        + startDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " ed/"
-                        + endDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + " s/name");
+                        + startDate + " ed/"
+                        + endDate + " s/name");
         assertEquals(new FilterDateCommand(startDate, endDate, "name"), customCommand);
     }
 

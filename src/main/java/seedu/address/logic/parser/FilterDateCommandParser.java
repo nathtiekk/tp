@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import seedu.address.logic.commands.FilterDateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.RenewalDate;
 
 /**
  * Parses input arguments and creates a new FilterDateCommand object.
@@ -37,15 +38,15 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
             throw new ParseException("Start date (sd/) and end date (ed/) are required.");
         }
 
-        LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
-        LocalDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
+        RenewalDate startDate = ParserUtil.parseRenewalDate(argMultimap.getValue(PREFIX_START_DATE).get());
+        RenewalDate endDate = ParserUtil.parseRenewalDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
-        if (startDate.isAfter(endDate)) {
+        if (startDate.value.isAfter(endDate.value)) {
             throw new ParseException(MESSAGE_INVALID_START_DATE);
         }
 
         LocalDate maxAllowedDate = LocalDate.now().plusYears(MAX_YEARS_RANGE);
-        if (endDate.isAfter(maxAllowedDate)) {
+        if (endDate.value.isAfter(maxAllowedDate)) {
             throw new ParseException(MESSAGE_INVALID_END_DATE);
         }
 
