@@ -104,7 +104,6 @@ public class EditCommand extends Command {
                     editedPerson.getDuplicateReason(duplicatePerson)));
         }
 
-
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateSortedPersonList(COMPARATOR_ORIGINAL_ORDER);
@@ -142,7 +141,7 @@ public class EditCommand extends Command {
         Note updatedNote = editPersonDescriptor.getNote().orElse(personToEdit.getNote());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedPolicy,
-                updatedNote, updatedTags);
+                    updatedNote, updatedTags);
     }
 
     @Override
@@ -208,7 +207,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email, address, policy, renewalDate, policyType,
-                    tags, note);
+                                tags, note);
         }
 
         public void setName(Name name) {
