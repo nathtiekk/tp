@@ -94,7 +94,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         return policy;
     }
 
-    public Note createNote(ArgumentMultimap argMultimap) throws ParseException {
+    private Note createNote(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             return ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         } else {
