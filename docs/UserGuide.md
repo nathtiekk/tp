@@ -37,6 +37,7 @@ This User Guide is designed to help you get the most out of InsureBook. Here's h
    * [Known Issues](#known-issues): Solutions to common issues
    * [Saving the data](#saving-the-data): How to save and edit data files
 
+<br>
 ---
 
 ## Understanding Callout Boxes
@@ -70,8 +71,7 @@ Highlights important warnings or potential issues. Pay special attention to thes
 
 Indicates critical warnings or irreversible actions. Always read these carefully before proceeding.
 </box>
-
-
+<br>
 ---  
 
 ## Table of Contents
@@ -187,7 +187,7 @@ Example: <span class="command-word" style="color: #CC0000">add</span> <span clas
     </box>
 
 ### Client Management Commands
-<br>
+
 #### Adding a person : <span class="command-word" style="color: #CC0000">`add`</span>
 
 Adds a person to the address book.
@@ -238,7 +238,6 @@ Each policy number must be unique in the system. If you attempt to add a person 
 **Tip:** Names such as X Æ A-Xii Musk is not valid unfortunately.
 </box>
 
-<br>
 #### Editing a person : <span class="command-word" style="color: #CC0000">`edit`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">INDEX</span> <span class="optional" style="color: #808080">[n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]</span><span class="repeatable" style="color: #0066CC">…​</span>
@@ -264,7 +263,7 @@ Examples:
 
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2024</span>
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">2 n/Betsy Crower t/</span>
-<br>
+
 #### Deleting a person : <span class="command-word" style="color: #CC0000">`delete`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">INDEX</span>
@@ -288,7 +287,7 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">Betsy</span> followed by <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">1</span>
 
 ### Policy Management Commands
-<br>
+
 #### Updating a policy renewal date : <span class="command-word" style="color: #CC0000">`renew`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`renew`</span> <span class="parameter" style="color: #FF8C00">pol/POLICY_NUMBER r/RENEWAL_DATE</span>
@@ -308,7 +307,7 @@ Format: <span class="command-word" style="color: #CC0000">`renew`</span> <span c
 Examples:
 
 * <span class="command-word" style="color: #CC0000">`renew`</span> <span class="parameter" style="color: #FF8C00">pol/123456 r/31-12-2025</span>
-<br>
+
 #### Viewing upcoming policy renewals : <span class="command-word" style="color: #CC0000">`viewrenewals`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="optional" style="color: #808080">[n/NEXT_N_DAYS] [s/SORT_ORDER]</span>
@@ -327,7 +326,7 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span>
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="parameter" style="color: #FF8C00">n/60</span>
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="parameter" style="color: #FF8C00">n/60 s/name</span>
-<br>
+
 #### View policy renewals in date range : <span class="command-word" style="color: #CC0000">`filter`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`filter`</span> <span class="parameter" style="color: #FF8C00">sd/START_DATE ed/END_DATE</span> <span class="optional" style="color: #808080">[s/SORT_ORDER]</span>
@@ -352,7 +351,6 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`filter`</span> <span class="parameter" style="color: #FF8C00">sd/2025-01-01 ed/2025-06-30 s/name</span>
 
 ### Search Commands
-<br>
 
 #### Listing all persons : <span class="command-word" style="color: #CC0000">`list`</span>
 
@@ -372,7 +370,6 @@ Each person card in the list displays:
 *   Tags (if any)
 
 The policy type and renewal date are clearly labeled to help insurance agents quickly identify the types of policies and when they need to be renewed.
-<br>
 
 #### Locating persons by keyword : <span class="command-word" style="color: #CC0000">`find`</span>
 
@@ -404,14 +401,12 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">t/friends t/colleagues s/tag</span>
 
 ### General Commands
-<br>
 
 #### Viewing help : <span class="command-word" style="color: #CC0000">`help`</span>
 
 Shows a message explaining how to access the help page.
 
 Format: <span class="command-word" style="color: #CC0000">`help`</span>
-<br>
 
 #### Clearing all entries : <span class="command-word" style="color: #CC0000">`clear`</span>
 
@@ -426,7 +421,6 @@ Format: <span class="command-word" style="color: #CC0000">`clear`</span>
 * Consider saving your data before clearing if you might need it later
 * Double-check that you really want to delete everything
 </box>
-<br>
 
 #### Exiting the program : <span class="command-word" style="color: #CC0000">`exit`</span>
 
