@@ -60,6 +60,8 @@ public class RenewCommand extends Command {
         if (matchingPersons.size() > 1) {
             throw new CommandException(String.format(MESSAGE_MULTIPLE_POLICIES, policyNumber));
         }
+        // NOTE: This is here because I do not want to use more
+        // LOC to match the new no duplicate policy number requirement
         Person personToUpdate = matchingPersons.get(0);
         Person updatedPerson = createUpdatedPerson(personToUpdate);
         model.setPerson(personToUpdate, updatedPerson);
