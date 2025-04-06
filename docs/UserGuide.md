@@ -37,6 +37,8 @@ This User Guide is designed to help you get the most out of InsureBook. Here's h
    * [Known Issues](#known-issues): Solutions to common issues
    * [Saving the data](#saving-the-data): How to save and edit data files
 
+---
+
 ## Understanding Callout Boxes
 
 Throughout this guide, you'll encounter different types of callout boxes that provide important information:
@@ -68,6 +70,9 @@ Highlights important warnings or potential issues. Pay special attention to thes
 
 Indicates critical warnings or irreversible actions. Always read these carefully before proceeding.
 </box>
+
+
+---  
 
 ## Table of Contents
 
@@ -127,6 +132,15 @@ Indicates critical warnings or irreversible actions. Always read these carefully
 
     * `exit` : Exits the app.
 
+<box type="warning" seamless>
+
+**Warning: Data Corruption**
+
+If the data file is corrupted:
+* InsureBook will start with an empty address book
+* Your previous data will not be loaded
+</box>
+
 1. Refer to the [Commands](#commands) below for details of each command.
 
 ---
@@ -170,16 +184,10 @@ Example: <span class="command-word" style="color: #CC0000">add</span> <span clas
 * Items in <span class="optional" style="color: #808080">[square brackets]</span> are optional
 * Items with <span class="repeatable" style="color: #0066CC">`…`</span>​ after them can be used multiple times including zero times
 * Extraneous parameters for commands that do not take parameters (such as <span class="command-word" style="color: #CC0000">`help`</span>, <span class="command-word" style="color: #CC0000">`list`</span>, <span class="command-word" style="color: #CC0000">`exit`</span> and <span class="command-word" style="color: #CC0000">`clear`</span>) will be ignored
-</box>
+    </box>
 
 ### Client Management Commands
-
-#### Viewing help : <span class="command-word" style="color: #CC0000">`help`</span>
-
-Shows a message explaining how to access the help page.
-
-Format: <span class="command-word" style="color: #CC0000">`help`</span>
-
+<br>
 #### Adding a person : <span class="command-word" style="color: #CC0000">`add`</span>
 
 Adds a person to the address book.
@@ -201,6 +209,16 @@ Format: <span class="command-word" style="color: #CC0000">`add`</span> <span cla
 *   Note: There are no specific restrictions for notes; any string is accepted as a valid note.
 *   Tag: A valid tag name must be entirely alphanumeric.
 
+<box type="warning" seamless>
+
+**Warning: Duplicate Names**
+
+If you attempt to add a person with a name that already exists:
+* A warning message will be shown
+* You will be asked to confirm if you want to proceed
+* Consider adding a unique identifier (e.g., middle name or initial) to distinguish between clients with the same name
+</box>
+
 Examples:
 * <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/123456 pt/Life r/31-12-2024 note/Basketball Player</span>
 * <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/Betsy Crowe t/friend pol/654321 pt/Health e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</span>
@@ -220,20 +238,10 @@ Each policy number must be unique in the system. If you attempt to add a person 
 **Tip:** Names such as X Æ A-Xii Musk is not valid unfortunately.
 </box>
 
+<br>
 #### Editing a person : <span class="command-word" style="color: #CC0000">`edit`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">INDEX</span> <span class="optional" style="color: #808080">[n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pol/POLICY_NUMBER] [pt/POLICY_TYPE] [r/RENEWAL_DATE] [note/NOTE] [t/TAG]</span><span class="repeatable" style="color: #0066CC">…​</span>
-
-<box type="warning" seamless>
-
-**Warning: Multiple Policies with Same Number**
-
-If multiple clients have the same policy number:
-* An error message will be shown
-* The renewal date will not be updated
-* Use the <span class="command-word" style="color: #CC0000">`edit`</span> command with the client's index instead
-* Consider updating one of the duplicate policy numbers to maintain unique identification
-</box>
 
 *   Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 *   At least one of the optional fields must be provided.
@@ -242,11 +250,21 @@ If multiple clients have the same policy number:
 *   You can remove all the person's tags by typing `t/` without
     specifying any tags after it.
 
+<box type="warning" seamless>
+
+**Warning: Duplicate Names**
+
+If you edit a person's name to one that already exists:
+* A warning message will be shown
+* You will be asked to confirm if you want to proceed
+* Consider adding a unique identifier (e.g., middle name or initial) to distinguish between clients with the same name
+</box>
+
 Examples:
 
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2024</span>
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">2 n/Betsy Crower t/</span>
-
+<br>
 #### Deleting a person : <span class="command-word" style="color: #CC0000">`delete`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">INDEX</span>
@@ -255,49 +273,74 @@ Format: <span class="command-word" style="color: #CC0000">`delete`</span> <span 
 *   The index refers to the index number shown in the displayed person list.
 *   The index **must be a positive integer** 1, 2, 3, …​
 
+<box type="danger" seamless>
+
+**Warning: Irreversible Action ⛔**
+
+* The delete command permanently removes the client's data
+* This action cannot be undone
+* Make sure you have selected the correct index before deleting
+</box>
+
 Examples:
 
 * <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">2</span>
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">Betsy</span> followed by <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">1</span>
 
 ### Policy Management Commands
-
+<br>
 #### Updating a policy renewal date : <span class="command-word" style="color: #CC0000">`renew`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`renew`</span> <span class="parameter" style="color: #FF8C00">pol/POLICY_NUMBER r/RENEWAL_DATE</span>
 
 <box type="warning" seamless>
 
-**Warning: Multiple Policies with Same Number**
+**Warning: Single Policy Renewal ⚠️**
 
-If multiple clients have the same policy number:
-* An error message will be shown
-* The renewal date will not be updated
-* Use the <span class="command-word" style="color: #CC0000">`edit`</span> command with the client's index instead
-* Consider updating one of the duplicate policy numbers to maintain unique identification
+* Only one policy can be renewed at a time
+* To renew multiple policies, use the command separately for each policy
+* Use <span class="command-word" style="color: #CC0000">`viewrenewals`</span> to see all upcoming renewals at once
 </box>
 
 *   The `pol/POLICY_NUMBER` parameter must be a valid policy number in the system.
 *   The `r/RENEWAL_DATE` parameter must be in the format `DD-MM-YYYY`.
-*   If multiple clients have the same policy number, an error message will be shown. In this case, use the `edit` command with the client's index instead.
 
 Examples:
 
 * <span class="command-word" style="color: #CC0000">`renew`</span> <span class="parameter" style="color: #FF8C00">pol/123456 r/31-12-2025</span>
-
+<br>
 #### Viewing upcoming policy renewals : <span class="command-word" style="color: #CC0000">`viewrenewals`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="optional" style="color: #808080">[n/NEXT_N_DAYS] [s/SORT_ORDER]</span>
+
+<box type="warning" seamless>
+
+**Warning: Integer Days Only ⚠️**
+
+* The NEXT_N_DAYS parameter must be a positive integer
+* Decimal numbers or negative values are not accepted
+* Example: Use `n/30` for next 30 days, not `n/30.5` or `n/-30`
+</box>
 
 Examples:
 
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span>
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="parameter" style="color: #FF8C00">n/60</span>
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="parameter" style="color: #FF8C00">n/60 s/name</span>
-
+<br>
 #### View policy renewals in date range : <span class="command-word" style="color: #CC0000">`filter`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`filter`</span> <span class="parameter" style="color: #FF8C00">sd/START_DATE ed/END_DATE</span> <span class="optional" style="color: #808080">[s/SORT_ORDER]</span>
+
+<box type="warning" seamless>
+
+**Warning: Valid Date Range ⚠️**
+
+* The END_DATE must be later than or equal to the START_DATE
+* Both dates must be in DD-MM-YYYY format
+* Example: `sd/01-01-2024 ed/31-12-2024` is valid
+* Example: `sd/31-12-2024 ed/01-01-2024` is invalid (end date before start date)
+</box>
 
 *   The `sd/START_DATE` parameter must be in the format `DD-MM-YYYY`.
 *   The `ed/END_DATE` parameter must be in the format `DD-MM-YYYY`.
@@ -309,6 +352,7 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`filter`</span> <span class="parameter" style="color: #FF8C00">sd/2025-01-01 ed/2025-06-30 s/name</span>
 
 ### Search Commands
+<br>
 
 #### Listing all persons : <span class="command-word" style="color: #CC0000">`list`</span>
 
@@ -328,6 +372,7 @@ Each person card in the list displays:
 *   Tags (if any)
 
 The policy type and renewal date are clearly labeled to help insurance agents quickly identify the types of policies and when they need to be renewed.
+<br>
 
 #### Locating persons by keyword : <span class="command-word" style="color: #CC0000">`find`</span>
 
@@ -359,34 +404,29 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">t/friends t/colleagues s/tag</span>
 
 ### General Commands
+<br>
 
 #### Viewing help : <span class="command-word" style="color: #CC0000">`help`</span>
 
 Shows a message explaining how to access the help page.
 
 Format: <span class="command-word" style="color: #CC0000">`help`</span>
+<br>
 
 #### Clearing all entries : <span class="command-word" style="color: #CC0000">`clear`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`clear`</span>
 
-#### Saving the data : <span class="command-word" style="color: #CC0000">`save`</span>
+<box type="danger" seamless>
 
-Saves the current state of the address book to a file.
+**Warning: Irreversible Action ⛔**
 
-Format: `save FILE_NAME`
-
-*   The `FILE_NAME` parameter must be a valid file name.
-*   The address book will be saved to the specified file.
-
-#### Editing the data file : <span class="command-word" style="color: #CC0000">`edit`</span>
-
-Edits the data file of the address book.
-
-Format: `edit FILE_NAME`
-
-*   The `FILE_NAME` parameter must be a valid file name.
-*   The data file will be edited to the specified file.
+* The clear command permanently removes ALL client data
+* This action CANNOT be undone
+* Consider saving your data before clearing if you might need it later
+* Double-check that you really want to delete everything
+</box>
+<br>
 
 #### Exiting the program : <span class="command-word" style="color: #CC0000">`exit`</span>
 
