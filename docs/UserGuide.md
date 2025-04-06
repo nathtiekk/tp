@@ -141,7 +141,7 @@ If the data file is corrupted:
 * Your previous data will not be loaded
 </box>
 
-1. Refer to the [Commands](#commands) below for details of each command.
+Refer to the [Commands](#commands) below for details of each command.
 
 ---
 
@@ -179,7 +179,7 @@ Example: <span class="command-word" style="color: #CC0000">add</span> <span clas
 **Note**
 
 * For each command, the correct syntax is specified under "Format"
-* Commands are case-insensitive
+* Command words are case-insensitive
 * Words in <span class="parameter" style="color: #FF8C00">`UPPER_CASE`</span> are the parameters to be supplied by the user
 * Items in <span class="optional" style="color: #808080">[square brackets]</span> are optional
 * Items with <span class="repeatable" style="color: #0066CC">`…`</span>​ after them can be used multiple times including zero times
@@ -214,8 +214,8 @@ Format: <span class="command-word" style="color: #CC0000">`add`</span> <span cla
 **Warning: Duplicate Names**
 
 If you attempt to add a person with a name that already exists:
-* A warning message will be shown
-* You will be asked to confirm if you want to proceed
+* An error message will be shown
+* The person will not be added
 * Consider adding a unique identifier (e.g., middle name or initial) to distinguish between clients with the same name
 </box>
 
@@ -254,8 +254,8 @@ Format: <span class="command-word" style="color: #CC0000">`edit`</span> <span cl
 **Warning: Duplicate Names**
 
 If you edit a person's name to one that already exists:
-* A warning message will be shown
-* You will be asked to confirm if you want to proceed
+* An error message will be shown
+* The person will not be edited
 * Consider adding a unique identifier (e.g., middle name or initial) to distinguish between clients with the same name
 </box>
 
@@ -298,7 +298,6 @@ Format: <span class="command-word" style="color: #CC0000">`renew`</span> <span c
 
 * Only one policy can be renewed at a time
 * To renew multiple policies, use the command separately for each policy
-* Use <span class="command-word" style="color: #CC0000">`viewrenewals`</span> to see all upcoming renewals at once
 </box>
 
 *   The `pol/POLICY_NUMBER` parameter must be a valid policy number in the system.
@@ -390,7 +389,7 @@ Format: <span class="command-word" style="color: #CC0000">`find`</span> <span cl
 
 <box type="info" seamless>
 
-**Note:** The sorting order is case-sensitive and follows ASCII values. This means lowercase letters are ordered after uppercase ones. For example, `alice` will appear after `Bernice`.
+**Note:** The sorting order is case-sensitive and follows ASCII values. This means lowercase letters are ordered after uppercase ones. For example, `Bernice` will appear after `alice`.
 </box>
 
 Examples:
@@ -418,7 +417,6 @@ Format: <span class="command-word" style="color: #CC0000">`clear`</span>
 
 * The clear command permanently removes ALL client data
 * This action CANNOT be undone
-* Consider saving your data before clearing if you might need it later
 * Double-check that you really want to delete everything
 </box>
 
@@ -537,8 +535,6 @@ Format: <span class="command-word" style="color: #CC0000">`exit`</span>
 |---------|---------|
 | <span class="command-word" style="color: #CC0000">`help`</span> | <span class="command-word" style="color: #CC0000">`help`</span> |
 | <span class="command-word" style="color: #CC0000">`clear`</span> | <span class="command-word" style="color: #CC0000">`clear`</span> |
-| <span class="command-word" style="color: #CC0000">`save`</span> | <span class="command-word" style="color: #CC0000">`save`</span> <span class="parameter" style="color: #FF8C00">FILE_NAME</span> |
-| <span class="command-word" style="color: #CC0000">`edit`</span> | <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">FILE_NAME</span> |
 | <span class="command-word" style="color: #CC0000">`exit`</span> | <span class="command-word" style="color: #CC0000">`exit`</span> |
 
 ---
