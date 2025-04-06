@@ -210,20 +210,6 @@ public class PolicyTest {
     }
 
     @Test
-    public void getDaysUntilRenewal_pastDate_returnsNegativeDays() {
-        // We can't test past dates since they're invalid for RenewalDate
-        // This test is no longer applicable
-        assertTrue(true);
-    }
-
-    @Test
-    public void getDaysUntilRenewal_today_returnsZero() {
-        // We can't test today's date since it's invalid for RenewalDate
-        // This test is no longer applicable
-        assertTrue(true);
-    }
-
-    @Test
     public void constructor_singleParam_setsRenewalDateToOneYear() {
         Policy policy = new Policy("123456");
         assertEquals(LocalDate.now().plusYears(1), policy.renewalDate.value);

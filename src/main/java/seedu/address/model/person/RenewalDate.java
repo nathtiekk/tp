@@ -73,7 +73,8 @@ public class RenewalDate {
                 return false;
             }
             LocalDate inputDate = LocalDate.parse(test, DATE_FORMATTER);
-            return inputDate.isAfter(LocalDate.now());
+            LocalDate now = LocalDate.now();
+            return inputDate.isAfter(now);
         } catch (Exception e) {
             return false;
         }
