@@ -60,12 +60,12 @@ public class FilterDateCommand extends Command {
         model.updateSortedRenewalsList(sortFilterDate());
 
         if (model.getRenewalsList().isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_NO_RESULTS, 
+            return new CommandResult(String.format(MESSAGE_NO_RESULTS,
                 startDate.format(RenewalDate.DATE_FORMATTER), endDate.format(RenewalDate.DATE_FORMATTER)));
         }
 
         return new CommandResult(String.format(MESSAGE_FILTER_SUCCESS,
-                model.getRenewalsList().size(), 
+                model.getRenewalsList().size(),
                 startDate.format(RenewalDate.DATE_FORMATTER), endDate.format(RenewalDate.DATE_FORMATTER)));
     }
 
