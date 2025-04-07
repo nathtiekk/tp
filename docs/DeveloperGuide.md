@@ -559,7 +559,7 @@ _{More to be added}_
 
 **MSS**
 
-1. Insurance Agent requests to list clients.
+1. Insurance Agent types the command to list clients.
 1. System displays all stored clients in alphabetical order.
 
     Use case ends.
@@ -570,7 +570,7 @@ _{More to be added}_
 
 **MSS**
 
-1. Insurance Agent requests to update a client's information.
+1. Insurance Agent types the command to update a client's information.
 1. System prompts for the client index and new details.
 1. Insurance Agent provides updates.
 1. System validates and updates the information.
@@ -605,9 +605,9 @@ _{More to be added}_
 
 **MSS**
 
-1. Insurance Agent requests to list clients.
+1. Insurance Agent types the command to list clients.
 1. System shows a list of clients.
-1. Insurance Agent requests to delete a specific client.
+1. Insurance Agent types the command to delete a specific client.
 1. System deletes the client.
 
     Use case ends.
@@ -624,7 +624,7 @@ _{More to be added}_
 
 **MSS**
 
-1. Insurance Agent requests to clear all client data.
+1. Insurance Agent types the command to clear all client data.
 1. System permanently deletes all stored client data immediately.
 
 Use case ends.
@@ -639,7 +639,7 @@ Use case ends.
 
 **MSS**
 
-1. Insurance Agent requests to find a client by specific criteria.
+1. Insurance Agent types the command to find a client by specific criteria.
 1. System displays matching clients.
 
     Use case ends.
@@ -658,7 +658,7 @@ Use case ends.
 
 **MSS**
 
-1. Insurance Agent requests to filter clients by specific tags, and adds a sort by either name or tag.
+1. Insurance Agent types the command to filter clients by specific tags, and adds a sort by either name or tag.
 1. System displays a list of clients with the matching tags.
 
     Use case ends.
