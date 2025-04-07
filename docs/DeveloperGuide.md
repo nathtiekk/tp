@@ -995,13 +995,13 @@ testers are expected to do more _exploratory_ testing.
 
 1. Viewing policy renewals in a filtered range from the list
 
-    1. Prerequisites: There is at least 1 person in the list and the sd/START_DATE and ed/END_DATE must be later than the current date e.g. 20-04-2025.
+    1. Prerequisites: There is at least 1 person in the list with renewal date within the sd/START_DATE and ed/END_DATE.
 
     1. Test case: `filter sd/20-04-2025 ed/20-12-2026`<br>
        Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
 
     1. Test case: `filter sd/20-04-2025 ed/20-12-2026 s/name`<br>
-       Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
+       Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by name, and details are displayed in the status message.
 
     1. Test case: `filter sd/20-04-2025`<br>
        Expected: list of person is not filtered. Error details are displayed in the status message and command entered stays in the command box.
@@ -1009,9 +1009,9 @@ testers are expected to do more _exploratory_ testing.
     1. Other incorrect delete commands to try: `filter`, `...`<br>
        Expected: Similar to previous.
 
-2. Viewing policy renewals in a filtered range from the list for a policy that falls after the specified test date and the sd/START_DATE and ed/END_DATE must be later than the current date e.g. 20-04-2025.
+2. Viewing policy renewals in a filtered range from the list for a policy that falls outside the specified test date range.
 
-    1. Prerequisites: There is at least 1 person in the list who has a policy renewal date that falls after the specified test date.
+    1. Prerequisites: There is at least 1 person in the list who has a policy renewal date that falls outside the specified test date range.
 
     1. Test case: `filter sd/20-04-2025 ed/20-05-2025`<br>
        Expected: No persons shown, and details are displayed in the status message.
