@@ -35,7 +35,6 @@ This User Guide is designed to help you get the most out of InsureBook. Here's h
 4. **Additional Resources**
    * [FAQ](#faq): Answers to common questions
    * [Known Issues](#known-issues): Solutions to common issues
-   * [Saving the data](#saving-the-data): How to save and edit data files
 
 <br>
 ---
