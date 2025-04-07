@@ -769,19 +769,184 @@ testers are expected to do more _exploratory_ testing.
 
 </box>
 
+### Adding a person
+
+1. Adding a person into InsureBook
+
+    1. Prerequisites: List all persons using the `list` command. InsureBook default sample list used.
+
+    1. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/999999 pt/Life r/31-12-2025 note/Basketball Player`<br>
+       Expected: Person added successfully into the end of the list, and their details are displayed in the status message.
+
+    1. Test case: `add n/Betsy Crowe t/friend pol/654321 pt/Health e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`<br>
+       Expected: Person added successfully into the end of the list, and their details are displayed in the status message.
+   
+    1. Incorrect add commands to try: `add n/bobby`, `...`<br>
+       Expected: Person not added into the list, error details are displayed in the status message.
+
+2. Adding a person with duplicate policy number into InsureBook
+
+    1. Prerequisites: There exist a person with the same policy number in the list as the person that is being added.
+
+    1. Test case: `add n/Alan Lim p/98761234 e/alan@gmail.com a/alan drive pol/123456`<br>
+       Expected: Person not added into the list, error details are displayed in the status message.
+
+### Editing a person
+
+1. Editing a existing person from InsureBook
+
+    1. Prerequisites: There is at least 1 person in the list.
+
+    1. Test case: `edit 1 n/Alexander e/alexander@example.com`<br>
+       Expected: Person edited successfully, and their details are displayed in the status message.
+
+    1. Test case: `edit 0`<br>
+       Expected: No person is edited. Error details are displayed in the status message.
+
+    1. Other incorrect edit commands to try: `edit `, `edit x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. Deleting an existing person while all persons are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+       Expected: First person is deleted from the list. Details of the deleted person are displayed in the status message.
 
     1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+       Expected: No person is deleted. Error details are displayed in the status message.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Updating a policy renewal date
+
+1. Updating a policy renewal date of a person
+
+    1. Prerequisites: There exist a person in the list with the policy number that is being tested.
+
+    1. Test case: `renew pol/234567 r/31-12-2025`<br>
+       Expected: Person policy renewal date updated successfully, and details are displayed in the status message.
+
+    1. Test case: `renew pol/234567 r/2025-06-11`<br>
+       Expected: No person policy renewal date updated. Error details are displayed in the status message.
+
+    1. Other incorrect delete commands to try: `renew`, `...`<br>
+       Expected: Similar to previous.
+
+2. Updating a policy renewal date of a person whose policy number does not exist
+
+    1. Prerequisites: There exists a person in the list whose policy number does not match what is being tested.
+
+    1. Test case: `renew pol/969696 r/06-11-2025`<br> 
+       Expected: No person policy renewal date updated. No policy was found, and details are displayed in the status message
+
+### Viewing upcoming policy renewals
+
+1. Viewing upcoming policy renewals from the list
+
+    1. Prerequisites: There is at least 1 person in the list.
+
+    1. Test case: `viewrenewals`<br>
+       Expected: Shows persons with upcoming renewals in the next 30 days, sorted by date, and details are displayed in the status message.
+
+    1. Test case: `viewrenewals n/60 s/name`<br>
+       Expected: Shows persons with upcoming renewals in next 60 days, sorted by name, and details are displayed in the status message.
+
+    1. Test case: `viewrenewals n/0`<br>
+       Expected: No persons with upcoming renewals shown. Error details are displayed in the status message.
+
+    1. Other incorrect delete commands to try: `viewrenewals n/365`, `...`<br>
+       Expected: Similar to previous.
+
+2. Viewing upcoming policy renewals for policy that falls after the specified test day.
+
+    1. Prerequisites: There is at least one person who has a policy renewal date that falls after the specified test day.
+
+    1. Test case: `viewrenewals n/60 s/name`<br>
+       Expected: No persons with upcoming renewals shown, and details are displayed in the status message.
+
+### Viewing policy renewals in date range
+
+1. Viewing policy renewals in a filtered range from the list
+
+    1. Prerequisites: There is at least 1 person in the list.
+
+    1. Test case: `filter sd/03-01-2025 ed/03-31-2026`<br>
+       Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
+
+    1. Test case: `filter sd/03-01-2025 ed/03-31-2026 s/name`<br>
+       Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
+
+    1. Test case: `filter sd/03-01-2025`<br>
+       Expected: list of person is not filtered. Error details are displayed in the status message.
+
+    1. Other incorrect delete commands to try: `filter`, `...`<br>
+       Expected: Similar to previous.
+
+2. Viewing policy renewals in a filtered range from the list for a policy that falls after the specified test date
+
+    1. Prerequisites: There is at least 1 person in the list who has a policy renewal date that falls after the specified test date.
+
+    1. Test case: `filter sd/03-01-2025 ed/03-31-2026`<br>
+       Expected: No persons shown, and details are displayed in the status message.
+
+### Listing all persons
+
+1. Viewing all persons in the list
+
+    1. Prerequisites: There is at least 1 person in the list.
+
+    1. Test case: `list`<br>
+       Expected: Show a list of all person in InsureBook, and details are displayed in the status message.
+
+### Locating persons by keyword
+
+1. Locating persons from the list by using keyword 
+
+    1. Prerequisites: There is at least 1 person in the list which matches with the keyword that is being tested.
+
+    1. Test case: `find n/John`<br>
+       Expected: Show the quantity and list of people who matches the keyword, sorted by name, partial matches is considered a success, and details are displayed in the status message.
+
+    1. Test case: `find t/friends t/colleagues s/tag`<br>
+       Expected: Show the quantity and list of people who matches the keyword, sorted by number of tag, only exact matches is considered a success, and details are displayed in the status message.
+
+    1. Test case: `find n/bernice n/david`<br>
+       Expected: Show the quantity and list of people who matches the keyword, sorted by name, partial matches is considered a success, and details are displayed in the status message.
+
+    1. Test case: `find`<br>
+       Expected: list of person is not updated. Error details are displayed in the status bar.
+   
+    1. Other incorrect delete commands to try: `find 0`, `...`<br>
+       Expected: Similar to previous.
+
+2. Locating persons from the list by using keyword that does not match
+
+    1. Prerequisites: All persons in the list does not match with the keyword that is being tested.
+
+    1. Test case: `find n/bob`<br>
+       Expected: No one is listed, and details are displayed in the status message.
+
+### Viewing help
+
+1. Show help
+
+    1. Test case: `help`<br>
+       Expected: New window is opened with the link to InsureBook's UserGuide, and details are displayed in the status message.
+
+### Clearing InsureBook entries
+
+1. Clear existing list of person in InsureBook
+
+    1. Test case: `clear`<br>
+       Expected: All person in list is removed, and details are displayed in the status message.
+
+### Exiting InsureBook
+
+1. Exit InsureBook
+
+    1. Test case: `exit`<br>
+       Expected: InsureBook successfully closes.
