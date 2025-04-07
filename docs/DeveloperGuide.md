@@ -75,13 +75,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2425S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `RenewalsTable`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103-F08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -122,7 +122,7 @@ The person card provides a compact view of all essential client information, mak
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2425S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -156,7 +156,7 @@ How the parsing works:
 
 ### Model component
 
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2425S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
@@ -177,7 +177,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2425S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -351,18 +351,21 @@ The following partial sequence diagram shows how the test operation works:
 
 * Aspect: How to handle multiple search criteria
 
-  * Current Choice: Combine all criteria using logical OR.
+  * Alternative 1 (current choice): Combine all criteria using logical OR.
     * Pros: Ensures that a person is considered a match if any of the specified attributes match, providing more flexible search results.
     * Cons: May result in more matches if multiple criteria are specified.
-  * Alternative: Use logical AND to require all criteria to match.
+  * Alternative 2: Use logical AND to require all criteria to match.
     * Pros: Ensures that all specified attributes must match, providing precise search results.
     * Cons: May result in fewer matches if multiple criteria are specified.
 
 * Aspect: Case sensitivity and partial matches
 
-  * Current Choice: Use case-insensitive and partial matches.
+  * Alternative 1 (current choice): Use case-insensitive and partial matches.
     * Pros: More user-friendly and flexible, accommodating various input styles.
     * Cons: May result in unintended matches if search values are too general.
+  * Alternative 2: Case-sensitive with exact matches
+    * Pros: Highest precision in search results, ideal for technical/specialized searches and minimizes irrelevant matches
+    * Cons: Most restrictive option for users, steeper learning curve and requires perfect knowledge of stored data format
 
 ### Filter Command
 
