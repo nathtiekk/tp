@@ -37,6 +37,8 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
             throw new ParseException("Start date (sd/) and end date (ed/) are required.");
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_SORT_ORDER);
+
         LocalDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         LocalDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
