@@ -863,14 +863,14 @@ testers are expected to do more _exploratory_ testing.
        Expected: Person added successfully into the end of the list, and their details are displayed in the status message.
    
     1. Incorrect add commands to try: `add n/bobby`, `...`<br>
-       Expected: Person not added into the list, error details are displayed in the status message.
+       Expected: Person not added into the list, error details are displayed in the status message and command entered stays in the command box.
 
 2. Adding a person with duplicate policy number into InsureBook
 
     1. Prerequisites: There exist a person with the same policy number in the list as the person that is being added.
 
     1. Test case: `add n/Alan Lim p/98761234 e/alan@gmail.com a/alan drive pol/123456`<br>
-       Expected: Person not added into the list, error details are displayed in the status message.
+       Expected: Person not added into the list, error details are displayed in the status message and command entered stays in the command box.
 
 ### Editing a person
 
@@ -882,7 +882,7 @@ testers are expected to do more _exploratory_ testing.
        Expected: Person edited successfully, and their details are displayed in the status message.
 
     1. Test case: `edit 0`<br>
-       Expected: No person is edited. Error details are displayed in the status message.
+       Expected: No person is edited. Error details are displayed in the status message and command entered stays in the command box.
 
     1. Other incorrect edit commands to try: `edit `, `edit x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
@@ -892,7 +892,7 @@ testers are expected to do more _exploratory_ testing.
    1. Prerequisites: There is at least 1 person in the list whose policy number match the policy number that is being edited into.
 
    1. Test case: `edit 2 pol/123456`<br>
-      Expected: No person is edited. Error details are displayed in the status message.
+      Expected: No person is edited. Error details are displayed in the status message and command entered stays in the command box.
 
 ### Deleting a person
 
@@ -904,7 +904,7 @@ testers are expected to do more _exploratory_ testing.
        Expected: First person is deleted from the list. Details of the deleted person are displayed in the status message.
 
     1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details are displayed in the status message.
+       Expected: No person is deleted. Error details are displayed in the status message and command entered stays in the command box.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
@@ -920,7 +920,7 @@ testers are expected to do more _exploratory_ testing.
        Expected: Person policy renewal date updated successfully, and details are displayed in the status message.
 
     1. Test case: `renew pol/234567 r/2025-06-11`<br>
-       Expected: No person policy renewal date updated. Error details are displayed in the status message.
+       Expected: No person policy renewal date updated. Error details are displayed in the status message and command entered stays in the command box.
 
     1. Other incorrect delete commands to try: `renew`, `...`<br>
        Expected: Similar to previous.
@@ -930,7 +930,7 @@ testers are expected to do more _exploratory_ testing.
     1. Prerequisites: There exists a person in the list whose policy number does not match what is being tested and the rd/RENEWAL_DATE must be later than the current date e.g. 20-04-2025.
 
     1. Test case: `renew pol/969696 r/06-11-2025`<br> 
-       Expected: No person policy renewal date updated. No policy was found, and details are displayed in the status message
+       Expected: No person policy renewal date updated. No policy was found, details are displayed in the status message and command entered stays in the command box.
 
 ### Viewing upcoming policy renewals
 
@@ -941,11 +941,11 @@ testers are expected to do more _exploratory_ testing.
     1. Test case: `viewrenewals`<br>
        Expected: Shows persons with upcoming renewals in the next 30 days, sorted by date, and details are displayed in the status message.
 
-    1. Test case: `viewrenewals n/100 s/name`<br>
+    1. Test case: `viewrenewals n/300 s/name`<br>
        Expected: Shows persons with upcoming renewals in next 300 days, sorted by name, and details are displayed in the status message.
 
     1. Test case: `viewrenewals n/0`<br>
-       Expected: No persons with upcoming renewals shown. Error details are displayed in the status message.
+       Expected: No persons with upcoming renewals shown. Error details are displayed in the status message and command entered stays in the command box.
 
     1. Other incorrect delete commands to try: `viewrenewals n/366`, `...`<br>
        Expected: Similar to previous.
@@ -970,7 +970,7 @@ testers are expected to do more _exploratory_ testing.
        Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
 
     1. Test case: `filter sd/20-04-2025`<br>
-       Expected: list of person is not filtered. Error details are displayed in the status message.
+       Expected: list of person is not filtered. Error details are displayed in the status message and command entered stays in the command box.
 
     1. Other incorrect delete commands to try: `filter`, `...`<br>
        Expected: Similar to previous.
@@ -1007,7 +1007,7 @@ testers are expected to do more _exploratory_ testing.
        Expected: Show the quantity and list of people who matches the keyword, sorted by name, partial matches is considered a success, and details are displayed in the status message.
 
     1. Test case: `find`<br>
-       Expected: list of person is not updated. Error details are displayed in the status bar.
+       Expected: list of person is not updated. Error details are displayed in the status bar and command entered stays in the command box.
    
     1. Other incorrect delete commands to try: `find 0`, `...`<br>
        Expected: Similar to previous.
