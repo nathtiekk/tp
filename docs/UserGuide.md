@@ -315,7 +315,15 @@ Format: <span class="command-word" style="color: #CC0000">`renew`</span> <span c
 
 Examples:
 
-* <span class="command-word" style="color: #CC0000">`renew`</span> <span class="parameter" style="color: #FF8C00">pol/123456 r/31-12-2025</span>
+* <span class="command-word" style="color: #CC0000">`renew`</span> <span class="parameter" style="color: #FF8C00">pol/123456 r/01-01-2026</span>
+<Br>
+
+Expected Output:
+* Before running the renew command:
+![Before Renew](images/RenewCommandBefore.png)
+
+* After running `renew pol/123456 r/01-01-2026`:
+![After Renew](images/RenewCommandAfter.png)
 
 #### Viewing upcoming policy renewals : <span class="command-word" style="color: #CC0000">`viewrenewals`</span>
 
@@ -335,6 +343,14 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span>
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="parameter" style="color: #FF8C00">n/60</span>
 * <span class="command-word" style="color: #CC0000">`viewrenewals`</span> <span class="parameter" style="color: #FF8C00">n/60 s/name</span>
+
+Expected Output:
+* Before running the viewrenewals command:
+![Before View Renewals](images/ViewRenewalCommandBefore.png)
+
+* After running `viewrenewals n/200 s/name`:
+![After View Renewals](images/ViewRenewalCommandAfter.png)
+
 
 #### View policy renewals in date range : <span class="command-word" style="color: #CC0000">`filter`</span>
 
@@ -358,6 +374,14 @@ Examples:
 
 * <span class="command-word" style="color: #CC0000">`filter`</span> <span class="parameter" style="color: #FF8C00">sd/01-03-2025 ed/31-03-2025</span>
 * <span class="command-word" style="color: #CC0000">`filter`</span> <span class="parameter" style="color: #FF8C00">sd/01-01-2025 ed/30-06-2025 s/name</span>
+
+Expected Output:
+* Before running the filter command:
+![Before Filter](images/FilterBefore.png)
+
+* After running `filter sd/01-06-2025 ed/01-01-2026`:
+![After Filter](images/FilterAfter.png)
+
 
 ### Search Commands
 
@@ -420,6 +444,8 @@ Shows a message explaining how to access the help page.
 
 Format: <span class="command-word" style="color: #CC0000">`help`</span>
 
+Expected output after running `help` : ![Help](images/Help.png)
+
 #### Clearing all entries : <span class="command-word" style="color: #CC0000">`clear`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`clear`</span>
@@ -433,9 +459,13 @@ Format: <span class="command-word" style="color: #CC0000">`clear`</span>
 * Double-check that you really want to delete everything
 </box>
 
+Expected output after running `clear`: ![Clear](images/Clear.png)
+
 #### Exiting the program : <span class="command-word" style="color: #CC0000">`exit`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`exit`</span>
+
+Expected output after running `exit`: InsureBook **closes**.
 
 ### FAQ
 
