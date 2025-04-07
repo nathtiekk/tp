@@ -453,10 +453,24 @@ Format: <span class="command-word" style="color: #CC0000">`find`</span> <span cl
 
 Examples:
 
-* <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">n/John</span>
+* <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">n/olive</span>
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">n/Amy p/999</span>
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">n/alex n/david</span>
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">t/friends t/colleagues s/tag</span>
+
+Expected Output (Partial name searching example):
+* Before running the find command:
+  ![Before Find Command Example 1](images/FindCommandBefore.png)
+
+* After running `find n/olive`:
+  ![After Find Command Example 1](images/FindCommandAfter.png)
+
+Expected Output (Tag searching example):
+* Before running the find command:
+  ![Before Find Command Example 2](images/FindCommand2Before.png)
+
+* After running `find t/friends t/colleagues s/tag`:
+  ![After Find Command Example 2](images/FindCommand2After.png)
 
 ### General Commands
 
