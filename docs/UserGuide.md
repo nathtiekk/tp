@@ -555,7 +555,7 @@ Expected output after running `exit`: InsureBook **closes**.
 
 **I:** I'm unable to delete a person from the address book.
 
-**A:** Ensure that the index is correct and that the person exists in the address book.
+**A:** Ensure that the index is correct and that the index exists in the address book.
 
 **I:** I'm unable to clear all entries from the address book.
 
