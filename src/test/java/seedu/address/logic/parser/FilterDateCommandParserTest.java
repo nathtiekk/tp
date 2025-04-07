@@ -53,13 +53,13 @@ public class FilterDateCommandParserTest {
     @Test
     public void parse_invalidDateFormat_throwsParseException() {
         String userInput = "filter sd/2025-01-01 ed/2025-03-31 s/date"; // Incorrect date format
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(userInput));
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
     public void parse_nonExistentDate_throwsParseException() {
         String userInput = "filter sd/30-02-2025 ed/31-03-2025 s/date"; // Feb 30 does not exist
-        assertThrows(IllegalArgumentException.class, () -> parser.parse(userInput));
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
