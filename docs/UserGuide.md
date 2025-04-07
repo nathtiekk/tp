@@ -6,7 +6,7 @@
 
 # InsureBook User Guide
 
-**InsureBook** is a **desktop application** built to help insurance agents **manage and organize their client information more effectively**. Its primary purpose is to streamline the day-to-day workflow of agents, allowing them to **store, access, update and keep track of client data with ease**.
+**InsureBook** is an address book **desktop application** built to help insurance agents **manage and organize their client information more effectively**. Its primary purpose is to streamline the day-to-day workflow of agents, allowing them to **store, access, update and keep track of client data with ease**.
 
 By combining the speed of a **Command Line Interface (CLI)** with the familiarity of a **Graphical User Interface (GUI)**, InsureBook is optimized for fast, efficient use. If you're a quick typist, you'll find that InsureBook lets you **perform contact management tasks faster than traditional point-and-click apps** — all while maintaining clarity and control over your client base.
 
