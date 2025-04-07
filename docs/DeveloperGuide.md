@@ -239,25 +239,23 @@ The following sequence diagram shows how the viewrenewals operation works:
 
 **Aspect: How to calculate renewal due dates**
 
-*   **Alternative 1 (current choice):** Calculate days until renewal on demand
+**Option 1 (Current Choice):** *Calculate days until renewal on demand*  
+*   **Pros:** More memory-efficient  
+*   **Cons:** May affect performance if calculated frequently  
 
-    *   Pros: More memory efficient
-    *   Cons: May impact performance if calculated frequently
-
-*   **Alternative 2:** Store days until renewal as a field
-    *   Pros: Faster retrieval
-    *   Cons: Needs to be updated daily
+**Option 2:** *Store days until renewal as a field*  
+*   **Pros:** Faster retrieval  
+*   **Cons:** Needs to be updated daily  
 
 **Aspect: Where to implement filtering logic**
 
-*   **Alternative 1 (current choice):** In the command
+**Option 1 (Current Choice):** *In the command*  
+*   **Pros:** Keeps filtering logic with the command that needs it  
+*   **Cons:** Logic may be duplicated if needed elsewhere  
 
-    *   Pros: Keeps filtering logic with the command that needs it
-    *   Cons: Logic might be duplicated if needed elsewhere
-
-*   **Alternative 2:** In the Model
-    *   Pros: Centralizes filtering logic
-    *   Cons: Makes Model more complex
+**Option 2:** *In the Model*  
+*   **Pros:** Centralizes filtering logic  
+*   **Cons:** Makes the Model more complex  
 
 ### Renewal Date Update Feature
 

@@ -225,7 +225,7 @@ If you attempt to add a person that matches any of these conditions:
 </box>
 
 Examples:
-* <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/123456 pt/Life r/31-12-2024 note/Basketball Player</span>
+* <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/12345678 pt/Life r/31-12-2025 note/Basketball Player</span>
 * <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/Betsy Crowe t/friend pol/654321 pt/Health e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</span>
 
 Expected Output:
@@ -279,7 +279,7 @@ If your edit would create any of these duplicate conditions:
 
 Examples:
 
-* <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2024</span>
+* <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2025</span>
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">2 n/Betsy Crower t/</span>
 
 Expected Output:
@@ -309,7 +309,7 @@ Format: <span class="command-word" style="color: #CC0000">`delete`</span> <span 
 Examples:
 
 * <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">2</span>
-* <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">Betsy</span> followed by <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">1</span>
+* <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">n/Betsy</span> followed by <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">1</span>
 
 Expected Output:
 * Before running the command:
@@ -578,14 +578,6 @@ Expected output after running `exit`: InsureBook **closes**.
 **I:** I'm unable to filter policy renewals in a date range.
 
 **A:** Ensure that the start and end dates are in the correct format and that the data file is up to date.
-
-**I:** I'm unable to save the data.
-
-**A:** Ensure that the file name is correct and that you have the correct permissions to save the file.
-
-**I:** I'm unable to edit the data file.
-
-**A:** Ensure that the file name is correct and that you have the correct permissions to edit the file.
 
 ### Command Summary
 
