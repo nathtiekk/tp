@@ -228,6 +228,14 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 pol/123456 pt/Life r/31-12-2024 note/Basketball Player</span>
 * <span class="command-word" style="color: #CC0000">`add`</span> <span class="parameter" style="color: #FF8C00">n/Betsy Crowe t/friend pol/654321 pt/Health e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</span>
 
+Expected Output:
+
+* Before running the command:
+![Before Renew](images/add_before.png)
+
+* After running the command:
+![After Renew](images/add_success.png)
+
 <box type="warning" seamless>
 
 **Warning: Duplicate Policy Numbers**
@@ -274,6 +282,13 @@ Examples:
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">1 p/91234567 e/johndoe@example.com pt/Health r/31-12-2024</span>
 * <span class="command-word" style="color: #CC0000">`edit`</span> <span class="parameter" style="color: #FF8C00">2 n/Betsy Crower t/</span>
 
+Expected Output:
+* Before running the command:
+![Before Edit](images/edit_before.png)
+
+* After running the command:
+![Before Edit](images/edit_success.png)
+
 #### Deleting a person : <span class="command-word" style="color: #CC0000">`delete`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">INDEX</span>
@@ -295,6 +310,13 @@ Examples:
 
 * <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">2</span>
 * <span class="command-word" style="color: #CC0000">`find`</span> <span class="parameter" style="color: #FF8C00">Betsy</span> followed by <span class="command-word" style="color: #CC0000">`delete`</span> <span class="parameter" style="color: #FF8C00">1</span>
+
+Expected Output:
+* Before running the command:
+![Before Delete](images/delete_before.png)
+
+* After running the command:
+![After Delete](images/delete_success.png)
 
 ### Policy Management Commands
 
