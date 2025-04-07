@@ -17,15 +17,15 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
 
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid date format: Must be valid date in DD-MM-YYYY format";
-    private static final String MESSAGE_INVALID_START_DATE =
+    public static final String MESSAGE_INVALID_START_DATE =
             "Invalid start date: Must be valid date in DD-MM-YYYY format "
                     + "and less than or equal to end date.";
-    private static final String MESSAGE_INVALID_END_DATE =
+    public static final String MESSAGE_INVALID_END_DATE =
             "Invalid end date: Must be valid date in DD-MM-YYYY format "
             + "and more than or equal to start date, and within 5 years from the start date";
-    private static final String MESSAGE_INVALID_SORT =
+    public static final String MESSAGE_INVALID_SORT =
             "Invalid sort. Use 'date' or 'name' (case-insensitive)";
-    private static final String MESSAGE_REQUIRED_PREFIXES_NOT_FOUND =
+    public static final String MESSAGE_REQUIRED_PREFIXES_NOT_FOUND =
             "Start date (sd/) and end date (ed/) are required.";
     private static final int MAX_YEARS_RANGE = 5;
 
