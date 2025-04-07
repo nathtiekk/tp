@@ -444,6 +444,8 @@ Shows a message explaining how to access the help page.
 
 Format: <span class="command-word" style="color: #CC0000">`help`</span>
 
+Expected output after running `help` : ![Help](images/Help.png)
+
 #### Clearing all entries : <span class="command-word" style="color: #CC0000">`clear`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`clear`</span>
@@ -457,9 +459,13 @@ Format: <span class="command-word" style="color: #CC0000">`clear`</span>
 * Double-check that you really want to delete everything
 </box>
 
+Expected output after running `clear`: ![Clear](images/Clear.png)
+
 #### Exiting the program : <span class="command-word" style="color: #CC0000">`exit`</span>
 
 Format: <span class="command-word" style="color: #CC0000">`exit`</span>
+
+Expected output after running `exit`: InsureBook **closes**.
 
 ### FAQ
 
