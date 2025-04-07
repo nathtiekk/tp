@@ -814,7 +814,9 @@ Use case ends.
 -   **Command**: A typed instruction entered in the command box (e.g., `add`, `edit`, `viewrenewals`) that tells InsureBook what action to perform.
 -   **Command Parser**: The module that interprets raw user input and converts it into a structured command object.
 -   **Command Result**: The outcome returned after a command is executed, including success confirmations or error messages.
+-   **ObservableList**: A data structure that automatically notifies the UI of changes in the model, ensuring real-time updates.
 -   **Duplicate Entry**: An entry that conflicts with existing data due to matching policy number, name + email, or name + phone. These entries are rejected to maintain data accuracy.
+-   **Tag**: A custom keyword used to categorize clients for sorting and filtering.
 -   **Data Persistence**: The capability of the system to save client and policy data so that information is retained across sessions.
 -   **Mainstream OS**: Operating systems such as Windows, Linux, Unix, and MacOS.
 

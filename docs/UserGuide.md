@@ -603,3 +603,26 @@ Expected output after running `exit`: InsureBook **closes**.
 | <span class="command-word" style="color: #CC0000">`exit`</span> | <span class="command-word" style="color: #CC0000">`exit`</span> |
 
 ---
+
+## Glossary
+
+| Term | Meaning |
+|---------|---------|
+| <span class="command-word" style="color: #CC0000">`Agent`</span> | <span class="command-word" style="color: #000000">Refers to the insurance agent who uses InsureBook to manage and organize client information.</span> |
+| <span class="command-word" style="color: #CC0000">`Client`</span> | <span class="command-word" style="color: #000000">Refers to an individual’s entry in InsureBook, containing contact information (name, phone, email, address) and at least one insurance policy.</span> |
+| <span class="command-word" style="color: #CC0000">`InsureBook`</span> | <span class="command-word" style="color: #000000">A desktop application (with both a CLI and GUI) that helps insurance agents manage and organize client information.</span> |
+| <span class="command-word" style="color: #CC0000">`CLI (Command Line Interface)`</span> | <span class="command-word" style="color: #000000">A text-based interface where users type commands to interact with the application.</span> |
+| <span class="command-word" style="color: #CC0000">`GUI (Graphical User Interface)`</span> | <span class="command-word" style="color: #000000">A visual interface that displays buttons, text fields, and other elements, providing a more familiar point-and-click experience.</span> |
+| <span class="command-word" style="color: #CC0000">`Policy`</span> | <span class="command-word" style="color: #000000">An insurance policy associated with the client. The policy number is a unique numeric identifier (e.g., “123456”).</span> |
+| <span class="command-word" style="color: #CC0000">`Policy Type`</span> | <span class="command-word" style="color: #000000">Category of an insurance policy. Valid options include Life, Health, Property, Vehicle, or Travel.</span> |
+| <span class="command-word" style="color: #CC0000">`Renewal Date`</span> | <span class="command-word" style="color: #000000">The date (DD‑MM‑YYYY) on which the policy is due to be renewed. Used by commands like <code>renew</code>, <code>viewrenewals</code>, and <code>filter</code>.</span> |
+| <span class="command-word" style="color: #CC0000">`Tag`</span> | <span class="command-word" style="color: #000000">A label that can be attached to a client for categorization or quick reference (e.g., “friend,” “colleague,” “VIP”).</span> |
+| <span class="command-word" style="color: #CC0000">`Command Word`</span> | <span class="command-word" style="color: #000000">The keyword used to invoke a specific operation in InsureBook (e.g., <code>add</code>, <code>edit</code>, <code>delete</code>, <code>find</code>).</span> |
+| <span class="command-word" style="color: #CC0000">`Parameter`</span> | <span class="command-word" style="color: #000000">Additional information following a command word, usually prefixed with a letter and slash (e.g., <code>n/NAME</code>, <code>p/PHONE_NUMBER</code>).</span> |
+| <span class="command-word" style="color: #CC0000">`Index`</span> | <span class="command-word" style="color: #000000">The number shown beside a client’s entry in the displayed list. Used to identify which client to edit or delete.</span> |
+| <span class="command-word" style="color: #CC0000">`Duplicate Entries`</span> | <span class="command-word" style="color: #000000">If you try to add or edit a client so that it shares a policy number or certain combination of name/phone/email with an existing client, InsureBook treats it as a duplicate and blocks the action.</span> |
+| <span class="command-word" style="color: #CC0000">`Lexicographical Order`</span> | <span class="command-word" style="color: #000000">Sorting based on alphabetical character order, comparing strings from left to right.</span> |
+| <span class="command-word" style="color: #CC0000">`Sort Order`</span> | <span class="command-word" style="color: #000000">Some commands (like <code>viewrenewals</code> and <code>find</code>) let you sort results by <code>name</code> or <code>tag</code>.</span> |
+| <span class="command-word" style="color: #CC0000">`Data File`</span> | <span class="command-word" style="color: #000000">The file (often named <code>addressbook.json</code>) where InsureBook stores all client data. Used by commands like <code>save</code> and <code>edit</code>.</span> |
+
+---
