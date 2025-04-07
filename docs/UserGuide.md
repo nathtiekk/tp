@@ -436,6 +436,8 @@ Format: <span class="command-word" style="color: #CC0000">`find`</span> <span cl
 *   `NAME` and `ADDRESS` field may contain more than one word.
 *   The search is case-insensitive. e.g `hans` will match `Hans`
 *   The order of the values matter for a field but not for different fields. e.g. `n/Hans Bo` will not match `Bo Hans` but `n/Hans n/Bo` will match `Bo Hans`
+*   Partial search for Name, Phone number, Email address, Physical address and Policy number is allowed
+*   Exact search is required for Policy type and Tags
 *   Partial words will also be matched e.g. `n/Han` will match `Hans`
 *   Partial search for emails must be concatenated with `@` followed by at least 2 characters e.g. `e/ice@ex` will match `alice@example.com` but `alice@e` will not match `alice@example.com`
 *   Persons matching at least one field will be returned (i.e. `OR` search).
