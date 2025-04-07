@@ -182,7 +182,6 @@ Example: <span class="command-word" style="color: #CC0000">add</span> <span clas
 * Words in <span class="parameter" style="color: #FF8C00">`UPPER_CASE`</span> are the parameters to be supplied by the user
 * Items in <span class="optional" style="color: #808080">[square brackets]</span> are optional
 * Items with <span class="repeatable" style="color: #0066CC">`…`</span>​ after them can be used multiple times including zero times
-* Extraneous parameters for commands that do not take parameters (such as <span class="command-word" style="color: #CC0000">`help`</span>, <span class="command-word" style="color: #CC0000">`list`</span>, <span class="command-word" style="color: #CC0000">`exit`</span> and <span class="command-word" style="color: #CC0000">`clear`</span>) will be ignored
     </box>
 
 ### Client Management Commands
