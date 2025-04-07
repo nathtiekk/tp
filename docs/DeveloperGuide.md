@@ -889,7 +889,7 @@ testers are expected to do more _exploratory_ testing.
 
    1. Prerequisites: There is at least 1 person in the list whose policy number match the policy number that is being edited into.
 
-   1. Test case: `edit 1 pol/123456`<br>
+   1. Test case: `edit 2 pol/123456`<br>
       Expected: No person is edited. Error details are displayed in the status message.
 
 ### Deleting a person
@@ -912,7 +912,7 @@ testers are expected to do more _exploratory_ testing.
 
 1. Updating a policy renewal date of a person
 
-    1. Prerequisites: There exist a person in the list with the policy number that is being tested and the rd/RENEWAL_DATE must be later than the current date e.g.20-04-2025.
+    1. Prerequisites: There exist a person in the list with the policy number that is being tested and the rd/RENEWAL_DATE must be later than the current date e.g. 20-04-2025.
 
     1. Test case: `renew pol/234567 r/31-12-2025`<br>
        Expected: Person policy renewal date updated successfully, and details are displayed in the status message.
@@ -925,7 +925,7 @@ testers are expected to do more _exploratory_ testing.
 
 2. Updating a policy renewal date of a person whose policy number does not exist
 
-    1. Prerequisites: There exists a person in the list whose policy number does not match what is being tested and the rd/RENEWAL_DATE must be later than the current date e.g.20-04-2025.
+    1. Prerequisites: There exists a person in the list whose policy number does not match what is being tested and the rd/RENEWAL_DATE must be later than the current date e.g. 20-04-2025.
 
     1. Test case: `renew pol/969696 r/06-11-2025`<br> 
        Expected: No person policy renewal date updated. No policy was found, and details are displayed in the status message
@@ -939,8 +939,8 @@ testers are expected to do more _exploratory_ testing.
     1. Test case: `viewrenewals`<br>
        Expected: Shows persons with upcoming renewals in the next 30 days, sorted by date, and details are displayed in the status message.
 
-    1. Test case: `viewrenewals n/60 s/name`<br>
-       Expected: Shows persons with upcoming renewals in next 60 days, sorted by name, and details are displayed in the status message.
+    1. Test case: `viewrenewals n/100 s/name`<br>
+       Expected: Shows persons with upcoming renewals in next 300 days, sorted by name, and details are displayed in the status message.
 
     1. Test case: `viewrenewals n/0`<br>
        Expected: No persons with upcoming renewals shown. Error details are displayed in the status message.
@@ -959,12 +959,12 @@ testers are expected to do more _exploratory_ testing.
 
 1. Viewing policy renewals in a filtered range from the list
 
-    1. Prerequisites: There is at least 1 person in the list and the sd/START_DATE and ed/END_DATE must be later than the current date e.g.20-04-2025.
+    1. Prerequisites: There is at least 1 person in the list and the sd/START_DATE and ed/END_DATE must be later than the current date e.g. 20-04-2025.
 
     1. Test case: `filter sd/20-04-2025 ed/20-12-2026`<br>
        Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
 
-    1. Test case: `filter sd/20-4-2025 ed/20-12-2026 s/name`<br>
+    1. Test case: `filter sd/20-04-2025 ed/20-12-2026 s/name`<br>
        Expected: Show a filtered list with persons with renewal dates within the provided range, sorted by date, and details are displayed in the status message.
 
     1. Test case: `filter sd/20-04-2025`<br>
@@ -973,11 +973,11 @@ testers are expected to do more _exploratory_ testing.
     1. Other incorrect delete commands to try: `filter`, `...`<br>
        Expected: Similar to previous.
 
-2. Viewing policy renewals in a filtered range from the list for a policy that falls after the specified test date  and the sd/START_DATE and ed/END_DATE must be later than the current date e.g.20-04-2025.
+2. Viewing policy renewals in a filtered range from the list for a policy that falls after the specified test date and the sd/START_DATE and ed/END_DATE must be later than the current date e.g. 20-04-2025.
 
     1. Prerequisites: There is at least 1 person in the list who has a policy renewal date that falls after the specified test date.
 
-    1. Test case: `filter sd/20-04-2025 ed/20-12-2026`<br>
+    1. Test case: `filter sd/20-04-2025 ed/20-05-2025`<br>
        Expected: No persons shown, and details are displayed in the status message.
 
 ### Listing all persons
