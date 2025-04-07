@@ -25,6 +25,8 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
             + "and more than or equal to start date, and within 5 years from the start date";
     private static final String MESSAGE_INVALID_SORT =
             "Invalid sort. Use 'date' or 'name' (case-insensitive)";
+    private static final String MESSAGE_REQUIRED_PREFIXES_NOT_FOUND =
+            "Start date (sd/) and end date (ed/) are required.";
     private static final int MAX_YEARS_RANGE = 5;
 
     @Override
@@ -34,7 +36,7 @@ public class FilterDateCommandParser implements Parser<FilterDateCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_SORT_ORDER);
 
         if (argMultimap.getValue(PREFIX_START_DATE).isEmpty() || argMultimap.getValue(PREFIX_END_DATE).isEmpty()) {
-            throw new ParseException("Start date (sd/) and end date (ed/) are required.");
+            throw new ParseException(MESSAGE_REQUIRED_PREFIXES_NOT_FOUND);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_SORT_ORDER);
