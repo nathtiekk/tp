@@ -577,14 +577,6 @@ Expected output after running `exit`: InsureBook **closes**.
 
 **A:** Ensure that the start and end dates are in the correct format and that the data file is up to date.
 
-**I:** I'm unable to save the data.
-
-**A:** Ensure that the file name is correct and that you have the correct permissions to save the file.
-
-**I:** I'm unable to edit the data file.
-
-**A:** Ensure that the file name is correct and that you have the correct permissions to edit the file.
-
 ### Command Summary
 
 ### Client Management Commands
