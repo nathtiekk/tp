@@ -309,7 +309,6 @@ public class MainWindow extends UiPart<Stage> {
             // Update renewals table after each command
             renewalsTable.updateRenewals(logic.getModel());
             renewalsTable.getRenewalsTable().refresh();
-            
             if (logic.getFilteredPersonList().isEmpty()) {
                 renewalsTable.clear();
                 personDetailPanel.clear();
