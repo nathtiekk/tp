@@ -366,7 +366,7 @@ The following partial sequence diagram shows how the test operation works:
 
 ### Filter Command
 
-The `filter` command allows users to view policies due for renewal within a specified date range:
+The `filter` command allows users to view policies due for renewal within a specified date range. This helps agents proactively manage upcoming renewals.
 
 *   Takes two parameters, startDate and endDate to specify the date range
 *   Optional sort parameter (by date or name); defaults to date
@@ -374,6 +374,9 @@ The `filter` command allows users to view policies due for renewal within a spec
 *   Updates the UI to show filtered results, and the filter specified when calling this command
 
 #### Implementation
+
+* `FilterDateCommand`: Executes the filtering and sorting of clients based on the provided date range and sort order.
+* `FilterDateCommandParser`: Parses and validates the user input into a FilterCommand object.
 
 The following class diagram shows how the filter command updates the UI:
 
@@ -383,7 +386,25 @@ The following sequence diagram shows how the filter command works:
 
 <puml src="diagrams/FilterDateCommandSequenceDiagram.puml" width="800"/>
 
+#### Design Considerations
 
+* Aspect: Sort Order Options
+
+* Current Choice: Accept only date or name as valid sort orders, case-insensitive. Defaults to date when not specified.
+  * Pros: Simple and supports the most common use cases.
+  * Cons: Doesn't support complex custom sorting (e.g., by policy number or tags).
+* Alternative: Expand to include additional sort fields.
+  * Pros: More customization.
+  * Cons: Increases complexity in command parsing and validation.
+
+* Aspect: Type for startDate and endDate
+
+* Current Choice: Uses LocalDate for variables startDate and endDate.
+    * Pros: Simple and has predefined methods.
+    * Cons: Might be difficult to add custom fields or methods.
+* Alternative: Use RenewalDate class.
+    * Pros: More customization.
+    * Cons: Increases coupling with the Renewal Date class which may not be tailored for the specific needs of the FilterDateCommand.
 
 ### Policy Type Feature
 
