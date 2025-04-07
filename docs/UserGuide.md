@@ -197,15 +197,15 @@ Format: <span class="command-word" style="color: #CC0000">`add`</span> <span cla
 **Tip:** A person can have any number of tags (including 0)
 </box>
 
-*   Name: Names must only include alphanumeric characters and spaces.
-*   Phone Number: Phone numbers must follow the E.164 standard.
-*   Email: The email must be in the localpart@domain format.
-*   Address: The address can be any string value, but it must not be blank.
-*   Policy Number: The policy number must consist only of digits, ensuring that it is numeric and non‑blank.
-*   Policy Type: Only the following case‑insensitive policy types are allowed: Life, Health, Property, Vehicle, Travel.
-*   Renewal Date: The date must follow the DD-MM-YYYY format.
-*   Note: There are no specific restrictions for notes; any string is accepted as a valid note.
-*   Tag: A valid tag name must be entirely alphanumeric.
+*   NAME: Names must only include alphanumeric characters and spaces.
+*   PHONE_NUMBER: Phone numbers must follow the E.164 standard.
+*   EMAIL: The email must be in the localpart@domain format.
+*   ADDRESS: The address can be any string value, but it must not be blank.
+*   POLICY_NUMBER: The policy number must consist only of digits, ensuring that it is numeric and non‑blank.
+*   POLICY_TYPE: Only the following case‑insensitive policy types are allowed: Life, Health, Property, Vehicle, Travel.
+*   RENEWAL_DATE: The date must follow the DD-MM-YYYY format.
+*   NOTE: There are no specific restrictions for notes; any string is accepted as a valid note.
+*   TAG: A valid tag name must be entirely alphanumeric.
 
 <box type="warning" seamless>
 
@@ -246,7 +246,7 @@ Each policy number must be unique in the system. If you attempt to add a person 
 
 <box type="tip" seamless>
 
-**Tip:** Names such as X Æ A-Xii Musk is not valid unfortunately.
+**Tip:** Names such as X Æ A-Xii Musk is not valid unfortunately as it contains non-ASCII characters.
 </box>
 
 #### Editing a person : <span class="command-word" style="color: #CC0000">`edit`</span>
