@@ -114,8 +114,8 @@ The person card UI is implemented using the following components:
 *   `PersonDetailPanel.java`: Controls the display and updating of information of current selected person:
     *   Binds UI elements (labels for policy number, renewal date, and notes) to the underlying person data model
     *   Formats the renewal date display with the prefix "Renewal date: " for clarity
-    *   Dynamically updates the panel’s content when a different person is selected in the main list
-    *   Ensures that the Notes field, if it contains a lengthy string, wraps onto multiple lines without expanding the panel’s width beyond its allocated space
+    *   Dynamically updates the panel's content when a different person is selected in the main list
+    *   Ensures that the Notes field, if it contains a lengthy string, wraps onto multiple lines without expanding the panel's width beyond its allocated space
 
 
 The person card provides a compact view of all essential client information, making it easy for insurance agents to quickly access client details and track policy renewals. The renewal date is prominently displayed with a clear label to help agents quickly identify when policies need to be renewed.
@@ -511,7 +511,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | Insurance Agent | set reminders for renewals       | never miss important deadlines                                      |
 | `* * *`  | Insurance Agent | persist client data              | ensure no data is lost                                              |
 | `* * *`  | Insurance Agent | filter and sort clients by tags  | manage clients more efficiently                                     |
-| `* *`    | Insurance Agent | add notes to a client’s profile  | remember key details about them                                     |
+| `* *`    | Insurance Agent | add notes to a client's profile  | remember key details about them                                     |
 | `* *`    | Insurance Agent | sort my clients by tag  | so that I can quickly rank my clients based on the number of tags they have. |
 
 
@@ -541,8 +541,14 @@ _{More to be added}_
     -   4a1. System shows an error message.
     -   4a2. Use case resumes at step 2.
 
--   4b. A client with the same name and phone number already exists.
-    -   4b1. System shows a duplicate warning and rejects the addition.
+-   4b. A duplicate client is detected.
+    -   4b1. System detects one of the following duplicate conditions:
+        * The same policy number exists
+        * The same name and email combination exists
+        * The same name and phone number combination exists
+    -   4b2. System shows a specific error message indicating which duplicate condition was matched.
+    -   4b3. System rejects the addition.
+    -   4b4. Use case resumes at step 2.
 
 ---
 
@@ -582,6 +588,15 @@ _{More to be added}_
 
 -   4b. Client does not exist.
     -   4b1. System shows an error message.
+
+-   4c. Update would create a duplicate client.
+    -   4c1. System detects that the update would result in:
+        * A policy number that matches another client
+        * A name and email combination that matches another client
+        * A name and phone number combination that matches another client
+    -   4c2. System shows a specific error message indicating which duplicate condition was matched.
+    -   4c3. System rejects the update.
+    -   4c4. Use case resumes at step 2.
 
 ---
 
